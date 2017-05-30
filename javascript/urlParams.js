@@ -2,13 +2,15 @@
 function encodeOptions() {
     var ret = "?link=true";
 
-    for(i=0; i<mapDescriptions.length; ++i) {
-        ret += encodeCheckbox("checkboxList"+i);
-    }
+    ret += encodeSelectedMap();
 
-    ret += encodeTextfield("refRunNumberInput");
 
-    ret += encodeDropdown("refRunType");
+    ret += encodeCheckboxes("checkboxAccordion");
+
+    // ret += encodeTextfield("refRunNumberInput");
+
+    // ret += encodeDropdown("refRunType");
+
 
     // ret += encodeSelectedMap();
     // encodeSelectedMap();
@@ -18,37 +20,20 @@ function encodeOptions() {
 
 function decodeOptions() {
 
-    // for (i = 0; i < mapDescriptions.length; ++i) {
-    //     decodeCheckbox("checkboxList" + i);
-    //     decodeMapTabs("checkboxList" + i);
-    // }
 
-    var checkboxID = 0;
-    for (i = 0; i < mapDescriptions.length; ++i)
-    {
-        for (j = 0; j < mapDescriptions[i][1].length; ++j)
-        {
-            var val = getUrlParameter("checkbox" + checkboxID) === "true";
-
-            AddRmTkMapPanel(checkboxID, val);   
-
-            $('#' + checkboxID).attr('checked', val);
-            checkboxID++;
-        }
-    }
-
+    decodeCheckbox();
     decodeTextfield("refRunNumberInput");
-
     decodeDropdown("refRunType");
-    
 
+
+    decodeSelectedMap();
+    
      // drawTkMapSelection();
 }
 
 // -------------- Checkbox --------------
-function encodeCheckbox(name) {
+function encodeCheckboxes(name) {
     var ret = "";
-    console.log(name);
     $('#' + name + ' :checkbox').each(function() {
         ret += "&checkbox";
         ret += $(this).prop('id');
@@ -59,13 +44,16 @@ function encodeCheckbox(name) {
     return ret;
 }
 
-function decodeCheckbox(name) {
-    $('#' + name + ' :checkbox').each(function() {
-        var prefix = "checkbox";
-        var id = $(this).prop('id');
-        var val = getUrlParameter(prefix + id) === "true";
-        $('#' + id).prop('checked', val);
-    });
+function decodeCheckbox() {
+    var checkboxID = 0;
+    for (i = 0; i < mapDescriptions.length; ++i) {
+        for (j = 0; j < mapDescriptions[i][1].length; ++j) {
+            var val = getUrlParameter("checkbox" + checkboxID) === "true";
+            AddRmTkMapPanel(checkboxID, val);   
+            $('#' + checkboxID).attr('checked', val);
+            ++checkboxID;
+        }
+    }
 }
 
 function decodeMapTabs(name) {
@@ -111,11 +99,13 @@ function decodeDropdown(name) {
 
 // -------------- Selected Map --------------
 function encodeSelectedMap() {
-    //TODO
+    var ret = "&mapSelect=";
+    ret += $('.extandable-tab-list-ref .active > a').prop('id');
+    return ret;
 }
 
 function decodeSelectedMap() {
-    $("a#home").click();
+    $('#' + getUrlParameter("mapSelect")).click();
 }
 
 // ---------- HELPER ----------

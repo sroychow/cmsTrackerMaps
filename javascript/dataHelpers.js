@@ -2,25 +2,6 @@ $('#refStream, #currStream').change(function() {
     // LOAD APPROPRIATE DATA INTO TABS IF THEY ARE VALID
 });
 
-// function drawTkMapSelection() {
-
-//     // Remove all the existing links that are not checked
-//     $(".extandable-tab-list-ref").children().remove(); // TODO (?) remove also the tab contents...
-
-//     // Iterate over each checked checkbox and display the element
-//     for (i = 0; i < mapDescriptions.length; ++i) {
-//         $('#checkboxList' + i + ' :checkbox').each(function() {
-//             var currID = "inputCheckBoxPanel" + this.id;
-//             if ($(this).prop('checked') == true) {
-//                 var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element'>" + currID + "</div>";
-//                 $(newInput).insertAfter($(".extandable-tab-list-element").last());
-//                 newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + currID + "</a></li>";
-//                 $(".extandable-tab-list-ref").append(newInput);
-//             }
-//         });
-//     }
-// }
-
 function AddRmTkMapPanel(id, isChecked){
 
     var currID = "inputCheckBoxPanel" + id;
@@ -30,11 +11,9 @@ function AddRmTkMapPanel(id, isChecked){
         var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element'>" + currID + "</div>";
         // $(newInput).insertAfter($(".extandable-tab-list-element").last());
         $(".extandable-tab-list-content").append(newInput);
-        console.log(newInput);
-
+        
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + currID + "</a></li>";
         $(".extandable-tab-list-ref").append(newInput);
-        console.log(newInput);
     } 
     else {
         $("#" + currID).remove();
