@@ -1,11 +1,8 @@
 $(document).ready(function() {
 
-    // $("#TrackerMaps").load("TrackerMapsBody.html");
-
     loadCheckboxes();
     decodeOptions();
     
-
     $(".panel-extend-checkbox").on('click', function(e) {
         AddRmTkMapPanel(this.id, $(this).prop('checked'));
         console.log($(this).parent().text());
@@ -37,7 +34,7 @@ $(document).ready(function() {
         PasteOptions(currDir, stream);
     });
 
-    $(".link-me").click(function(e) {
+    $("#link-me").click(function(e) {
         var toAppend = encodeOptions();
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
         url += toAppend;
