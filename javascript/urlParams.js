@@ -17,9 +17,24 @@ function encodeOptions() {
 }
 
 function decodeOptions() {
-    for (i = 0; i < mapDescriptions.length; ++i) {
-        decodeCheckbox("checkboxList" + i);
-        decodeMapTabs("checkboxList" + i);
+
+    // for (i = 0; i < mapDescriptions.length; ++i) {
+    //     decodeCheckbox("checkboxList" + i);
+    //     decodeMapTabs("checkboxList" + i);
+    // }
+
+    var checkboxID = 0;
+    for (i = 0; i < mapDescriptions.length; ++i)
+    {
+        for (j = 0; j < mapDescriptions[i][1].length; ++j)
+        {
+            var val = getUrlParameter("checkbox" + checkboxID) === "true";
+
+            AddRmTkMapPanel(checkboxID, val);   
+
+            $('#' + checkboxID).attr('checked', val);
+            checkboxID++;
+        }
     }
 
     decodeTextfield("refRunNumberInput");
@@ -27,7 +42,7 @@ function decodeOptions() {
     decodeDropdown("refRunType");
     
 
-     drawTkMapSelection();
+     // drawTkMapSelection();
 }
 
 // -------------- Checkbox --------------

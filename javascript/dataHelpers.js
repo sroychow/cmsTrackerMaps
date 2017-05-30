@@ -21,6 +21,27 @@ $('#refStream, #currStream').change(function() {
 //     }
 // }
 
+function AddRmTkMapPanel(id, isChecked){
+
+    var currID = "inputCheckBoxPanel" + id;
+    console.log(id + " : " + isChecked);
+
+    if (isChecked == true) {
+        var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element'>" + currID + "</div>";
+        // $(newInput).insertAfter($(".extandable-tab-list-element").last());
+        $(".extandable-tab-list-content").append(newInput);
+        console.log(newInput);
+
+        newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + currID + "</a></li>";
+        $(".extandable-tab-list-ref").append(newInput);
+        console.log(newInput);
+    } 
+    else {
+        $("#" + currID).remove();
+        $("#" + currID + "lnk").remove();
+    }
+}
+
 function DecodeRunNumberFromString(inputStr) {
     if (inputStr.length == 6) {
         var result = 0;

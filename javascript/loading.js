@@ -1,13 +1,14 @@
 $(document).ready(function() {
 
-    $("#TrackerMaps").load("TrackerMapsBody.html");
+    // $("#TrackerMaps").load("TrackerMapsBody.html");
 
     loadCheckboxes();
     decodeOptions();
     
 
-    $(".panel-extend-checkbox").on('click change', function(e) {
-        drawTkMapSelection();
+    $(".panel-extend-checkbox").on('click', function(e) {
+        AddRmTkMapPanel(this.id, $(this).prop('checked'));
+        console.log($(this).parent().text());
     });
 
     $("#refRunNumberInput, #currRunNumberInput").on('keyup change', function(e) {
