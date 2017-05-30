@@ -1,18 +1,16 @@
 // -------------- Overview --------------
 function encodeOptions() {
     var ret = "?link=true";
-    ret += encodeCheckboxes("checkboxAccordion");
+    // ret += encodeCheckboxes("checkboxAccordion");
     ret += encodeTextfield("refRunNumberInput");
-    ret += encodeDropdown("refRunType");
-    ret += encodeSelectedMap();
+    // ret += encodeSelectedMap();
     return ret;
 }
 
 function decodeOptions() {
-    decodeCheckbox();
+    // decodeCheckbox();
     decodeTextfield("refRunNumberInput");
-    decodeDropdown("refRunType");
-    decodeSelectedMap();    
+    // decodeSelectedMap();    
 }
 
 // -------------- Checkbox --------------
@@ -24,7 +22,6 @@ function encodeCheckboxes(name) {
         ret += "=";
         ret += $(this).prop('checked');
     });
-
     return ret;
 }
 
@@ -40,18 +37,6 @@ function decodeCheckbox() {
     }
 }
 
-function decodeMapTabs(name) {
-       $('#' + name + ' :checkbox').each(function() {
-        var prefix = "checkbox";
-        var id = $(this).prop('id');
-        var val = getUrlParameter(prefix + id) === "true";
-        console.log(prefix + ' ' +  id + ' : ' + val);
-        // create link
-        drawTkMapSelection();
-    }); 
-}
-
-
 // -------------- Textfield --------------
 function encodeTextfield(name) {
     var ret = "&" + name + "=";
@@ -63,20 +48,6 @@ function decodeTextfield(name) {
     $('#' + name).val(getUrlParameter(name));
     $('#' + name).trigger('change');
 }
-
-// -------------- Dropdown --------------
-function encodeDropdown(name) {
-    var ret = "&" + name + "=";
-    ret += $('#' + name + ' option:selected').val();
-    return ret;
-}
-
-function decodeDropdown(name) {
-    console.log(getUrlParameter(name));
-    $('#' + name).val(getUrlParameter(name));
-    // $('#' + name).trigger('change');
-}
-
 
 // -------------- Selected Map --------------
 function encodeSelectedMap() {

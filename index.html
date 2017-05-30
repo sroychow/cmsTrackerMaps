@@ -5,15 +5,19 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
-  <script src="javascript/testing.js"></script>
   <script src="javascript/data.js"></script>
   <script src="javascript/urlParams.js"></script>
   <script src="javascript/dataHelpers.js"></script>
   <script src="javascript/loading.js"></script>
+  <script src="javascript/FileTree/jqueryFileTree.js"></script>
+  <link href="javascript/FileTree/jqueryFileTree.css" rel="stylesheet">
 
 </header>
 
 <body>
+<script type="text/javascript">
+ var referencePath = "http://vocms061.cern.ch/event_display/Data2016/BeamReReco23Sep/274/274094/ZeroBias/";
+</script>
 
   <div class="panel-group" style="margin-bottom: 10px">
     <div class="panel panel-default">
@@ -30,47 +34,34 @@
                     <div class="panel-group" id="checkboxAccordion"></div>
                   </div>
                   
-                  <div class="col-md-6 form-horizontal">
+                  <div class="col-md-6">
                     <div class="form-group">
-                      <label class="control-label col-md-4" for="email">Run number:</label>
-                      <div class="col-md-8">
-                        <div class="col-md-6">
-                          <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE">
-                        </div>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-md-4" for="email">Run type:</label>
-                      <div class="col-md-8">
-                        <div class="col-md-6">
-                          <select class="form-control" id="refRunType"></select>
-                        </div>
-                        <div class="col-md-6">
-                          <select class="form-control" id="currRunType"></select>
-                        </div>
-                      </div>  
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label col-md-4" for="email">Stream: </label>
-                      <div class="col-md-8">
-                        <div class="col-md-6">
-                        <select class="form-control" id="refStream"></select>
-                      </div>
-                      <div class="col-md-6">
-                        <select class="form-control" id="currStream"></select>
-                      </div>
-                    </div>
-                  </div>
 
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE">
+                          <div class="input-group-btn">
+                            <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          </div>
+                        </div>
+
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT">
+                          <div class="input-group-btn">
+                            <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="col-md-2">
                   <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
                   <button class="btn btn-warning" id="link-me">
                     <span class="glyphicon glyphicon-paperclip"></span> Link Me!
                   </button>
+                  <button class="btn btn-warning" id="fuck-you">
+                     <span class="glyphicon glyphicon-paperclip"></span> TEST!
+                  </button>
+
                 </div>
               </div>
 
@@ -90,8 +81,6 @@
     </div>
   </div> 
 
-
-
   <div class="container" id="TrackerMaps" style="width:90%">
     <!-- INCLUDED STAFF -->
     <div class="row">
@@ -102,5 +91,45 @@
     </div>
   </div>
 
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="text-align:center;font-size:25px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Choose dataset</h4>
+        </div>
+        <div class="modal-body">
+          <div id="treeContainer"  style="padding-bottom: 10px; padding-left:15px;"></div>
+          <form role="form">
+            <button data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-off"></span> Close</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+<!-- </div> -->
+
+  <input type="hidden" id="runNumberInputBrowseCaller" val="">
+
+  <script type="text/javascript">
+    $('#treeContainer').fileTree({ root: '/data/users/event_display/', 
+                                   multiFolder: false}, function(file) {
+        $("#" + $("#runNumberInputBrowseCaller").val()).val(file);
+    });
+  </script>
+
+  <script>
+  $(document).ready(function(){
+      $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function(){
+          $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
+          $("#myModal").modal();
+      });
+  });
+  </script>
+    
 </body>
 </html>
