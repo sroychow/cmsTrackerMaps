@@ -3,12 +3,12 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
     var currID = "inputCheckBoxPanel" + id;
 
     if (isChecked == true) {
-        var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style='max-width: 1100%; overflow: scroll;'>" + currID + 
+        var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style=''>" + 
                             "<div class='row'>" +
-                                "<div class='refCol col-md-6'>" +
-                                "</div>"
-                                "<div class='currCol col-md-6'>" +
-                                "</div>"
+                                "<div class='refCol col-md-6' style=''>" +
+                                "</div>" + 
+                                "<div class='currCol col-md-6' style=''>" + 
+                                "</div>" + 
                             "</div>" + 
                         "</div>";
         $(".extandable-tab-list-content").append(newInput);
@@ -17,13 +17,31 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         $(".extandable-tab-list-ref").append(newInput);
 
         var file_name = ($('#' + id).attr('res'));
-        var file_path = refPath; //$('#refRunNumberInput').val();
-        console.log(file_path);
-        $('#' + currID + ' .refCol').html('<object data=' + file_path + file_name + '/>');
-
+        
+        addToComparisonView(currID, refPath+file_name, currPath+file_name, ".png");
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
+    }
+
+    // FIXME put in one place
+    // $('.pannable-image').ImageViewer({snapView: false,
+    //                                  maxZoom: 400,
+    //                                  refreshOnResize : false});
+    $('.pannable-image').ImageViewer({maxZoom: 10000});
+}
+
+function addToComparisonView(id, refsrc, currsrc, ext) {
+    switch(ext){
+        case ".png":
+            // $('#' + id + ' .refCol').html("<img src='" + refsrc + "' data-high-res-src='" + refsrc + "' style='width: 100%;' class='pannable-image'/>");
+            // $('#' + id + ' .currCol').html("<img src='" + currsrc + "' data-high-res-src='" + currsrc + "' style='width: 100%;' class='pannable-image'/>");
+
+            $('#' + id + ' .refCol').html("<img src='" + refsrc + "' style='width: 100%;' class='pannable-image'/>");
+            $('#' + id + ' .currCol').html("<img src='" + currsrc + "' style='width: 100%;' class='pannable-image'/>");
+        break;
+        default: 
+            console.log("Unsupported filetype");
     }
 }
 
@@ -70,3 +88,5 @@ function disableCheckboxes(name, disable) {
         $(this).attr("disabled", disable);
     });
 }
+
+

@@ -3,7 +3,11 @@
 	<title>TrackerMaps Reloaded</title>
 
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="javascript/ImageViewer/imageviewer.css"  rel="stylesheet" type="text/css" />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="javascript/ImageViewer/imageviewer.js"></script>
+
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="javascript/data.js"></script>
   <script src="javascript/urlParams.js"></script>
@@ -11,6 +15,12 @@
   <script src="javascript/loading.js"></script>
   <script src="javascript/FileTree/jqueryFileTree.js"></script>
   <link href="javascript/FileTree/jqueryFileTree.css" rel="stylesheet">
+
+<!-- <style>
+    .pannable-image {
+      width: 700px;
+    }
+</style> -->
 
 </header>
 
@@ -73,7 +83,7 @@
     </div>
   </div> 
 
-  <div class="container" id="TrackerMaps" style="width:90%">
+  <div class="container" id="TrackerMaps" style="width:97.5%">
     <!-- INCLUDED STAFF -->
     <div class="row">
       <div class="col-lg-12">
@@ -98,7 +108,7 @@
         </div>
         <div class="modal-footer">
           <form role="form">
-            <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-off"></span> OK</button>
+            <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-ok"></span> OK</button>
           </form>
         </div>
       </div>
@@ -109,49 +119,5 @@
 
   <input type="hidden" id="runNumberInputBrowseCaller" val="">
 
-  <script type="text/javascript">
-    $('#treeContainer').fileTree({ root: '/data/users/event_display/', 
-                                   multiFolder: false}, function(file) {
-        // $("#" + $("#runNumberInputBrowseCaller").val()).val(file.split("users")[1]);
-        $("#runNumberInputBrowseCaller").attr("data-path", file.split("users")[1]);
-    });
-  </script>
-
-  <script>
-  $(document).ready(function(){
-      $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function(){
-        $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
-        $("#myModal").modal();
-      });
-
-      $("#dataBrowseOKbtn").click(function(){
-        var pathToPaste = $("#runNumberInputBrowseCaller").attr("data-path");
-        var inputObj = $("#" + $("#runNumberInputBrowseCaller").val());
-
-        //CHECK SOMEHOW IF IT IS THE FINAL PATH...
-        inputObj.val(pathToPaste);
-        
-        //RELOAD MAPS & KEEP FOCUS
-
-        var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
-
-        $("#checkboxAccordion input:checked").each(function(){
-          var id = $(this).attr("id");
-
-          var refPath = $('#refRunNumberInput').val();
-          var currPath = $('#currRunNumberInput').val();
-
-          AddRmTkMapPanel(id, false, refPath, currPath);
-          AddRmTkMapPanel(id, true, refPath, currPath);
-        });
-
-        $('#' + activeTabID).click();
-
-        disableCheckboxes("checkboxAccordion", false);
-      });
-
-  });
-  </script>
-    
 </body>
 </html>
