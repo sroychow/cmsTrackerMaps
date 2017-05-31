@@ -16,9 +16,19 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).parent().text() + "</a></li>";
         $(".extandable-tab-list-ref").append(newInput);
 
-        var file_name = ($('#' + id).attr('res'));
-        
-        addToComparisonView(currID, refPath+file_name, currPath+file_name, ".png");
+        var fileName = ($('#' + id).attr('res'));
+
+        // getFileNameFromResource();
+     
+        var fileExt =  fileName.substr(fileName.lastIndexOf('.') + 1);
+
+                                                        //FIXME
+                // In data.js the textfiles DO NOT HAVE THE ENDING .txt anymore becaues
+                // the files have a name dependant on their run number.
+                // THEREFORE data.js contains RESNAME_run
+                // which is then appended by the current number.txt to get the correct filename
+                // THIS IS THE REASON ''
+        addToComparisonView(currID, refPath + fileName, currPath + fileName, "txt");
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
@@ -33,17 +43,55 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
 
 function addToComparisonView(id, refsrc, currsrc, ext) {
     switch(ext){
-        case ".png":
-            // $('#' + id + ' .refCol').html("<img src='" + refsrc + "' data-high-res-src='" + refsrc + "' style='width: 100%;' class='pannable-image'/>");
-            // $('#' + id + ' .currCol').html("<img src='" + currsrc + "' data-high-res-src='" + currsrc + "' style='width: 100%;' class='pannable-image'/>");
-
+        case "png":
+            console.log("png");
             $('#' + id + ' .refCol').html("<img src='" + refsrc + "' style='width: 100%;' class='pannable-image'/>");
             $('#' + id + ' .currCol').html("<img src='" + currsrc + "' style='width: 100%;' class='pannable-image'/>");
         break;
+
+        case "txt":
+            console.log("reference:" + refsrc);
+            console.log("current:  " + currsrc);
+            console.log();
+
+            var nr = refsrc.replace(/[^0-9]/g, '');
+            var newnr1 = nr.substr(nr.length - 6);
+            alert(nr);
+
+            nr = currsrc.replace(/[^0-9]/g, '');
+            var newnr2 = nr.substr(nr.length - 6)
+
+
+            $('#' + id + ' .refCol').html("<object data=" + refsrc+newnr1+".txt" + " style='width: 100%; height: 100%;'/>");
+            $('#' + id + ' .currCol').html("<object data=" + currsrc+newnr2+".txt" + " style='width: 100%; height: 100%;'/>");
+            console.log("txt");
+        break;
+
+        case "html":
+            $('#' + id + ' .refCol').append("<div id='" + id + "Ref' style='max-width:100%; max-height: 500px; overflow: scroll'><iframe src='" + refsrc + "' ></iframe></div>");
+            $('#' + id + ' .currCol').append("<object data='" + currsrc + "' style='width: 100%; height: 500px;' id='" + id + "Curr'/>");
+            console.log("html");
+
+            // alert("jabadu!");
+
+            $("iframe").on("load", function () {
+                $("#inputCheckBoxPanel2Ref iframe").css("width", $("#inputCheckBoxPanel2Ref iframe").contents().width());
+                $("#inputCheckBoxPanel2Ref iframe").css("height", $("#inputCheckBoxPanel2Ref iframe").contents().height());
+                console.log($("#inputCheckBoxPanel2Ref iframe").contents().width());
+
+                $("#" + id + "Ref").scroll(function(){
+                    var sl = console.log($(this).scrollLeft());
+                    var st = console.log($(this).scrollTop());
+                });
+            });
+            
+        break;
+
         default: 
             console.log("Unsupported filetype");
     }
 }
+
 
 function loadCheckboxes() {
     var checkboxID = 0;
