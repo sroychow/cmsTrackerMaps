@@ -1,16 +1,21 @@
-// -------------- Overview --------------
+// -------------- Overview -----------
 function encodeOptions() {
     var ret = "?link=true";
-    // ret += encodeCheckboxes("checkboxAccordion");
+    ret += encodeCheckboxes("checkboxAccordion");
     ret += encodeTextfield("refRunNumberInput");
-    // ret += encodeSelectedMap();
+    ret += encodeTextfield("currRunNumberInput");
+    ret += encodeSelectedMap();
     return ret;
 }
 
 function decodeOptions() {
-    // decodeCheckbox();
-    decodeTextfield("refRunNumberInput");
-    // decodeSelectedMap();    
+
+    var refPath = decodeTextfield("refRunNumberInput");
+    var currPath = decodeTextfield("currRunNumberInput");
+
+    decodeCheckboxes(refPath, currPath);
+
+    decodeSelectedMap();    
 }
 
 // -------------- Checkbox --------------
@@ -25,12 +30,12 @@ function encodeCheckboxes(name) {
     return ret;
 }
 
-function decodeCheckbox() {
+function decodeCheckboxes(refPath, currPath) {
     var checkboxID = 0;
-    for (i = 0; i < mapDescriptions.length; ++i) {
-        for (j = 0; j < mapDescriptions[i][1].length; ++j) {
+    for (var group in mapDescriptions) {
+        for (var elem in mapDescriptions[group]) {
             var val = getUrlParameter("checkbox" + checkboxID) === "true";
-            AddRmTkMapPanel(checkboxID, val);   
+            AddRmTkMapPanel(checkboxID, val, refPath, currPath);   
             $('#' + checkboxID).attr('checked', val);
             ++checkboxID;
         }
@@ -45,8 +50,11 @@ function encodeTextfield(name) {
 }
 
 function decodeTextfield(name) {
-    $('#' + name).val(getUrlParameter(name));
+    var txt = getUrlParameter(name);
+    $('#' + name).val(txt);
     $('#' + name).trigger('change');
+
+    return txt;
 }
 
 // -------------- Selected Map --------------

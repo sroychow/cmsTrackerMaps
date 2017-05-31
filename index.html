@@ -15,10 +15,6 @@
 </header>
 
 <body>
-<script type="text/javascript">
- var referencePath = "http://vocms061.cern.ch/event_display/Data2016/BeamReReco23Sep/274/274094/ZeroBias/";
-</script>
-
   <div class="panel-group" style="margin-bottom: 10px">
     <div class="panel panel-default">
       <div id="jumbotronCollapse" class="panel-collapse collapse in">
@@ -35,33 +31,29 @@
                   </div>
                   
                   <div class="col-md-6">
-                    <div class="form-group">
+                      <div class="form-group">
 
-                        <div class="input-group">
-                          <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE">
-                          <div class="input-group-btn">
-                            <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
-                          </div>
-                        </div>
-
-                        <div class="input-group">
-                          <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT">
-                          <div class="input-group-btn">
-                            <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE">
+                            <div class="input-group-btn">
+                              <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
                             </div>
-                        </div>
+                          </div>
 
-                    </div>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT">
+                            <div class="input-group-btn">
+                              <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                              </div>
+                          </div>
+
+                      </div>
                 </div>
                 <div class="col-md-2">
                   <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
                   <button class="btn btn-warning" id="link-me">
                     <span class="glyphicon glyphicon-paperclip"></span> Link Me!
                   </button>
-                  <button class="btn btn-warning" id="fuck-you">
-                     <span class="glyphicon glyphicon-paperclip"></span> TEST!
-                  </button>
-
                 </div>
               </div>
 
@@ -101,10 +93,12 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4>Choose dataset</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="min-height: 400px; max-height: 400px; overflow-y: scroll;">
           <div id="treeContainer"  style="padding-bottom: 10px; padding-left:15px;"></div>
+        </div>
+        <div class="modal-footer">
           <form role="form">
-            <button data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-off"></span> Close</button>
+            <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-off"></span> OK</button>
           </form>
         </div>
       </div>
@@ -118,16 +112,44 @@
   <script type="text/javascript">
     $('#treeContainer').fileTree({ root: '/data/users/event_display/', 
                                    multiFolder: false}, function(file) {
-        $("#" + $("#runNumberInputBrowseCaller").val()).val(file);
+        // $("#" + $("#runNumberInputBrowseCaller").val()).val(file.split("users")[1]);
+        $("#runNumberInputBrowseCaller").attr("data-path", file.split("users")[1]);
     });
   </script>
 
   <script>
   $(document).ready(function(){
       $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function(){
-          $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
-          $("#myModal").modal();
+        $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
+        $("#myModal").modal();
       });
+
+      $("#dataBrowseOKbtn").click(function(){
+        var pathToPaste = $("#runNumberInputBrowseCaller").attr("data-path");
+        var inputObj = $("#" + $("#runNumberInputBrowseCaller").val());
+
+        //CHECK SOMEHOW IF IT IS THE FINAL PATH...
+        inputObj.val(pathToPaste);
+        
+        //RELOAD MAPS & KEEP FOCUS
+
+        var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
+
+        $("#checkboxAccordion input:checked").each(function(){
+          var id = $(this).attr("id");
+
+          var refPath = $('#refRunNumberInput').val();
+          var currPath = $('#currRunNumberInput').val();
+
+          AddRmTkMapPanel(id, false, refPath, currPath);
+          AddRmTkMapPanel(id, true, refPath, currPath);
+        });
+
+        $('#' + activeTabID).click();
+
+        disableCheckboxes("checkboxAccordion", false);
+      });
+
   });
   </script>
     

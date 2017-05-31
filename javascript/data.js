@@ -11,23 +11,23 @@ var mapDescriptions =
   
   "LIST": 
   [
-    {"name" : "BAD modules from quality tests",                        "resource" : "xxx.png"},
-    {"name" : "BAD modules from quality tests - obsolete version",     "resource" : "xxxx.png"},
+    {"name" : "BAD modules from quality tests",                        "resource" : "QualityTest_run.txt"},
+    {"name" : "BAD modules from quality tests - obsolete version",     "resource" : "QualityTestOBSOLETE_run.txt"},
     {"name" : "Modules with the highest values",                       "resource" : "xxxx.html"},
     {"name" : "Components found by the prompt calibration loop",       "resource" : "xxxxx.png"}
   ],
   
   "NUMBER OF": 
   [
-    {"name" : "Digis per module",                                    "resource" : "xxxx.png"},
-    {"name" : "Clusters per module",                                 "resource" : "xxxx.png"},
-    {"name" : "APV shots per module",                                "resource" : "xxxx.png"},
-    {"name" : "Clusters on-track per module",                        "resource" : "xxxx.png"},
-    {"name" : "Clusters off-track per module",                       "resource" : "xxxx.png"},
-    {"name" : "Clusters off-track per module - Automatic scale",     "resource" : "xxxx.png"},
-    {"name" : "Inactive hits per module",                            "resource" : "xxxx.png"},
-    {"name" : "Missing hits per module",                             "resource" : "xxxx.png"},
-    {"name" : "Valid hits per module",                               "resource" : "xxxx.png"}
+    {"name" : "Digis per module",                                    "resource" : "NumberOfDigi.png"},
+    {"name" : "Clusters per module",                                 "resource" : "NumberOfCluster.png"},
+    {"name" : "APV shots per module",                                "resource" : "NApvShots.png"},
+    {"name" : "Clusters on-track per module",                        "resource" : "NumberOfOnTrackCluster.png"},
+    {"name" : "Clusters off-track per module",                       "resource" : "NumberOfOfffTrackCluster.png"},
+    {"name" : "Clusters off-track per module - Automatic scale",     "resource" : "NumberOfOfffTrackCluster_autoscale.png"},
+    {"name" : "Inactive hits per module",                            "resource" : "NumberInactiveHits.png"},
+    {"name" : "Missing hits per module",                             "resource" : "NumberMissingHits.png"},
+    {"name" : "Valid hits per module",                               "resource" : "NumberValidHits.png"}
   ],
   
   "MISC": 
