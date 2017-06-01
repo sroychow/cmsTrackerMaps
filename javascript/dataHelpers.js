@@ -28,17 +28,17 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
                 // THEREFORE data.js contains RESNAME_run
                 // which is then appended by the current number.txt to get the correct filename
                 // THIS IS THE REASON ''
-        addToComparisonView(currID, refPath + fileName, currPath + fileName, "txt");
+        addToComparisonView(currID, refPath + fileName, currPath + fileName, fileExt);
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
     }
 
     // FIXME put in one place
-    // $('.pannable-image').ImageViewer({snapView: false,
-    //                                  maxZoom: 400,
-    //                                  refreshOnResize : false});
-    $('.pannable-image').ImageViewer({maxZoom: 10000});
+    $('.pannable-image').ImageViewer({snapView: false,
+                                     maxZoom: 400,
+                                     refreshOnResize : false});
+    // $('.pannable-image').ImageViewer({maxZoom: 10000});
 }
 
 function addToComparisonView(id, refsrc, currsrc, ext) {
@@ -54,34 +54,48 @@ function addToComparisonView(id, refsrc, currsrc, ext) {
             console.log("current:  " + currsrc);
             console.log();
 
-            var nr = refsrc.replace(/[^0-9]/g, '');
-            var newnr1 = nr.substr(nr.length - 6);
-            alert(nr);
+            // TODO think of some better way to do this pile of shit
+            // worstcase : extract method
+            var tmpnr = refsrc.replace(/[^0-9]/g, '');
+            var runnrRef = tmpnr.substr(tmpnr.length - 6);
+            
+            var tmp = refsrc.split('.');
+            var realnameRef = tmp[0] + runnrRef + '.' + tmp[1];
+            /// ....... 
+            tmpnr = currsrc.replace(/[^0-9]/g, '');
+            var runnrCurr = tmpnr.substr(tmpnr.length - 6);
+            
+            tmp = currsrc.split('.');
+            var realnameCurr = tmp[0] + runnrCurr + '.' + tmp[1];
 
-            nr = currsrc.replace(/[^0-9]/g, '');
-            var newnr2 = nr.substr(nr.length - 6)
-
-
-            $('#' + id + ' .refCol').html("<object data=" + refsrc+newnr1+".txt" + " style='width: 100%; height: 100%;'/>");
-            $('#' + id + ' .currCol').html("<object data=" + currsrc+newnr2+".txt" + " style='width: 100%; height: 100%;'/>");
+            $('#' + id + ' .refCol').html("<object data=" + realnameRef + " style='width: 100%; height: 100%;'/>");
+            $('#' + id + ' .currCol').html("<object data=" + realnameCurr + " style='width: 100%; height: 100%;'/>");
             console.log("txt");
+        break;
+
+        case "log": 
+            $('#' + id + ' .refCol').html("<object data=" + refsrc + " style='width: 100%; height: 100%;'/>");
+            $('#' + id + ' .currCol').html("<object data=" + currsrc + " style='width: 100%; height: 100%;'/>");
         break;
 
         case "html":
             $('#' + id + ' .refCol').append("<div id='" + id + "Ref' style='max-width:100%; max-height: 500px; overflow: scroll'><iframe src='" + refsrc + "' ></iframe></div>");
-            $('#' + id + ' .currCol').append("<object data='" + currsrc + "' style='width: 100%; height: 500px;' id='" + id + "Curr'/>");
-            console.log("html");
-
-            // alert("jabadu!");
+            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' style='max-width:100%; max-height: 500px; overflow: scroll'><iframe src='" + currsrc + "' ></iframe></div>");
 
             $("iframe").on("load", function () {
-                $("#inputCheckBoxPanel2Ref iframe").css("width", $("#inputCheckBoxPanel2Ref iframe").contents().width());
-                $("#inputCheckBoxPanel2Ref iframe").css("height", $("#inputCheckBoxPanel2Ref iframe").contents().height());
-                console.log($("#inputCheckBoxPanel2Ref iframe").contents().width());
+                $(this).css("width", $(this).contents().width());
+                $(this).css("height", $(this).contents().height());
+                console.log($(this).contents().width());
 
-                $("#" + id + "Ref").scroll(function(){
-                    var sl = console.log($(this).scrollLeft());
-                    var st = console.log($(this).scrollTop());
+                parentID = $(this).parent().attr("id");
+
+                $("#" + parentID).scroll(function(){
+                    var sl = $(this).scrollLeft();
+                    var st = $(this).scrollTop();
+
+                    console.log(st + " " + sl);
+
+                    $(this).parent().siblings("div").first().children("div").first().scrollLeft(sl).scrollTop(st);
                 });
             });
             

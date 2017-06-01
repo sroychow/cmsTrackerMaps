@@ -5,10 +5,10 @@ $(document).ready(function() {
 
     // FIXME put in one place
 
-    // $('.pannable-image').ImageViewer({snapView: false,
-    //                                  maxZoom: 400,
-    //                                  refreshOnResize : false});
-    $('.pannable-image').ImageViewer();
+    $('.pannable-image').ImageViewer({snapView: false,
+                                     maxZoom: 400,
+                                     refreshOnResize : false});
+    // $('.pannable-image').ImageViewer();
 
 
     $(".panel-extend-checkbox").on('click', function(e) {
@@ -66,7 +66,4 @@ $(document).ready(function() {
     if($('#refRunNumberInput').val() === "") {
         disableCheckboxes("checkboxAccordion", true);
     }
-
-    $('.pannable-image').ImageViewer();
-
 });

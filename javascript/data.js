@@ -11,10 +11,10 @@ var mapDescriptions =
   
   "LIST": 
   [
-    {"name" : "BAD modules from quality tests",                        "resource" : "QualityTest_run"},
+    {"name" : "BAD modules from quality tests",                        "resource" : "QualityTest_run.txt"},
     {"name" : "BAD modules from quality tests - obsolete version",     "resource" : "QualityTestOBSOLETE_run.txt"},
-    {"name" : "Modules with the highest values",                       "resource" : "xxxx.html"},
-    {"name" : "Components found by the prompt calibration loop",       "resource" : "xxxxx.png"}
+    {"name" : "Modules with the highest values",                       "resource" : "TopModulesList.log"},
+    {"name" : "Components found by the prompt calibration loop",       "resource" : "PCLBadComponents.log"}
   ],
   
   "NUMBER OF": 
