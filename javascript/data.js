@@ -32,13 +32,12 @@ var mapDescriptions =
   
   "MISC": 
   [
-    {"name" : "Mean value for S/N for on-track cluster corrected for the angle",            "resource" :"xxxx.png"},
-    {"name" : "Mean value for Cluster Charge per cm from Track",                            "resource" :"xxxx.png"},
-    {"name" : "Merged Bad components (PCL + FED Err + Cabling)",                            "resource" :"xxxx.png"},
-    {"name" : "Merged Bad components (PCL + FED Err + Cabling) - Log",                      "resource" :"xxxx.png"},
-    {"name" : "FED errors per modules",                                                     "resource" :"xxxx.png"},
-    {"name" : "Fraction of bad components per module found by the prompt calibration loop", "resource" :"xxxx.png"},
-    {"name" : "Type of bad components per module found by the prompt calibration loop",     "resource" :"xxxx.png"}
+    {"name" : "Mean value for S/N for on-track cluster corrected for the angle",            "resource" :"StoNCorrOnTrack.png"},
+    {"name" : "Mean value for Cluster Charge per cm from Track",                            "resource" :"ChargePerCMfromTrack.png"},
+    {"name" : "Merged Bad components (PCL + FED Err + Cabling)",                            "resource" :"MergedBadComponentsTkMap.png"},
+    {"name" : "Merged Bad components (PCL + FED Err + Cabling) - Log",                      "resource" :"MergedBadComponents_run.txt"},
+    {"name" : "FED errors per modules",                                                     "resource" :"FractionOfBadChannels.png"},
+    {"name" : "Fraction of bad components per module found by the prompt calibration loop", "resource" :"PCLBadComponents.png"},
+    {"name" : "Type of bad components per module found by the prompt calibration loop",     "resource" :"PCLBadComponents_Run_.png"}
   ]
-  
 }

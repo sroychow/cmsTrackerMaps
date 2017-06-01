@@ -3,11 +3,9 @@
 	<title>TrackerMaps Reloaded</title>
 
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="javascript/ImageViewer/imageviewer.css"  rel="stylesheet" type="text/css" />
-
+  <link href="css/custom.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="javascript/ImageViewer/imageviewer.js"></script>
-
+  <script src="javascript/wheelzoom/wheelzoom.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="javascript/data.js"></script>
   <script src="javascript/urlParams.js"></script>
@@ -15,12 +13,6 @@
   <script src="javascript/loading.js"></script>
   <script src="javascript/FileTree/jqueryFileTree.js"></script>
   <link href="javascript/FileTree/jqueryFileTree.css" rel="stylesheet">
-
-<!-- <style>
-    .pannable-image {
-      width: 700px;
-    }
-</style> -->
 
 </header>
 
@@ -30,9 +22,9 @@
       <div id="jumbotronCollapse" class="panel-collapse collapse in">
         <div class="panel-body" style="padding: 0">
           
-          <div class="jumbotron" style="padding: 10px; margin: 0;">
+          <div class="jumbotron">
 
-              <div class="container" id="optionsPane" style="width: 95%;">
+              <div class="container" id="optionsPane">
 
                 <div class="row">
 
@@ -41,23 +33,27 @@
                   </div>
                   
                   <div class="col-md-6">
-                      <div class="form-group">
+                    <div class="form-group">
 
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE" disabled>
-                            <div class="input-group-btn">
-                              <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
-                            </div>
-                          </div>
-
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT" disabled>
-                            <div class="input-group-btn">
-                              <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
-                              </div>
-                          </div>
-
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE" disabled>
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                        </div>
                       </div>
+
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT" disabled>
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          </div>
+                      </div>
+                      <div class="col-md-offset-8 col-md-4">
+                        <label class="checkbox">
+                          <input type="checkbox" id="comparisonModeEnabled" checked disabled>Enable comparison mode
+                        </label>
+                      </div>
+                    </div>
                 </div>
                 <div class="col-md-2">
                   <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
@@ -74,16 +70,16 @@
         </div>
       </div>
     </div>
-    <div class="panel-footer" style="padding: 0">
+    <div class="panel-footer">
       <a data-toggle="collapse" href="#jumbotronCollapse">
-        <button class="btn btn-primary" style="width: 100%;">
+        <button class="btn btn-primary" id="hideUnhideMenu" >
           <span class="glyphicon glyphicon-cog"></span>
         </button>
       </a>
     </div>
   </div> 
 
-  <div class="container" id="TrackerMaps" style="width:97.5%">
+  <div class="container" id="TrackerMaps">
     <!-- INCLUDED STAFF -->
     <div class="row">
       <div class="col-lg-12">
@@ -99,17 +95,15 @@
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="text-align:center;font-size:25px;">
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Choose dataset</h4>
+          <h2>Choose dataset</h2>
         </div>
-        <div class="modal-body" style="min-height: 400px; max-height: 400px; overflow-y: scroll;">
-          <div id="treeContainer"  style="padding-bottom: 10px; padding-left:15px;"></div>
+        <div class="modal-body">
+          <div id="treeContainer"></div>
         </div>
         <div class="modal-footer">
-          <form role="form">
-            <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-ok"></span> OK</button>
-          </form>
+          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-ok"></span> OK</button>
         </div>
       </div>
       
@@ -117,7 +111,7 @@
   </div> 
 <!-- </div> -->
 
-  <input type="hidden" id="runNumberInputBrowseCaller" val="">
+<input type="hidden" id="runNumberInputBrowseCaller" val="">
 
 </body>
 </html>

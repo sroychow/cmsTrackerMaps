@@ -3,14 +3,6 @@ $(document).ready(function() {
     loadCheckboxes();
     decodeOptions();
 
-    // FIXME put in one place
-
-    $('.pannable-image').ImageViewer({snapView: false,
-                                     maxZoom: 400,
-                                     refreshOnResize : false});
-    // $('.pannable-image').ImageViewer();
-
-
     $(".panel-extend-checkbox").on('click', function(e) {
 
         var refPath = $('#refRunNumberInput').val();

@@ -17,72 +17,60 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         $(".extandable-tab-list-ref").append(newInput);
 
         var fileName = ($('#' + id).attr('res'));
-
-        // getFileNameFromResource();
-     
         var fileExt =  fileName.substr(fileName.lastIndexOf('.') + 1);
 
-                                                        //FIXME
-                // In data.js the textfiles DO NOT HAVE THE ENDING .txt anymore becaues
-                // the files have a name dependant on their run number.
-                // THEREFORE data.js contains RESNAME_run
-                // which is then appended by the current number.txt to get the correct filename
-                // THIS IS THE REASON ''
-        addToComparisonView(currID, refPath + fileName, currPath + fileName, fileExt);
+        addToComparisonView(currID, refPath, currPath, fileName, fileExt);
+
+        $("#" + currID + "lnk").on("click", function(){
+            // if (fileExt == "png") attachWheelZoomListeners(currID);
+            // else $("#" + currID + " iframe").trigger("load");
+            $("#" + currID + " iframe").trigger("load");
+        });
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
     }
-
-    // FIXME put in one place
-    $('.pannable-image').ImageViewer({snapView: false,
-                                     maxZoom: 400,
-                                     refreshOnResize : false});
-    // $('.pannable-image').ImageViewer({maxZoom: 10000});
 }
 
-function addToComparisonView(id, refsrc, currsrc, ext) {
+function addToComparisonView(id, rsrc, csrc, filename, ext) {
+
+    var refsrc  = rsrc + filename;
+    var currsrc = csrc + filename;
     switch(ext){
         case "png":
-            console.log("png");
-            $('#' + id + ' .refCol').html("<img src='" + refsrc + "' style='width: 100%;' class='pannable-image'/>");
-            $('#' + id + ' .currCol').html("<img src='" + currsrc + "' style='width: 100%;' class='pannable-image'/>");
+            var refFinal  = refsrc;
+            var currFinal = currsrc;
+
+            if (filename === "PCLBadComponents_Run_.png") {
+                // special snowflake case where filename = PCLBadComponents_Run_XXXXXX.png
+                // where XXXXX is the 6 digit run number.
+                refFinal  = buildFileNameWithRunNr(refsrc, ext);
+                currFinal = buildFileNameWithRunNr(currsrc, ext);
+            } 
+
+            $('#' + id + ' .refCol').html("<img id='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>");
+            $('#' + id + ' .currCol').html("<img id='imgCurr' src='" + currFinal + "' style='width: 100%;'/>");
+
+            // attachWheelZoomListeners(id);
         break;
 
         case "txt":
-            console.log("reference:" + refsrc);
-            console.log("current:  " + currsrc);
-            console.log();
-
-            // TODO think of some better way to do this pile of shit
-            // worstcase : extract method
-            var tmpnr = refsrc.replace(/[^0-9]/g, '');
-            var runnrRef = tmpnr.substr(tmpnr.length - 6);
-            
-            var tmp = refsrc.split('.');
-            var realnameRef = tmp[0] + runnrRef + '.' + tmp[1];
-            /// ....... 
-            tmpnr = currsrc.replace(/[^0-9]/g, '');
-            var runnrCurr = tmpnr.substr(tmpnr.length - 6);
-            
-            tmp = currsrc.split('.');
-            var realnameCurr = tmp[0] + runnrCurr + '.' + tmp[1];
-
-            $('#' + id + ' .refCol').html("<object data=" + realnameRef + " style='width: 100%; height: 100%;'/>");
-            $('#' + id + ' .currCol').html("<object data=" + realnameCurr + " style='width: 100%; height: 100%;'/>");
-            console.log("txt");
+            $('#' + id + ' .refCol').html("<object data='"  + buildFileNameWithRunNr(refsrc, ext)  + "' />");
+            $('#' + id + ' .currCol').html("<object data='" + buildFileNameWithRunNr(currsrc, ext) + "' />");
         break;
 
         case "log": 
-            $('#' + id + ' .refCol').html("<object data=" + refsrc + " style='width: 100%; height: 100%;'/>");
-            $('#' + id + ' .currCol').html("<object data=" + currsrc + " style='width: 100%; height: 100%;'/>");
+            $('#' + id + ' .refCol').html("<object data='" + refsrc + "' />");
+            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
         break;
 
         case "html":
-            $('#' + id + ' .refCol').append("<div id='" + id + "Ref' style='max-width:100%; max-height: 500px; overflow: scroll'><iframe src='" + refsrc + "' ></iframe></div>");
-            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' style='max-width:100%; max-height: 500px; overflow: scroll'><iframe src='" + currsrc + "' ></iframe></div>");
+            $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
+            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe src='" + currsrc + "' ></iframe></div>");
 
             $("iframe").on("load", function () {
+                console.log("iframe::load");
+
                 $(this).css("width", $(this).contents().width());
                 $(this).css("height", $(this).contents().height());
                 console.log($(this).contents().width());
@@ -151,4 +139,48 @@ function disableCheckboxes(name, disable) {
     });
 }
 
+function buildFileNameWithRunNr(name, extension) { 
+  var tmpnr = name.replace(/[^0-9]/g, '');
+  var runnr = tmpnr.substr(tmpnr.length - 6);
 
+  var tmp = name.split('.');
+  var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
+
+  return ret;
+}
+
+function attachWheelZoomListeners(id) { 
+  var zoomIn  = -100;
+  var zoomOut = 100;
+
+  images = wheelzoom($('#' + id + ' img'), {zoom: 0.1, maxZoom: 10});
+
+  var refimg = images[0];
+  var curimg = images[1];
+    
+  // if ($._data($(refimg), "events") && $._data($(refimg), "events").["wheelzoom.in"])
+  // {
+  //   console.log("Event already found");
+  //   break;
+  // }
+
+  refimg.addEventListener('wheelzoom.in', function(e) {
+      curimg.doZoomIn();
+  });
+  refimg.addEventListener('wheelzoom.out', function(e) {
+      curimg.doZoomOut();
+  });
+  refimg.addEventListener('wheelzoom.dragend', function(e) {
+      curimg.doDrag(e.detail.x, e.detail.y);
+  });
+
+  curimg.addEventListener('wheelzoom.in', function(e) {
+      refimg.doZoomIn();
+  });
+  curimg.addEventListener('wheelzoom.out', function(e) {
+      refimg.doZoomOut();
+  });
+  curimg.addEventListener('wheelzoom.dragend', function(e) {
+      refimg.doDrag(e.detail.x, e.detail.y);
+  });
+}
