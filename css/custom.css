@@ -1,0 +1,55 @@
+iframe{
+	border: none;
+}
+
+#TrackerMaps{
+	width: 97.5%;
+	margin-bottom: 20px;
+}
+.modal-content .modal-header{
+	text-align: center;
+	font-size: 25px;
+}
+
+.modal-content .modal-body{
+	min-height: 400px;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+.modal-content .modal-body #treeContainer{
+	padding-bottom: 10px;
+	padding-left: 15px;
+}
+
+.modal-content .modal-footer{
+
+}
+
+.panel-group .panel-footer{
+	padding: 0;
+} 
+
+.panel-group .panel-footer #hideUnhideMenu{
+	width: 100%; 
+	border-radius: 0px 0px 20px 20px;
+}
+
+.jumbotron{
+	padding: 10px; 
+	margin: 0;
+}
+
+.jumbotron #optionsPane{
+	 width: 95%;
+}
+
+.refCol div, .currCol div{
+	width:100%; 
+	overflow: scroll;
+}
+
+.refCol object, .currCol object{
+	width: 100%;
+	height: 100%;
+}

@@ -24,7 +24,8 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         $("#" + currID + "lnk").on("click", function(){
             // if (fileExt == "png") attachWheelZoomListeners(currID);
             // else $("#" + currID + " iframe").trigger("load");
-            $("#" + currID + " iframe").trigger("load");
+            // $("#" + currID + " iframe").trigger("load");
+            // $("#link-me").click();
         });
     } else {
         $("#" + currID).remove();
@@ -48,10 +49,11 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
                 currFinal = buildFileNameWithRunNr(currsrc, ext);
             } 
 
-            $('#' + id + ' .refCol').html("<img id='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>");
-            $('#' + id + ' .currCol').html("<img id='imgCurr' src='" + currFinal + "' style='width: 100%;'/>");
+            $('#' + id + ' .refCol').html("<div class='imgContainer'><img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/></div>");
+            $('#' + id + ' .currCol').html("<div class='imgContainer'><img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/></div>");
 
-            // attachWheelZoomListeners(id);
+            attachWheelZoomListeners('#' + id);        
+
         break;
 
         case "txt":
@@ -149,38 +151,66 @@ function buildFileNameWithRunNr(name, extension) {
   return ret;
 }
 
-function attachWheelZoomListeners(id) { 
-  var zoomIn  = -100;
-  var zoomOut = 100;
+function attachWheelZoomListeners(sectionToLookIn) { 
 
-  images = wheelzoom($('#' + id + ' img'), {zoom: 0.1, maxZoom: 10});
+    var $section = $(sectionToLookIn);
 
-  var refimg = images[0];
-  var curimg = images[1];
-    
-  // if ($._data($(refimg), "events") && $._data($(refimg), "events").["wheelzoom.in"])
-  // {
-  //   console.log("Event already found");
-  //   break;
-  // }
+    function assignTransform(section, master, slave) {
+        console.log(master + " : " + slave);
+        var trans = $section.find(master).css("transform");
+        $section.find(slave).css("transform", trans);
+    }
 
-  refimg.addEventListener('wheelzoom.in', function(e) {
-      curimg.doZoomIn();
-  });
-  refimg.addEventListener('wheelzoom.out', function(e) {
-      curimg.doZoomOut();
-  });
-  refimg.addEventListener('wheelzoom.dragend', function(e) {
-      curimg.doDrag(e.detail.x, e.detail.y);
-  });
+    ///////////////////////////////////// REF
 
-  curimg.addEventListener('wheelzoom.in', function(e) {
-      refimg.doZoomIn();
-  });
-  curimg.addEventListener('wheelzoom.out', function(e) {
-      refimg.doZoomOut();
-  });
-  curimg.addEventListener('wheelzoom.dragend', function(e) {
-      refimg.doDrag(e.detail.x, e.detail.y);
-  });
+    var $panzoom = $section.find('.imgRef').panzoom({
+        startTransform: 'scale(1)',
+        maxScale: 10,
+        minScale: 1,
+        increment: 0.1,
+        contain: 'automatic'
+
+    });
+    $panzoom.parent().on('mousewheel.focal', function(e) {
+        e.preventDefault();
+        var delta = e.delta || e.originalEvent.wheelDelta;
+        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+        $panzoom.panzoom('zoom', zoomOut, {
+            animate: false,
+            focal: e
+        });
+
+        assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
+
+    });
+    $panzoom.on("mouseup", function(e) {
+        console.log("mouseup");
+        assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
+    });
+
+    //////////////////////////////// CURR
+
+    var $panzoom2 = $section.find('.imgCurr').panzoom({
+        startTransform: 'scale(1)',
+        maxScale: 10,
+        minScale: 1,
+        increment: 0.1,
+        contain: 'automatic'
+    });
+    $panzoom2.parent().on('mousewheel.focal', function(e) {
+        e.preventDefault();
+        var delta = e.delta || e.originalEvent.wheelDelta;
+        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+        $panzoom2.panzoom('zoom', zoomOut, {
+            animate: false,
+            focal: e
+        });
+
+        assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
+
+    });
+    $panzoom2.on("mouseup", function(e) {
+        console.log("mouseup");
+        assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
+    });
 }
