@@ -183,7 +183,7 @@ function attachWheelZoomListeners(sectionToLookIn) {
         assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
 
     });
-    $panzoom.on("mouseup", function(e) {
+    $section.find('.imgRef').parent().on("mouseup pointerup",function(e) {
         console.log("mouseup");
         assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
     });
@@ -209,7 +209,7 @@ function attachWheelZoomListeners(sectionToLookIn) {
         assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
 
     });
-    $panzoom2.on("mouseup", function(e) {
+    $section.find('.imgCurr').parent().on("mouseup, pointerup", function(e) {
         console.log("mouseup");
         assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
     });
