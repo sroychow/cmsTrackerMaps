@@ -4,10 +4,7 @@
 
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
   <script src="javascript/panzoom/test/libs/jquery.js"></script>
-  
   <script src="bootstrap/js/bootstrap.min.js"></script>
   <script src="javascript/data.js"></script>
   <script src="javascript/urlParams.js"></script>
@@ -15,10 +12,8 @@
   <script src="javascript/loading.js"></script>
   <script src="javascript/FileTree/jqueryFileTree.js"></script>
   <link href="javascript/FileTree/jqueryFileTree.css" rel="stylesheet">
-
   <script src="javascript/panzoom/dist/jquery.panzoom.min.js"></script>
   <script src="javascript/panzoom/test/libs/jquery.mousewheel.js"></script>
-
 </header>
 
 <body>
@@ -63,8 +58,14 @@
                 <div class="col-md-2">
                   <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
                   <button class="btn btn-warning" id="link-me">
-                    <span class="glyphicon glyphicon-paperclip"></span> Link Me!
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Link Me!
                   </button>
+
+
+                  <button class="btn btn-warning" id="diff-me">
+                    <span class="glyphicon glyphicon-duplicate"></span> Diff View!
+                  </button>
+                
                 </div>
               </div>
 
@@ -75,6 +76,7 @@
         </div>
       </div>
     </div>
+
     <div class="panel-footer">
       <a data-toggle="collapse" href="#jumbotronCollapse">
         <button class="btn btn-primary" id="hideUnhideMenu" >

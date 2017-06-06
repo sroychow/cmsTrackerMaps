@@ -49,9 +49,14 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
                 currFinal = buildFileNameWithRunNr(currsrc, ext);
             } 
 
-            $('#' + id + ' .refCol').html("<div class='imgContainer'><img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/></div>");
-            $('#' + id + ' .currCol').html("<div class='imgContainer'><img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/></div>");
+            if(UrlExists(refFinal)) {
+                $('#' + id + ' .refCol').html("<div class='imgContainer'><img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/></div>");
+            }
 
+            if(UrlExists(currFinal)) { 
+                $('#' + id + ' .currCol').html("<div class='imgContainer'><img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/></div>");
+            }
+            
             attachWheelZoomListeners('#' + id);        
 
         break;
@@ -67,27 +72,44 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
         break;
 
         case "html":
-            $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
-            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe src='" + currsrc + "' ></iframe></div>");
+            $.get(refsrc, function(html_string)
+            {
+              $('#' + id + ' .refCol').append("<div id='" + id + "Ref'><div style='overflow: hidden;'>" + html_string + "</div></div>");
 
-            $("iframe").on("load", function () {
-                console.log("iframe::load");
+              var fullPath = $("#refRunNumberInput").val();
+              var thisSrc = $("#" + id + "Ref img").attr("src");
 
-                $(this).css("width", $(this).contents().width());
-                $(this).css("height", $(this).contents().height());
-                console.log($(this).contents().width());
+              $("#" + id + "Ref img").attr("src", fullPath + thisSrc).css("width", "100%").addClass("imgRef");
 
-                parentID = $(this).parent().attr("id");
+              attachWheelZoomListeners('#' + id);
 
-                $("#" + parentID).scroll(function(){
-                    var sl = $(this).scrollLeft();
-                    var st = $(this).scrollTop();
+            },'html');    
 
-                    console.log(st + " " + sl);
+            // $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
+            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe id='myID' src='" + currsrc + "' ></iframe></div>");
 
-                    $(this).parent().siblings("div").first().children("div").first().scrollLeft(sl).scrollTop(st);
-                });
-            });
+            var iFr = $("#" + id + "Curr").find("iframe");
+            alert(iFr.attr("id"));
+            // iFr.contents().find("body").css('overflow', 'hidden');
+
+            // $("iframe").on("load", function () {
+            //     console.log("iframe::load");
+
+            //     $(this).css("width", $(this).contents().width());
+            //     $(this).css("height", $(this).contents().height());
+            //     console.log($(this).contents().width());
+
+            //     parentID = $(this).parent().attr("id");
+
+            //     $("#" + parentID).scroll(function(){
+            //         var sl = $(this).scrollLeft();
+            //         var st = $(this).scrollTop();
+
+            //         console.log(st + " " + sl);
+
+            //         $(this).parent().siblings("div").first().children("div").first().scrollLeft(sl).scrollTop(st);
+            //     });
+            // });
             
         break;
 
@@ -156,7 +178,7 @@ function attachWheelZoomListeners(sectionToLookIn) {
     var $section = $(sectionToLookIn);
 
     function assignTransform(section, master, slave) {
-        console.log(master + " : " + slave);
+        // console.log(master + " : " + slave);
         var trans = $section.find(master).css("transform");
         $section.find(slave).css("transform", trans);
     }
@@ -184,7 +206,7 @@ function attachWheelZoomListeners(sectionToLookIn) {
 
     });
     $section.find('.imgRef').parent().on("mouseup pointerup",function(e) {
-        console.log("mouseup");
+        // console.log("mouseup");
         assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
     });
 
@@ -213,4 +235,12 @@ function attachWheelZoomListeners(sectionToLookIn) {
         console.log("mouseup");
         assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
     });
+}
+
+function UrlExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status==200;
 }
