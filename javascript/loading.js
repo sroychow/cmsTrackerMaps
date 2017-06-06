@@ -19,27 +19,9 @@ $(document).ready(function() {
         alert('Link created, ready to share your findings!\n');
     });
 
-    //FIXME: this ugliness ... ew
-    var firstclick = true;
     $("#diff-me").click(function(e) {
-                if (firstclick) {
-                    var d1 = $('.imgRef').prop('src');
-                    var d2 = $('.imgCurr').prop('src');
-
-                    console.log('image1: ' + d1);
-                    console.log('image2: ' + d2);
-
-                    $('.refCol').html("");
-                    $('.currCol').html("");
-                    $('.refCol').html("<div class='imgContainer'><div class='diffimg' >\
-            <img class='diffimg' src='" + d1 + "'/>\
-            <img class='diffimg' src='" + d2 + "'/> </div></div>");
-                    firstclick = false;
-                } else {
-                    location.reload();
-                }
+       $('#DiffView').toggle();
     });
-
 
     $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function() {
         $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));

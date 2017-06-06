@@ -44,22 +44,24 @@ iframe{
 	 width: 95%;
 }
 
-.refCol div, .currCol div{
+.refCol div, .currCol div, .diffCol div{
 	width:100%; 
-	/*overflow: scroll;*/
 }
 
-.refCol object, .currCol object{
+.refCol object, .currCol object, .diffCol object{
 	width: 100%;
 	height: 100%;
 }
 
-.diffimg { 
-	position: absolute; 
-	display: block;
-	width:100%;
+.imgDiffWrapper {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
 }
 
-.diffimg {
- 	mix-blend-mode: difference 
+.imgDiff { 
+	position: absolute; 
+	display: block;
+	width:100%; 	
+	mix-blend-mode: difference; 
 }

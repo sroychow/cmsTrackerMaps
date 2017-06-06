@@ -9,6 +9,8 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
                                 "</div>" + 
                                 "<div class='currCol col-md-6' style=''>" + 
                                 "</div>" + 
+                                // "<div class='diffCol col-md-6' style=''>" + 
+                                // "</div>" + 
                             "</div>" + 
                         "</div>";
         $(".extandable-tab-list-content").append(newInput);
@@ -50,14 +52,31 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
             } 
 
             if(UrlExists(refFinal)) {
-                $('#' + id + ' .refCol').html("<div class='imgContainer'><img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/></div>");
+                $('#' + id + ' .refCol').html("<div class='imgContainer'>\
+                                                    <img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>\
+                                                </div>");
             }
 
             if(UrlExists(currFinal)) { 
-                $('#' + id + ' .currCol').html("<div class='imgContainer'><img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/></div>");
+                $('#' + id + ' .currCol').html("<div class='imgContainer'>\
+                                                    <img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/>\
+                                                </div>");
             }
-            
+
+            var emptyPlot = "img/tkMapEmpty";
+            if(UrlExists(refFinal) && UrlExists(currFinal)) {
+
+                $('#' + id).append("<div id=DiffView class='row' style='height: 500px'>\
+                                        <div style='height: 100%; overflow: hidden' class='col-md-6 imgContainer diffCol'><div class=imgDiffWrapper>\
+                                            <img class='imgDiff' src='" + refFinal  + "' style='width: 100%;'/>\
+                                            <img class='imgDiff' src='" + currFinal + "' style='width: 100%;'/>\
+                                            <img class='imgDiff' src='" + emptyPlot + "' style='width: 100%;'/>\
+                                        </div></div>\
+                                    </div>"
+                    )
+            }                                                      
             attachWheelZoomListeners('#' + id);        
+//                                           
 
         break;
 
@@ -79,7 +98,7 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
               var fullPath = $("#refRunNumberInput").val();
               var thisSrc = $("#" + id + "Ref img").attr("src");
 
-              $("#" + id + "Ref img").attr("src", fullPath + thisSrc).css("width", "100%").addClass("imgRef");
+              $("#" + id + "Ref img").attr("src", fullPath + thisSrc).css("width", "100%").parent().addClass("imgRef");
 
               attachWheelZoomListeners('#' + id);
 
@@ -89,8 +108,8 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
             $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe id='myID' src='" + currsrc + "' ></iframe></div>");
 
             var iFr = $("#" + id + "Curr").find("iframe");
-            alert(iFr.attr("id"));
-            // iFr.contents().find("body").css('overflow', 'hidden');
+            // alert(iFr.contents().find("body").find("img").attr("src"));
+            iFr.contents().find("body").css('overflow', 'hidden');
 
             // $("iframe").on("load", function () {
             //     console.log("iframe::load");
@@ -116,6 +135,78 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
         default: 
             console.log("Unsupported filetype");
     }
+}
+
+function disableCheckboxes(name, disable) { 
+    $('#' + name + ' :checkbox').each(function() {
+        $(this).attr("disabled", disable);
+    });
+}
+
+function buildFileNameWithRunNr(name, extension) { 
+  var tmpnr = name.replace(/[^0-9]/g, '');
+  var runnr = tmpnr.substr(tmpnr.length - 6);
+
+  var tmp = name.split('.');
+  var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
+
+  return ret;
+}
+
+
+function attachWheelZoomListeners(sectionToLookIn) {
+
+    var $section = $(sectionToLookIn);
+
+    // ---------------- Helper Functions ----------------
+
+    function assignTransform(section, master, slave) {
+        var trans = $section.find(master).css("transform");
+        $section.find(slave).css("transform", trans);
+    }
+
+    function setPanzoomParams(elem) {
+        return $section.find(elem).panzoom({
+            startTransform: 'scale(1)',
+            maxScale: 10,
+            minScale: 1,
+            increment: 0.1,
+            contain: 'automatic'
+        });
+    }
+
+    function setPanzoomParams2(elem) {
+        return $section.find(elem).panzoom({
+            contain: 'automatic'
+        });
+    }
+
+    function linkZoom(sec, pz, master, src, dst) {
+      pz.parent().on('mousewheel.focal', function(e) {
+          e.preventDefault();
+          var delta = e.delta || e.originalEvent.wheelDelta;
+          var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+          pz.panzoom('zoom', zoomOut, {
+              animate: false,
+              focal: e
+          });
+
+        assignTransform(sec, src, dst);
+      });
+      sec.find(master).parent().on("mouseup pointerup",function(e) {
+          assignTransform(sec, src, dst);
+      });
+    }
+
+    // ---------------- Start doing stuff here ----------------
+
+    var $panzoom = setPanzoomParams('.imgRef');
+    linkZoom($section, $panzoom,'.imgRef' , ".refCol .imgRef", ".currCol .imgCurr");
+    linkZoom($section, $panzoom,'.imgRef' , ".refCol .imgRef", ".diffCol .imgDiff");
+
+    var $panzoom2 = setPanzoomParams('.imgCurr');
+    linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
+    linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
 }
 
 
@@ -155,86 +246,6 @@ function loadCheckboxes() {
             ++row;
         }
     }
-}
-
-function disableCheckboxes(name, disable) { 
-    $('#' + name + ' :checkbox').each(function() {
-        $(this).attr("disabled", disable);
-    });
-}
-
-function buildFileNameWithRunNr(name, extension) { 
-  var tmpnr = name.replace(/[^0-9]/g, '');
-  var runnr = tmpnr.substr(tmpnr.length - 6);
-
-  var tmp = name.split('.');
-  var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
-
-  return ret;
-}
-
-function attachWheelZoomListeners(sectionToLookIn) { 
-
-    var $section = $(sectionToLookIn);
-
-    function assignTransform(section, master, slave) {
-        // console.log(master + " : " + slave);
-        var trans = $section.find(master).css("transform");
-        $section.find(slave).css("transform", trans);
-    }
-
-    ///////////////////////////////////// REF
-
-    var $panzoom = $section.find('.imgRef').panzoom({
-        startTransform: 'scale(1)',
-        maxScale: 10,
-        minScale: 1,
-        increment: 0.1,
-        contain: 'automatic'
-
-    });
-    $panzoom.parent().on('mousewheel.focal', function(e) {
-        e.preventDefault();
-        var delta = e.delta || e.originalEvent.wheelDelta;
-        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-        $panzoom.panzoom('zoom', zoomOut, {
-            animate: false,
-            focal: e
-        });
-
-        assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
-
-    });
-    $section.find('.imgRef').parent().on("mouseup pointerup",function(e) {
-        // console.log("mouseup");
-        assignTransform($section, ".refCol .imgRef", ".currCol .imgCurr");
-    });
-
-    //////////////////////////////// CURR
-
-    var $panzoom2 = $section.find('.imgCurr').panzoom({
-        startTransform: 'scale(1)',
-        maxScale: 10,
-        minScale: 1,
-        increment: 0.1,
-        contain: 'automatic'
-    });
-    $panzoom2.parent().on('mousewheel.focal', function(e) {
-        e.preventDefault();
-        var delta = e.delta || e.originalEvent.wheelDelta;
-        var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-        $panzoom2.panzoom('zoom', zoomOut, {
-            animate: false,
-            focal: e
-        });
-
-        assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
-
-    });
-    $section.find('.imgCurr').parent().on("mouseup, pointerup", function(e) {
-        console.log("mouseup");
-        assignTransform($section, ".currCol .imgCurr", ".refCol .imgRef");
-    });
 }
 
 function UrlExists(url)
