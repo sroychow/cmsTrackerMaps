@@ -26,26 +26,40 @@
           <h2><strong>TODO:</strong></h2>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
+            FEATURES:
               <ul class="list-group" style="font-size: small">
-                <li class="list-group-item">Make image difference in Firefox run correctly <span class="badge">LOW</span></li> 
                 <li class="list-group-item">Interactive maps with pan&zoom are not willing to show tooltips on them <span class="badge">LOW</span></li> 
-                <li class="list-group-item active">Image difference per tab <span class="badge">MEDIUM<span class="glyphicon glyphicon-ok"></span></li>
+                <li class="list-group-item list-group-item-success">Image difference per tab <span class="badge">MEDIUM</li>
                 <li class="list-group-item">Enable/disable comparison mode <span class="badge">LOW</span></li>
                 <li class="list-group-item">Previous/next run <span class="badge">HIGH</span></li>
+                <li class="list-group-item "><strong>Slideshow </strong><span class="badge">ASAP!</span></li>
+                <li class="list-group-item ">Reset pan&zoom per tab <span class="badge">LOW</span></li>
+                <li class="list-group-item">Pan&zoom also for difference image <span class="badge">LOW</span></li>
+
               </ul> 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+            BUGFIX:            
               <ul class="list-group" style="font-size: small">
-                <li class="list-group-item ">Reset pan&zoom per tab <span class="badge">LOW</span></li>
-                <li class="list-group-item active">Clean maps for PSU <span class="badge">MEDIUM<span class="glyphicon glyphicon-ok"></span></li>
-                <li class="list-group-item active">Clean maps for FED <span class="badge">MEDIUM<span class="glyphicon glyphicon-ok"></span></li>
+                <li class="list-group-item list-group-item-success">Clean maps for PSU <span class="badge">MEDIUM</li>
+                <li class="list-group-item list-group-item-success">Clean maps for FED <span class="badge">MEDIUM</li>
+                <li class="list-group-item list-group-item-success">Make image difference in Firefox run correctly <span class="badge">LOW</span></li> 
 
-                <li class="list-group-item">Pan&zoom also for difference image <span class="badge">LOW</span></li>
-                <li class="list-group-item">Saving current tab transformation <span class="badge">LOW</span></li>
-                <li class="list-group-item active">Make TODO list<span class="badge">SUPER HIGH <span class="glyphicon glyphicon-ok"></span></span></li>
+                <li class="list-group-item">Saving current tab diff <span class="badge">LOW</span></li>
+                <li class="list-group-item list-group-item-success">Make TODO list<span class="badge">SUPER HIGH </span></li>
               </ul>
             </div>
+
+            <div class="col-md-4">
+            CODEBASE:            
+              <ul class="list-group" style="font-size: small">
+                <li class="list-group-item ">Handle dataloading from json, and not attaching to checkboxes <span class="badge">MEDIUM</span></li>
+                <li class="list-group-item "> Zoom/Pan in Diffview <span class="badge">LOW</span></li>
+
+              </ul>
+            </div>
+
           </div> 
         </div>
 
@@ -88,10 +102,6 @@
                   <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
                   <button class="btn btn-warning" id="link-me">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Link Me!
-                  </button>
-
-                  <button class="btn btn-warning" id="diff-me">
-                    <span class="glyphicon glyphicon-duplicate"></span> Diff View!
                   </button>
                 
                 </div>
@@ -138,7 +148,7 @@
           <div id="treeContainer"></div>
         </div>
         <div class="modal-footer">
-          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"><span class="glyphicon glyphicon-ok"></span> OK</button>
+          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"> OK</button>
         </div>
       </div>
       

@@ -4,13 +4,37 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
     if (isChecked == true) {
         var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style=''>" + 
                             "<div class='row'>" +
-                                "<div class='refCol col-md-4' style=''>" +
+                                // "<div class='col-md-1'>" +
+                                    // "<button class='btn btn-warning toggleDifferenceView'>" +
+                                    //     "<span class='glyphicon glyphicon-duplicate'></span> Diff View!" +
+                                    // "</button>"+
+                                    // "<label class='checkbox'><input type='checkbox' class='panel-extend-checkbox toggleDifferenceView'>Toggle diff</label>" +
+                                // "</div>"+
+                                "<div class='col-md-6' style=''>" +
+                                     "<div class='panel panel-default'>" +   
+                                        "<div class='panel-heading'>" + "Reference" + "</div>" +
+                                        "<div class='panel-body refCol'></div>" +
+                                    "</div>"+
                                 "</div>" + 
-                                "<div class='currCol col-md-4' style=''>" + 
+                                "<div class='col-md-6' style=''>" + 
+                                    "<div class='panel panel-default'>" +   
+                                        "<div class='panel-heading'>" + 
+                                            "Current" + 
+                                            "<label class='checkbox'>" + 
+                                                "<input type='checkbox' class='panel-extend-checkbox toggleDifferenceView'>" + 
+                                                    "Toggle diff" + 
+                                            "</label>" +
+                                        "</div>" +
+                                        "<div class='panel-body currCol'></div>" +
+                                    "</div>"+
                                 "</div>" + 
-                                "<div class='diffCol col-md-4' style=''>" + 
+                                "<div class=' col-md-4 col-lg-6 col-lg-offset-3' style='display: none'>" + 
+                                    "<div class='panel panel-default'>" +   
+                                        "<div class='panel-heading'>" + "Difference" + "</div>" +
+                                        "<div class='panel-body diffCol'></div>" +
+                                    "</div>"+
                                 "</div>" + 
-                            "</div>" + 
+                            "</div>" +
                         "</div>";
         $(".extandable-tab-list-content").append(newInput);
 
@@ -23,12 +47,6 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
 
         addToComparisonView(currID, refPath, currPath, fileName, fileExt, emptyMap);
 
-        $("#" + currID + "lnk").on("click", function(){
-            // if (fileExt == "png") attachWheelZoomListeners(currID);
-            // else $("#" + currID + " iframe").trigger("load");
-            // $("#" + currID + " iframe").trigger("load");
-            // $("#link-me").click();
-        });
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
@@ -51,9 +69,6 @@ function addToComparisonView(id, rsrc, csrc, filename, ext, emptyMap) {
                 currFinal = buildFileNameWithRunNr(currsrc, ext);
             } 
 
-            // var emptyPlot = "img/tkMapEmpty.png";
-            // var emptyPlot = "img/psuMapEmpty.png";
-
 
             $('#' + id + ' .refCol').html("<div class='imgContainer'>\
                                                <img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>\
@@ -64,11 +79,11 @@ function addToComparisonView(id, rsrc, csrc, filename, ext, emptyMap) {
                                             </div>");
 
             $('#' + id + " .diffCol").append("\
-                                    <div style='height: 100%; overflow: hidden' class='imgContainer'><div class=imgDiffWrapper>\
-                                        <img class='imgDiff' src='" + refFinal  + "' style='width: 100%;'/>\
-                                        <img class='imgDiff' src='" + currFinal + "' style='width: 100%;'/>\
-                                        <img class='imgDiff' src='" + emptyMap + "' style='width: 100%;'/>\
-                                    </div></div>");
+                                    <div style='height: 100%; overflow: hidden' class='imgContainer '>\
+                                        <div class='imgDiffWrapper imgDiff' style='background-image: url(\"" + refFinal + "\"), url(\"" + currFinal + "\")'>\
+                                            <div class='cleanRef ' style='background-image: url(\"" + emptyMap + "\")'></div>\
+                                        </div>\
+                                    </div>");
                                                                   
             attachWheelZoomListeners('#' + id);                                                 
 
