@@ -89,6 +89,7 @@ iframe{
 .extandable-tab-list-content .panel{
 	padding: 0;
 	margin: 0;
+	height: 100%;
 }
 
 .extandable-tab-list-content .panel .panel-heading{

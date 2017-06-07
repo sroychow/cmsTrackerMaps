@@ -41,8 +41,10 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).parent().text() + "</a></li>";
         $(".extandable-tab-list-ref").append(newInput);
 
-        var fileName = ($('#' + id).attr('res'));
-        var emptyMap = ($('#' + id).attr('map'));
+        var info = getConfigInfoFromName($('#' + id).attr('label'));
+        var fileName = info.res;
+        var emptyMap = info.map;
+
         var fileExt =  fileName.substr(fileName.lastIndexOf('.') + 1);
 
         addToComparisonView(currID, refPath, currPath, fileName, fileExt, emptyMap);
@@ -247,15 +249,31 @@ function loadCheckboxes() {
             var newInput = '';
             for (var elem in mapDescriptions[group]) {
                 var elem_name = mapDescriptions[group][elem].name;
-                var elem_res = mapDescriptions[group][elem].resource;
-                var elem_map = mapDescriptions[group][elem].emptyMap;
 
-                newInput += "<label class='checkbox'><input type='checkbox' res='" + elem_res + "' map='" + elem_map + 
-                             "' id='" + checkboxID + "' class='panel-extend-checkbox'>" + elem_name + "</label>";
+                newInput += "<label class='checkbox'><input type='checkbox'\
+                              id='" + checkboxID + "' label='" + elem_name +  "' class='panel-extend-checkbox'>" + elem_name + "</label>";
                 checkboxID++;
             }
             $("#checkboxList" + row).html(newInput);
             ++row;
         }
     }
+}
+
+// where name is the 'name' column in data.js
+// which functions as ID.
+function getConfigInfoFromName(name) {
+
+  for (var group in mapDescriptions) {
+    for (var elem in mapDescriptions[group]) {
+
+      if(name === mapDescriptions[group][elem]['name']) {
+        var obj = new Object();
+        obj.name = mapDescriptions[group][elem]['name'];
+        obj.res = mapDescriptions[group][elem]['resource'];
+        obj.map = mapDescriptions[group][elem]['emptyMap'];
+        return obj;
+      }
+    }
+  }
 }

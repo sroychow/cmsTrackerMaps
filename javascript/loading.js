@@ -25,6 +25,8 @@ $(document).ready(function() {
         // $('.diffCol').toggle();
 
         $('.diffCol').closest(".panel").parent().toggle().css("height", $('.refCol').closest(".panel").parent().height() + 5);
+        // $('.diffCol').closest(".panel").css("height", $('.refCol').closest(".panel").parent().height() + 5);
+
     });
 
     $( window ).resize(function() {
@@ -32,7 +34,7 @@ $(document).ready(function() {
         var refHeight = $('.refCol').closest(".panel").parent().height() + 5;
 
         $('.diffCol').closest(".panel").parent().css("height", refHeight);
-        $('.diffCol').closest(".panel").css("height", refHeight);
+        // $('.diffCol').closest(".panel").css("height", refHeight);
     });
 
     $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function() {
