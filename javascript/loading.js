@@ -20,7 +20,13 @@ $(document).ready(function() {
     });
 
     $("#diff-me").click(function(e) {
-       $('#DiffView').toggle();
+    // $('#DiffView').toggle();
+    // alert($(".diffCol").siblings().first().attr("class"));
+    $('.refCol').toggle();
+    $('.currCol').toggle();
+
+    $('.diffCol').toggle().css("height", $(".diffCol").siblings().first().height() + 5);;
+    // $('.currCol').toggle();
     });
 
     $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function() {

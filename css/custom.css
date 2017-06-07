@@ -65,3 +65,11 @@ iframe{
 	width:100%; 	
 	mix-blend-mode: difference; 
 }
+
+.alert{
+	margin-bottom: 0;
+}
+
+.alert .list-group-item{
+	padding: 5px 7px;
+}

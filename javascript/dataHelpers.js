@@ -1,16 +1,15 @@
 function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
-
     var currID = "inputCheckBoxPanel" + id;
 
     if (isChecked == true) {
         var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style=''>" + 
                             "<div class='row'>" +
-                                "<div class='refCol col-md-6' style=''>" +
+                                "<div class='refCol col-md-4' style=''>" +
                                 "</div>" + 
-                                "<div class='currCol col-md-6' style=''>" + 
+                                "<div class='currCol col-md-4' style=''>" + 
                                 "</div>" + 
-                                // "<div class='diffCol col-md-6' style=''>" + 
-                                // "</div>" + 
+                                "<div class='diffCol col-md-4' style=''>" + 
+                                "</div>" + 
                             "</div>" + 
                         "</div>";
         $(".extandable-tab-list-content").append(newInput);
@@ -19,9 +18,10 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
         $(".extandable-tab-list-ref").append(newInput);
 
         var fileName = ($('#' + id).attr('res'));
+        var emptyMap = ($('#' + id).attr('map'));
         var fileExt =  fileName.substr(fileName.lastIndexOf('.') + 1);
 
-        addToComparisonView(currID, refPath, currPath, fileName, fileExt);
+        addToComparisonView(currID, refPath, currPath, fileName, fileExt, emptyMap);
 
         $("#" + currID + "lnk").on("click", function(){
             // if (fileExt == "png") attachWheelZoomListeners(currID);
@@ -35,7 +35,7 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
     }
 }
 
-function addToComparisonView(id, rsrc, csrc, filename, ext) {
+function addToComparisonView(id, rsrc, csrc, filename, ext, emptyMap) {
 
     var refsrc  = rsrc + filename;
     var currsrc = csrc + filename;
@@ -51,32 +51,26 @@ function addToComparisonView(id, rsrc, csrc, filename, ext) {
                 currFinal = buildFileNameWithRunNr(currsrc, ext);
             } 
 
-            if(UrlExists(refFinal)) {
-                $('#' + id + ' .refCol').html("<div class='imgContainer'>\
-                                                    <img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>\
-                                                </div>");
-            }
+            // var emptyPlot = "img/tkMapEmpty.png";
+            // var emptyPlot = "img/psuMapEmpty.png";
 
-            if(UrlExists(currFinal)) { 
-                $('#' + id + ' .currCol').html("<div class='imgContainer'>\
-                                                    <img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/>\
-                                                </div>");
-            }
 
-            var emptyPlot = "img/tkMapEmpty";
-            if(UrlExists(refFinal) && UrlExists(currFinal)) {
+            $('#' + id + ' .refCol').html("<div class='imgContainer'>\
+                                               <img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>\
+                                            </div>");
 
-                $('#' + id).append("<div id=DiffView class='row' style='height: 500px'>\
-                                        <div style='height: 100%; overflow: hidden' class='col-md-6 imgContainer diffCol'><div class=imgDiffWrapper>\
-                                            <img class='imgDiff' src='" + refFinal  + "' style='width: 100%;'/>\
-                                            <img class='imgDiff' src='" + currFinal + "' style='width: 100%;'/>\
-                                            <img class='imgDiff' src='" + emptyPlot + "' style='width: 100%;'/>\
-                                        </div></div>\
-                                    </div>"
-                    )
-            }                                                      
-            attachWheelZoomListeners('#' + id);        
-//                                           
+            $('#' + id + ' .currCol').html("<div class='imgContainer'>\
+                                               <img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/>\
+                                            </div>");
+
+            $('#' + id + " .diffCol").append("\
+                                    <div style='height: 100%; overflow: hidden' class='imgContainer'><div class=imgDiffWrapper>\
+                                        <img class='imgDiff' src='" + refFinal  + "' style='width: 100%;'/>\
+                                        <img class='imgDiff' src='" + currFinal + "' style='width: 100%;'/>\
+                                        <img class='imgDiff' src='" + emptyMap + "' style='width: 100%;'/>\
+                                    </div></div>");
+                                                                  
+            attachWheelZoomListeners('#' + id);                                                 
 
         break;
 
@@ -239,19 +233,14 @@ function loadCheckboxes() {
             for (var elem in mapDescriptions[group]) {
                 var elem_name = mapDescriptions[group][elem].name;
                 var elem_res = mapDescriptions[group][elem].resource;
-                newInput += "<label class='checkbox'><input type='checkbox' res='" + elem_res + "' id='" + checkboxID + "' class='panel-extend-checkbox'>" + elem_name + "</label>";
+                var elem_map = mapDescriptions[group][elem].emptyMap;
+
+                newInput += "<label class='checkbox'><input type='checkbox' res='" + elem_res + "' map='" + elem_map + 
+                             "' id='" + checkboxID + "' class='panel-extend-checkbox'>" + elem_name + "</label>";
                 checkboxID++;
             }
             $("#checkboxList" + row).html(newInput);
             ++row;
         }
     }
-}
-
-function UrlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status==200;
 }

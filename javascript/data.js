@@ -1,23 +1,23 @@
-var mapDescriptions = 
+var mapDescriptions =
 {
-  "BAD MODULES": 
+  "BAD MODULES":
   [
-    {"name" : "Quality tests",                     "resource" : "QTestAlarm.png"},
-    {"name" : "Quality tests - FED view",          "resource" : "QTestAlarm_fed.png"},
+    {"name" : "Quality tests",                     "resource" : "QTestAlarm.png",     "emptyMap" : "img/tkMapEmpty.png"},
+    {"name" : "Quality tests - FED view",          "resource" : "QTestAlarm_fed.png", "emptyMap" : "img/fedMapEmpty.png"},
     {"name" : "Quality tests - Interactive",       "resource" : "fedmap.html"},
-    {"name" : "Quality tests - PSU view",          "resource" : "QTestAlarm_psu.png"},
+    {"name" : "Quality tests - PSU view",          "resource" : "QTestAlarm_psu.png", "emptyMap" : "img/psuMapEmpty.png"},
     {"name" : "Quality tests - PSU Interactive",   "resource" : "psumap.html"}
   ],
-  
-  "LIST": 
+
+  "LIST":
   [
     {"name" : "BAD modules from quality tests",                        "resource" : "QualityTest_run.txt"},
     {"name" : "BAD modules from quality tests - obsolete version",     "resource" : "QualityTestOBSOLETE_run.txt"},
     {"name" : "Modules with the highest values",                       "resource" : "TopModulesList.log"},
     {"name" : "Components found by the prompt calibration loop",       "resource" : "PCLBadComponents.log"}
   ],
-  
-  "NUMBER OF": 
+
+  "NUMBER OF":
   [
     {"name" : "Digis per module",                                    "resource" : "NumberOfDigi.png"},
     {"name" : "Clusters per module",                                 "resource" : "NumberOfCluster.png"},
@@ -29,8 +29,8 @@ var mapDescriptions =
     {"name" : "Missing hits per module",                             "resource" : "NumberMissingHits.png"},
     {"name" : "Valid hits per module",                               "resource" : "NumberValidHits.png"}
   ],
-  
-  "MISC": 
+
+  "MISC":
   [
     {"name" : "Mean value for S/N for on-track cluster corrected for the angle",            "resource" :"StoNCorrOnTrack.png"},
     {"name" : "Mean value for Cluster Charge per cm from Track",                            "resource" :"ChargePerCMfromTrack.png"},
