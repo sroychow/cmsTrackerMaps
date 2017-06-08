@@ -44,6 +44,10 @@ iframe{
 	 width: 95%;
 }
 
+#jumbotronCollapse{
+	border: 1px inset;
+}
+
 .refCol div, .currCol div, .diffCol div{
 	width:100%; 
 }
@@ -104,4 +108,8 @@ iframe{
 
 .extandable-tab-list-content .panel .panel-body{
 	padding: 0;
+}
+
+.input-group-btn .btn{
+	height: 34px;
 }

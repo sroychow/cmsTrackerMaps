@@ -5,7 +5,6 @@ function encodeOptions() {
     ret += encodeTextfield("refRunNumberInput");
     ret += encodeTextfield("currRunNumberInput");
     ret += encodeSelectedMap();
-    ret += encodeDiffVisibilty();
     return ret;
 }
 
@@ -16,7 +15,6 @@ function decodeOptions() {
 
     decodeCheckboxes(refPath, currPath);
     decodeSelectedMap();    
-    decodeDiffVisibility();
 }
 
 // -------------- Checkbox --------------
@@ -68,25 +66,6 @@ function encodeSelectedMap() {
 function decodeSelectedMap() {
     $('#' + getUrlParameter("mapSelect")).click();
 }
-
-//FIXME : DELETE THIS SHIT IF UNABLE TO FIX THE ASYNC RELOADING ISSUE 
-// -------------- Diff On/Off --------------
-function encodeDiffVisibilty() {
-  var ret = "&diffVis=";
-  ret += $('.diffCol').is(":visible");
-  return ret;
-}
-
-function decodeDiffVisibility() {
-  var isVisible = getUrlParameter("diffVis") === "true";
-  $('.toggleDifferenceView').attr('checked', isVisible);
-  
-  if(isVisible) {
-    $('.currCol').toggle();
-    var h = $('.refCol').height();
-    $('.diffCol').toggle().css("height", h);
-  }
-} 
 
 // ---------- HELPER ----------
 var getUrlParameter = function getUrlParameter(sParam) {

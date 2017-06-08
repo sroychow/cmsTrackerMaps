@@ -17,6 +17,12 @@
 </header>
 
 <body>
+  <div class="alert alert-info fade in" style="text-align: center">
+    <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+    <strong>Bug, Comment, Suggestion? Send us <a href="mailto:filip.ilic@cern.ch,pawel.jurgielewicz@cern.ch" target="_top"> an email</a></strong>
+    <strong><br>Even better; submit a  <a href="https://github.com/imKuehlschrank/cmsTrackerMaps">pull request </a> </strong>
+    <!-- <img src="http://www.fatgoalievideos.com/teamdenna/files/stacks-image-d30539f.png" style="width: 100px"> -->
+  </div>
   <div class="panel-group" style="margin-bottom: 10px">
     <div class="panel panel-default">
       <div id="jumbotronCollapse" class="panel-collapse collapse in">
@@ -30,33 +36,25 @@
             FEATURES:
               <ul class="list-group" style="font-size: small">
                 <li class="list-group-item">Interactive maps with pan&zoom are not willing to show tooltips on them <span class="badge">LOW</span></li> 
-                <li class="list-group-item list-group-item-success">Image difference per tab <span class="badge">MEDIUM</li>
                 <li class="list-group-item">Enable/disable comparison mode <span class="badge">LOW</span></li>
                 <li class="list-group-item">Previous/next run <span class="badge">HIGH</span></li>
                 <li class="list-group-item ">Slideshow<span class="badge">ASAP!</span></li>
-                <li class="list-group-item ">Reset pan&zoom per tab <span class="badge">LOW</span></li>
-
               </ul> 
             </div>
 
             <div class="col-md-4">
             CODEBASE:            
               <ul class="list-group" style="font-size: small">
-                <li class="list-group-item list-group-item-success">Handle dataloading from json, and not attaching to checkboxes <span class="badge">MEDIUM</span></li>
-                <li class="list-group-item list-group-item-success"> Zoom/Pan in Diffview <span class="badge">LOW</span></li>
+                <li class="list-group-item"> Refactor all the names ie refRunRumber etc.. <span class="badge">LOW</span></li>
+
               </ul>
             </div>
 
             <div class="col-md-4">
             BUGFIX:            
               <ul class="list-group" style="font-size: small">
-                <li class="list-group-item list-group-item-success">Clean maps for PSU <span class="badge">MEDIUM</li>
-                <li class="list-group-item list-group-item-success">Clean maps for FED <span class="badge">MEDIUM</li>
-                <li class="list-group-item list-group-item-success">Make image difference in Firefox run correctly <span class="badge">LOW</span></li> 
 
-                <li class="list-group-item">Saving current tab diff <span class="badge">LOW</span></li>
-                <li class="list-group-item">Load diff visible param async reload issue<span class="badge">MEDIUM</span></li>
-                <li class="list-group-item list-group-item-success">Make TODO list<span class="badge">SUPER HIGH </span></li>
+                <li class="list-group-item">Currently Nothing <span class="badge">LOW</span></li>
               </ul>
             </div>
 
@@ -76,36 +74,51 @@
                     <div class="panel-group" id="checkboxAccordion"></div>
                   </div>
                   
-                  <div class="col-md-6">
-                    <div class="form-group">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-btn">
+                            <button class="btn btn-default navigation-arrow" id="refPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          </div>
+                          <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE" disabled>
+                          <div class="input-group-btn">
+                            <button class="btn btn-default navigation-arrow" id="refNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                            <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          </div>
+                        </div>
 
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE" disabled>
-                        <div class="input-group-btn">
-                          <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                        <div class="input-group">
+                          <div class="input-group-btn">
+                            <button class="btn btn-default navigation-arrow" id="currPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          </div>
+                          <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT" disabled>
+                          <div class="input-group-btn">
+                            <button class="btn btn-default navigation-arrow" id="currNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                            <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                            </div>
                         </div>
                       </div>
-
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT" disabled>
-                        <div class="input-group-btn">
-                          <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
-                          </div>
-                      </div>
-                      <div class="col-md-offset-8 col-md-4">
-                        <label class="checkbox">
-                          <input type="checkbox" id="comparisonModeEnabled" checked disabled>Enable comparison mode
-                        </label>
-                      </div>
                     </div>
-                </div>
-                <div class="col-md-2">
-                  <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
-                  <button class="btn btn-warning" id="link-me">
-                    <span class="glyphicon glyphicon-floppy-disk"></span> Link Me!
-                  </button>
-                
-                </div>
+                    <div class="row">
+                      <div class="col-md-6">
+<!--                         <label class="checkbox">
+                          <input type="checkbox" id="comparisonModeEnabled" checked disabled>Enable comparison mode
+                        </label> -->
+                      </div>
+
+                      <div class="col-md-offset-4 col-md-2">
+                        <!-- <input id="linkme" type="button" value="Link Me" class="btn btn-warning link-me"/> -->
+                        <button class="btn btn-warning" id="link-me" style="width: 100%">
+                          <span class="glyphicon glyphicon-floppy-disk"></span> Link Me!
+                        </button>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
               </div>
 
             </div>
@@ -119,7 +132,7 @@
     <div class="panel-footer">
       <a data-toggle="collapse" href="#jumbotronCollapse">
         <button class="btn btn-primary" id="hideUnhideMenu" >
-          <span class="glyphicon glyphicon-cog"></span>
+          <span class="glyphicon glyphicon-menu-up"></span>
         </button>
       </a>
     </div>

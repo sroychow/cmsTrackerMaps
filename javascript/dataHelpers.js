@@ -6,18 +6,30 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
                             "<div class='row'>" +
                                 "<div class='col-md-6' style=''>" +
                                      "<div class='panel panel-default'>" +   
-                                        "<div class='panel-heading'>" + "Reference" + "</div>" +
+                                        "<div class='panel-heading'>" +
+                                            "<div class='row'>" + 
+                                                "<div class='col-md-6'>" + 
+                                                    "Reference" + 
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>" +
                                         "<div class='panel-body refCol'></div>" +
                                     "</div>"+
                                 "</div>" + 
                                 "<div class='col-md-6' style=''>" + 
                                     "<div class='panel panel-default'>" +   
                                         "<div class='panel-heading'>" + 
-                                            "Current" + 
-                                            "<label class='checkbox' style='display: none'>" + 
-                                                "<input type='checkbox' class='toggleDifferenceView'>" + 
-                                                    "Toggle diff" + 
-                                            "</label>" +
+                                            "<div class='row'>" + 
+                                                "<div class='col-md-6'>" + 
+                                                    "Current" +
+                                                "</div>" +
+                                                "<div class='col-md-6' style='text-align: right; padding-right: 5%'>" + 
+                                                    "<label class='checkbox' style='display: none'>" + 
+                                                        "<input type='checkbox' class='toggleDifferenceView'>" + 
+                                                        "Toggle diff" + 
+                                                    "</label>" + 
+                                                "</div>" +
+                                            "</div>" +
                                         "</div>" +
                                         "<div class='panel-body currCol'></div>" +
                                         "<div class='panel-body diffCol' style='display: none'></div>" +
@@ -78,7 +90,7 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
 
             $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
             $("#" + id + " .toggleDifferenceView").change(function(e) {
-                var refCol = $(this).closest(".row").find(".refCol");
+                var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
 
                 $(this).closest(".panel").find(".currCol").toggle();
                 $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
@@ -92,7 +104,7 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
                 for (i = 0; i < objs.length; ++i)
                 {
                     // alert($(objs[i]));
-                    var refCol = $(objs[i]).closest(".row").find(".refCol");
+                    var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
                     // alert(refCol.height());
                     $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
                 }
@@ -122,33 +134,29 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
 
               attachWheelZoomListeners('#' + id);
 
-            },'html');    
+            },'html');
 
-            // $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
-            $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe id='myID' src='" + currsrc + "' ></iframe></div>");
+            $.get(currsrc, function(html_string)
+            {
+              $('#' + id + ' .currCol').append("<div id='" + id + "Curr'><div style='overflow: hidden;'>" + html_string + "</div></div>");
 
-            var iFr = $("#" + id + "Curr").find("iframe");
-            // alert(iFr.contents().find("body").find("img").attr("src"));
-            iFr.contents().find("body").css('overflow', 'hidden');
+              var fullPath = $("#currRunNumberInput").val();
+              var thisSrc = $("#" + id + "Curr img").attr("src");
 
-            // $("iframe").on("load", function () {
-            //     console.log("iframe::load");
+              $("#" + id + "Curr img").attr("src", fullPath + thisSrc).css("width", "100%").parent().addClass("imgRef");
 
-            //     $(this).css("width", $(this).contents().width());
-            //     $(this).css("height", $(this).contents().height());
-            //     console.log($(this).contents().width());
+              attachWheelZoomListeners('#' + id);
 
-            //     parentID = $(this).parent().attr("id");
+            },'html');
 
-            //     $("#" + parentID).scroll(function(){
-            //         var sl = $(this).scrollLeft();
-            //         var st = $(this).scrollTop();
+            // attachWheelZoomListeners('#' + id);
 
-            //         console.log(st + " " + sl);
+            // // $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
+            // $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe id='myID' src='" + currsrc + "' ></iframe></div>");
 
-            //         $(this).parent().siblings("div").first().children("div").first().scrollLeft(sl).scrollTop(st);
-            //     });
-            // });
+            // var iFr = $("#" + id + "Curr").find("iframe");
+            // // alert(iFr.contents().find("body").find("img").attr("src"));
+            // iFr.contents().find("body").css('overflow', 'hidden');
             
         break;
 
@@ -163,16 +171,61 @@ function disableCheckboxes(name, disable) {
     });
 }
 
-function buildFileNameWithRunNr(name, extension) { 
-  var tmpnr = name.replace(/[^0-9]/g, '');
-  var runnr = tmpnr.substr(tmpnr.length - 6);
-
+function buildFileNameWithRunNr(name, extension) {
+  var runnr = getRunNumberFromString(name);
   var tmp = name.split('.');
   var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
-
   return ret;
 }
 
+function getRunNumberFromString(path) {
+    var tmpnr = path.replace(/[^0-9]/g, '');
+    var runnr = tmpnr.substr(tmpnr.length - 6);
+    return runnr;
+}
+
+// TODO this garbage
+function getOtherRun(id, direction) {
+    var path = $('#' + id).val();
+
+    var curr_run_str = getRunNumberFromString(path);
+    var curr_run_str_high = curr_run_str.substr(0, 3);
+
+    var curr_run_nr = Number(curr_run_str);
+
+    var limit = curr_run_nr + direction * 1000;
+
+    // Don't limit it to only 'round numbers', allow simple curr + 1000
+    // var limit = Math.floor(curr_run_nr / 1000);
+    // limit += direction;
+    // limit *= 1000;
+    // limit -= direction;
+
+// todo: tomorrow.
+    // var range = //this demends on dif//
+
+    // for(i=0; i<range; ++i) { 
+
+    // }
+
+    for(i=curr_run_nr+direction; direction==1 ? i<=limit : i>=limit; i+=direction) {
+
+        var newPath = path.replace(curr_run_str, i).replace(curr_run_str_high + "/", Math.floor(i/1000) + "/");
+        console.log(newPath);
+
+        if(UrlExists(newPath) == true) {
+            console.log("FOUND!");
+            // var path =
+            $('#' + id).val(newPath);
+
+            // $("#link-me").click();
+
+            // TODO: fix that function...
+            $("#dataBrowseOKbtn").click();
+            break;
+        }
+    }
+}
 
 function attachWheelZoomListeners(sectionToLookIn) {
 
@@ -289,4 +342,12 @@ function getConfigInfoFromName(name) {
       }
     }
   }
+}
+
+function UrlExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
 }
