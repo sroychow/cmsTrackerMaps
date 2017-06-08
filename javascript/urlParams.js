@@ -15,9 +15,8 @@ function decodeOptions() {
     var currPath = decodeTextfield("currRunNumberInput");
 
     decodeCheckboxes(refPath, currPath);
-    decodeDiffVisibility();
-
     decodeSelectedMap();    
+    decodeDiffVisibility();
 }
 
 // -------------- Checkbox --------------
@@ -70,6 +69,7 @@ function decodeSelectedMap() {
     $('#' + getUrlParameter("mapSelect")).click();
 }
 
+//FIXME : DELETE THIS SHIT IF UNABLE TO FIX THE ASYNC RELOADING ISSUE 
 // -------------- Diff On/Off --------------
 function encodeDiffVisibilty() {
   var ret = "&diffVis=";
@@ -79,8 +79,12 @@ function encodeDiffVisibilty() {
 
 function decodeDiffVisibility() {
   var isVisible = getUrlParameter("diffVis") === "true";
+  $('.toggleDifferenceView').attr('checked', isVisible);
+  
   if(isVisible) {
-    $('.toggleDifferenceView').click();
+    $('.currCol').toggle();
+    var h = $('.refCol').height();
+    $('.diffCol').toggle().css("height", h);
   }
 } 
 

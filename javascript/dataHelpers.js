@@ -4,12 +4,6 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
     if (isChecked == true) {
         var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style=''>" + 
                             "<div class='row'>" +
-                                // "<div class='col-md-1'>" +
-                                    // "<button class='btn btn-warning toggleDifferenceView'>" +
-                                    //     "<span class='glyphicon glyphicon-duplicate'></span> Diff View!" +
-                                    // "</button>"+
-                                    // "<label class='checkbox'><input type='checkbox' class='panel-extend-checkbox toggleDifferenceView'>Toggle diff</label>" +
-                                // "</div>"+
                                 "<div class='col-md-6' style=''>" +
                                      "<div class='panel panel-default'>" +   
                                         "<div class='panel-heading'>" + "Reference" + "</div>" +
@@ -20,34 +14,23 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
                                     "<div class='panel panel-default'>" +   
                                         "<div class='panel-heading'>" + 
                                             "Current" + 
-                                            "<label class='checkbox'>" + 
-                                                "<input type='checkbox' class='panel-extend-checkbox toggleDifferenceView'>" + 
+                                            "<label class='checkbox' style='display: none'>" + 
+                                                "<input type='checkbox' class='toggleDifferenceView'>" + 
                                                     "Toggle diff" + 
                                             "</label>" +
                                         "</div>" +
                                         "<div class='panel-body currCol'></div>" +
-                                    "</div>"+
-                                "</div>" + 
-                                "<div class=' col-md-4 col-lg-6 col-lg-offset-3' style='display: none'>" + 
-                                    "<div class='panel panel-default'>" +   
-                                        "<div class='panel-heading'>" + "Difference" + "</div>" +
-                                        "<div class='panel-body diffCol'></div>" +
+                                        "<div class='panel-body diffCol' style='display: none'></div>" +
                                     "</div>"+
                                 "</div>" + 
                             "</div>" +
                         "</div>";
         $(".extandable-tab-list-content").append(newInput);
 
-        newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).parent().text() + "</a></li>";
+        newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
         $(".extandable-tab-list-ref").append(newInput);
 
-        var info = getConfigInfoFromName($('#' + id).attr('label'));
-        var fileName = info.res;
-        var emptyMap = info.map;
-
-        var fileExt =  fileName.substr(fileName.lastIndexOf('.') + 1);
-
-        addToComparisonView(currID, refPath, currPath, fileName, fileExt, emptyMap);
+        addToComparisonView(id, currID, refPath, currPath);
 
     } else {
         $("#" + currID).remove();
@@ -55,7 +38,11 @@ function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
     }
 }
 
-function addToComparisonView(id, rsrc, csrc, filename, ext, emptyMap) {
+function addToComparisonView(nrid, id, rsrc, csrc) {
+    var info = getConfigInfoFromName($('#' + nrid).attr('label'));
+    var filename = info.res;
+    var emptyMap = info.map;
+    var ext = filename.substr(filename.lastIndexOf('.') + 1);
 
     var refsrc  = rsrc + filename;
     var currsrc = csrc + filename;
@@ -87,7 +74,29 @@ function addToComparisonView(id, rsrc, csrc, filename, ext, emptyMap) {
                                         </div>\
                                     </div>");
                                                                   
-            attachWheelZoomListeners('#' + id);                                                 
+            attachWheelZoomListeners('#' + id);  
+
+            $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
+            $("#" + id + " .toggleDifferenceView").change(function(e) {
+                var refCol = $(this).closest(".row").find(".refCol");
+
+                $(this).closest(".panel").find(".currCol").toggle();
+                $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
+            });
+
+            $(window).resize(function() {
+
+                // HANDLE CHANGE OF THE REFERENCE TAB SIZE FOR DIFFERENCE VIEW
+                var objs = $(".toggleDifferenceView")
+
+                for (i = 0; i < objs.length; ++i)
+                {
+                    // alert($(objs[i]));
+                    var refCol = $(objs[i]).closest(".row").find(".refCol");
+                    // alert(refCol.height());
+                    $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
+                }
+            });
 
         break;
 
@@ -218,6 +227,10 @@ function attachWheelZoomListeners(sectionToLookIn) {
     var $panzoom2 = setPanzoomParams('.imgCurr');
     linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
     linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
+
+    var $panzoom2 = setPanzoomParams('.imgDiff');
+    linkZoom($section, $panzoom2,'.imgDiff', ".diffCol .imgDiff", ".refCol .imgRef");
+    linkZoom($section, $panzoom2,'.imgDiff', ".diffCol .imgDiff", ".currCol .imgCurr");
 }
 
 

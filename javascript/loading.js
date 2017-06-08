@@ -19,24 +19,6 @@ $(document).ready(function() {
         alert('Link created, ready to share your findings!\n');
     });
 
-    $(".toggleDifferenceView").change(function(e) {
-        $('.refCol').closest(".panel").parent().toggleClass("col-md-6").toggleClass("col-md-4 col-lg-6");
-        $('.currCol').closest(".panel").parent().toggleClass("col-md-6").toggleClass("col-md-4 col-lg-6");
-        // $('.diffCol').toggle();
-
-        $('.diffCol').closest(".panel").parent().toggle().css("height", $('.refCol').closest(".panel").parent().height() + 5);
-        // $('.diffCol').closest(".panel").css("height", $('.refCol').closest(".panel").parent().height() + 5);
-
-    });
-
-    $( window ).resize(function() {
-
-        var refHeight = $('.refCol').closest(".panel").parent().height() + 5;
-
-        $('.diffCol').closest(".panel").parent().css("height", refHeight);
-        // $('.diffCol').closest(".panel").css("height", refHeight);
-    });
-
     $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function() {
         $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
         $("#myModal").modal();

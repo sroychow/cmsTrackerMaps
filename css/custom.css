@@ -89,11 +89,12 @@ iframe{
 .extandable-tab-list-content .panel{
 	padding: 0;
 	margin: 0;
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .extandable-tab-list-content .panel .panel-heading{
-	padding: 2;
+	padding: 2px;
+	text-align: center;
 }
 
 .extandable-tab-list-content .panel .panel-heading label{
