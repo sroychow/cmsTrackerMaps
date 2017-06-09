@@ -24,25 +24,19 @@ $(document).ready(function() {
         $("#myModal").modal();
     });
 
-    // $("#currNext").click(function() {
-    //     getOtherRun("currRunNumberInput", 1);
-    // });
-    // $("#currPrev").click(function() {
-    //     getOtherRun("currRunNumberInput", -1);
-    // });
-
     $(".navigation-arrow").click(function(o){
         var callerID = "currRunNumberInput";
-        var diff = 1;
-        if ($(this).attr("id").startsWith("ref"))
-        {
+        var direction = 1;
+
+        if ($(this).attr("id").startsWith("ref")) {
             callerID = "refRunNumberInput";           
         }
-        if ($(this).attr("id").endsWith("Prev"))
-        {
-            diff = -1;
+
+        if ($(this).attr("id").endsWith("Prev")) {
+            direction = -1;
         }
-        getOtherRun(callerID, diff);
+
+        getNeighbourRun(callerID, direction);
     });
 
     $("#dataBrowseOKbtn").click(function() {
@@ -51,19 +45,7 @@ $(document).ready(function() {
 
         inputObj.val(pathToPaste);
 
-        var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
-
-        $("#checkboxAccordion input:checked").each(function() {
-            var id = $(this).attr("id");
-
-            var refPath = $('#refRunNumberInput').val();
-            var currPath = $('#currRunNumberInput').val();
-
-            AddRmTkMapPanel(id, false, refPath, currPath);
-            AddRmTkMapPanel(id, true, refPath, currPath);
-        });
-
-        $('#' + activeTabID).click();
+        reloadCheckedTabs();
 
         disableCheckboxes("checkboxAccordion", false);
     });

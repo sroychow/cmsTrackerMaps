@@ -184,47 +184,34 @@ function getRunNumberFromString(path) {
     return runnr;
 }
 
-// TODO this garbage
-function getOtherRun(id, direction) {
+function reloadCheckedTabs()
+{
+    var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
+
+    $("#checkboxAccordion input:checked").each(function() {
+        var id = $(this).attr("id");
+
+        var refPath = $('#refRunNumberInput').val();
+        var currPath = $('#currRunNumberInput').val();
+
+        AddRmTkMapPanel(id, false, refPath, currPath);
+        AddRmTkMapPanel(id, true, refPath, currPath);
+    });
+
+    $('#' + activeTabID).click();
+}
+
+function getNeighbourRun(id, direction) {
     var path = $('#' + id).val();
 
     var curr_run_str = getRunNumberFromString(path);
-    var curr_run_str_high = curr_run_str.substr(0, 3);
 
-    var curr_run_nr = Number(curr_run_str);
-
-    var limit = curr_run_nr + direction * 1000;
-
-    // Don't limit it to only 'round numbers', allow simple curr + 1000
-    // var limit = Math.floor(curr_run_nr / 1000);
-    // limit += direction;
-    // limit *= 1000;
-    // limit -= direction;
-
-// todo: tomorrow.
-    // var range = //this demends on dif//
-
-    // for(i=0; i<range; ++i) { 
-
-    // }
-
-    for(i=curr_run_nr+direction; direction==1 ? i<=limit : i>=limit; i+=direction) {
-
-        var newPath = path.replace(curr_run_str, i).replace(curr_run_str_high + "/", Math.floor(i/1000) + "/");
-        console.log(newPath);
-
-        if(UrlExists(newPath) == true) {
-            console.log("FOUND!");
-            // var path =
-            $('#' + id).val(newPath);
-
-            // $("#link-me").click();
-
-            // TODO: fix that function...
-            $("#dataBrowseOKbtn").click();
-            break;
+    $.post('php/loadNeighbourRun.php', { dir : path, startRunNumber : curr_run_str, direction : direction }, 
+        function(data) {
+            $('#' + id).val(data);
+            reloadCheckedTabs();
         }
-    }
+    );
 }
 
 function attachWheelZoomListeners(sectionToLookIn) {
