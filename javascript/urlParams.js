@@ -9,12 +9,10 @@ function encodeOptions() {
 }
 
 function decodeOptions() {
-
     var refPath = decodeTextfield("refRunNumberInput");
     var currPath = decodeTextfield("currRunNumberInput");
-
     decodeCheckboxes(refPath, currPath);
-    decodeSelectedMap();    
+    decodeSelectedMap();
 }
 
 // -------------- Checkbox --------------
@@ -34,7 +32,7 @@ function decodeCheckboxes(refPath, currPath) {
     for (var group in mapDescriptions) {
         for (var elem in mapDescriptions[group]) {
             var val = getUrlParameter("checkbox" + checkboxID) === "true";
-            AddRmTkMapPanel(checkboxID, val, refPath, currPath);   
+            addRmTkMapPanel(checkboxID, val, refPath, currPath);
             $('#' + checkboxID).attr('checked', val);
             ++checkboxID;
         }
@@ -52,7 +50,6 @@ function decodeTextfield(name) {
     var txt = getUrlParameter(name);
     $('#' + name).val(txt);
     $('#' + name).trigger('change');
-
     return txt;
 }
 

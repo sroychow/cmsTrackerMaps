@@ -1,42 +1,8 @@
-function AddRmTkMapPanel(id, isChecked, refPath, currPath) {
+function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     var currID = "inputCheckBoxPanel" + id;
 
     if (isChecked == true) {
-        var newInput = "<div id='" + currID + "' class='tab-pane fade extandable-tab-list-element' style=''>" + 
-                            "<div class='row'>" +
-                                "<div class='col-md-6' style=''>" +
-                                     "<div class='panel panel-default'>" +   
-                                        "<div class='panel-heading'>" +
-                                            "<div class='row'>" + 
-                                                "<div class='col-md-6'>" + 
-                                                    "Reference" + 
-                                                "</div>" +
-                                            "</div>" +
-                                        "</div>" +
-                                        "<div class='panel-body refCol'></div>" +
-                                    "</div>"+
-                                "</div>" + 
-                                "<div class='col-md-6' style=''>" + 
-                                    "<div class='panel panel-default'>" +   
-                                        "<div class='panel-heading'>" + 
-                                            "<div class='row'>" + 
-                                                "<div class='col-md-6'>" + 
-                                                    "Current" +
-                                                "</div>" +
-                                                "<div class='col-md-6' style='text-align: right; padding-right: 5%'>" + 
-                                                    "<label class='checkbox' style='display: none'>" + 
-                                                        "<input type='checkbox' class='toggleDifferenceView'>" + 
-                                                        "Toggle diff" + 
-                                                    "</label>" + 
-                                                "</div>" +
-                                            "</div>" +
-                                        "</div>" +
-                                        "<div class='panel-body currCol'></div>" +
-                                        "<div class='panel-body diffCol' style='display: none'></div>" +
-                                    "</div>"+
-                                "</div>" + 
-                            "</div>" +
-                        "</div>";
+        var newInput = buildPanelContentString(currID);
         $(".extandable-tab-list-content").append(newInput);
 
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
@@ -72,15 +38,15 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
 
 
             $('#' + id + ' .refCol').html("<div class='imgContainer'>\
-                                               <img class='imgRef' src='"   + refFinal  + "' style='width: 100%;'/>\
+                                               <img class='imgRef' src='"   + refFinal  + "'/>\
                                             </div>");
 
             $('#' + id + ' .currCol').html("<div class='imgContainer'>\
-                                               <img class='imgCurr' src='" + currFinal + "' style='width: 100%;'/>\
+                                               <img class='imgCurr' src='" + currFinal + "'/>\
                                             </div>");
 
             $('#' + id + " .diffCol").append("\
-                                    <div style='height: 100%; overflow: hidden' class='imgContainer '>\
+                                    <div  class='imgContainer '>\
                                         <div class='imgDiffWrapper imgDiff' style='background-image: url(\"" + refFinal + "\"), url(\"" + currFinal + "\")'>\
                                             <div class='cleanRef ' style='background-image: url(\"" + emptyMap + "\")'></div>\
                                         </div>\
@@ -91,21 +57,15 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
             $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
             $("#" + id + " .toggleDifferenceView").change(function(e) {
                 var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
-
                 $(this).closest(".panel").find(".currCol").toggle();
                 $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
             });
 
+
             $(window).resize(function() {
-
-                // HANDLE CHANGE OF THE REFERENCE TAB SIZE FOR DIFFERENCE VIEW
                 var objs = $(".toggleDifferenceView")
-
-                for (i = 0; i < objs.length; ++i)
-                {
-                    // alert($(objs[i]));
+                for (i = 0; i < objs.length; ++i) {
                     var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
-                    // alert(refCol.height());
                     $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
                 }
             });
@@ -120,44 +80,6 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
         case "log": 
             $('#' + id + ' .refCol').html("<object data='" + refsrc + "' />");
             $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
-        break;
-
-        case "html":
-            $.get(refsrc, function(html_string)
-            {
-              $('#' + id + ' .refCol').append("<div id='" + id + "Ref'><div style='overflow: hidden;'>" + html_string + "</div></div>");
-
-              var fullPath = $("#refRunNumberInput").val();
-              var thisSrc = $("#" + id + "Ref img").attr("src");
-
-              $("#" + id + "Ref img").attr("src", fullPath + thisSrc).css("width", "100%").parent().addClass("imgRef");
-
-              attachWheelZoomListeners('#' + id);
-
-            },'html');
-
-            $.get(currsrc, function(html_string)
-            {
-              $('#' + id + ' .currCol').append("<div id='" + id + "Curr'><div style='overflow: hidden;'>" + html_string + "</div></div>");
-
-              var fullPath = $("#currRunNumberInput").val();
-              var thisSrc = $("#" + id + "Curr img").attr("src");
-
-              $("#" + id + "Curr img").attr("src", fullPath + thisSrc).css("width", "100%").parent().addClass("imgRef");
-
-              attachWheelZoomListeners('#' + id);
-
-            },'html');
-
-            // attachWheelZoomListeners('#' + id);
-
-            // // $('#' + id + ' .refCol').append("<div id='" + id + "Ref' ><iframe src='" + refsrc + "' ></iframe></div>");
-            // $('#' + id + ' .currCol').append("<div id='" + id + "Curr' ><iframe id='myID' src='" + currsrc + "' ></iframe></div>");
-
-            // var iFr = $("#" + id + "Curr").find("iframe");
-            // // alert(iFr.contents().find("body").find("img").attr("src"));
-            // iFr.contents().find("body").css('overflow', 'hidden');
-            
         break;
 
         default: 
@@ -194,8 +116,8 @@ function reloadCheckedTabs()
         var refPath = $('#refRunNumberInput').val();
         var currPath = $('#currRunNumberInput').val();
 
-        AddRmTkMapPanel(id, false, refPath, currPath);
-        AddRmTkMapPanel(id, true, refPath, currPath);
+        addRmTkMapPanel(id, false, refPath, currPath);
+        addRmTkMapPanel(id, true, refPath, currPath);
     });
 
     $('#' + activeTabID).click();
@@ -215,18 +137,15 @@ function getNeighbourRun(id, direction) {
 }
 
 function attachWheelZoomListeners(sectionToLookIn) {
-
-    var $section = $(sectionToLookIn);
-
     // ---------------- Helper Functions ----------------
 
     function assignTransform(section, master, slave) {
-        var trans = $section.find(master).css("transform");
-        $section.find(slave).css("transform", trans);
+        var trans = section.find(master).css("transform");
+        section.find(slave).css("transform", trans);
     }
 
-    function setPanzoomParams(elem) {
-        return $section.find(elem).panzoom({
+    function setPanzoomParams(section, elem) {
+        return section.find(elem).panzoom({
             startTransform: 'scale(1)',
             maxScale: 10,
             minScale: 1,
@@ -235,13 +154,7 @@ function attachWheelZoomListeners(sectionToLookIn) {
         });
     }
 
-    function setPanzoomParams2(elem) {
-        return $section.find(elem).panzoom({
-            contain: 'automatic'
-        });
-    }
-
-    function linkZoom(sec, pz, master, src, dst) {
+    function linkZoom(section, pz, master, src, dst) {
       pz.parent().on('mousewheel.focal', function(e) {
           e.preventDefault();
           var delta = e.delta || e.originalEvent.wheelDelta;
@@ -251,26 +164,27 @@ function attachWheelZoomListeners(sectionToLookIn) {
               focal: e
           });
 
-        assignTransform(sec, src, dst);
+        assignTransform(section, src, dst);
       });
-      sec.find(master).parent().on("mouseup pointerup",function(e) {
-          assignTransform(sec, src, dst);
+      section.find(master).parent().on("mouseup pointerup",function(e) {
+          assignTransform(section, src, dst);
       });
     }
 
     // ---------------- Start doing stuff here ----------------
+    var $section = $(sectionToLookIn);
 
-    var $panzoom = setPanzoomParams('.imgRef');
-    linkZoom($section, $panzoom,'.imgRef' , ".refCol .imgRef", ".currCol .imgCurr");
-    linkZoom($section, $panzoom,'.imgRef' , ".refCol .imgRef", ".diffCol .imgDiff");
+    var $pz1 = setPanzoomParams($section, '.imgRef');
+    linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".currCol .imgCurr");
+    linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".diffCol .imgDiff");
 
-    var $panzoom2 = setPanzoomParams('.imgCurr');
-    linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
-    linkZoom($section, $panzoom2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
+    var $pz2 = setPanzoomParams($section, '.imgCurr');
+    linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
+    linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
 
-    var $panzoom2 = setPanzoomParams('.imgDiff');
-    linkZoom($section, $panzoom2,'.imgDiff', ".diffCol .imgDiff", ".refCol .imgRef");
-    linkZoom($section, $panzoom2,'.imgDiff', ".diffCol .imgDiff", ".currCol .imgCurr");
+    var $pz3 = setPanzoomParams($section, '.imgDiff');
+    linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".refCol .imgRef");
+    linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".currCol .imgCurr");
 }
 
 
@@ -280,9 +194,9 @@ function loadCheckboxes() {
     for (var group in mapDescriptions) {
         if (mapDescriptions.hasOwnProperty(group)) {
 
-            var newPanelObject = "<div class='panel panel-default' style='margin-top:0'>" +
+            var newPanelObject = "<div class='panel panel-default'>" +
                 "     <a data-toggle='collapse' data-parent='#checkboxAccordion' href='#listCollapse" + row + "'>" +
-                "       <button class='btn btn-default' style='width: 100%;text-align:left;'>" +
+                "       <button class='btn btn-default btn-block'>" +
                 "         <span class='glyphicon glyphicon-menu-right'></span> " + group +
                 "       </button>" +
                 "     </a>" +
@@ -331,10 +245,40 @@ function getConfigInfoFromName(name) {
   }
 }
 
-function UrlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
+function buildPanelContentString(id) { 
+return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" + 
+"<div class='row'>" +
+    "<div class='col-md-6'>" +  
+        "<div class='panel panel-default'>" +   
+            "<div class='panel-heading'>" +
+                "<div class='row'>" + 
+                    "<div class='col-md-6'>" + 
+                    "Reference" + 
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+            "<div class='panel-body refCol'></div>" +
+            "</div>"+
+        "</div>" + 
+        "<div class='col-md-6'>" + 
+            "<div class='panel panel-default'>" +   
+                "<div class='panel-heading'>" + 
+                    "<div class='row'>" + 
+                        "<div class='col-md-6'>" + 
+                        "Current" +
+                        "</div>" +
+                    "<div class='col-md-6 currColRightHeading'>" + 
+                    "<label class='checkbox'>" + 
+                    "<input type='checkbox' class='toggleDifferenceView'>" + 
+                    "Toggle diff" + 
+                    "</label>" + 
+                "</div>" +
+            "</div>" +
+        "</div>" +
+        "<div class='panel-body currCol'></div>" +
+            "<div class='panel-body diffCol'></div>" +
+            "</div>"+
+        "</div>" + 
+    "</div>" +
+"</div>";  
 }
