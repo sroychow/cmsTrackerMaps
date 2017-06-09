@@ -61,15 +61,6 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
                 $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
             });
 
-
-            $(window).resize(function() {
-                var objs = $(".toggleDifferenceView")
-                for (i = 0; i < objs.length; ++i) {
-                    var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
-                    $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
-                }
-            });
-
         break;
 
         case "txt":
@@ -246,6 +237,15 @@ function getConfigInfoFromName(name) {
     }
   }
 }
+
+// allows for proper difference view scaling
+$(window).resize(function() {
+    var objs = $(".toggleDifferenceView");
+    for (i = 0; i < objs.length; ++i) {
+        var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
+        $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
+    }
+});
 
 function buildPanelContentString(id) { 
 return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" + 
