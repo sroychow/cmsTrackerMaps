@@ -5,8 +5,8 @@ $(document).ready(function() {
 
     $(".panel-extend-checkbox").on('click', function(e) {
 
-        var refPath = $('#refRunNumberInput').val();
-        var currPath = $('#currRunNumberInput').val();
+        var refPath = $('#refRunPath').val();
+        var currPath = $('#currRunPath').val();
 
         addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
         console.log($(this).parent().text());
@@ -16,20 +16,20 @@ $(document).ready(function() {
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.location.href = url + encodeOptions();
 
-        alert('Link created, ready to share your findings!\n');
+        // alert('Link created, ready to share your findings!\n');
     });
 
-    $("#refRunNumberInputBrowse, #currRunNumberInputBrowse").click(function() {
+    $("#refRunPathBrowse, #currRunPathBrowse").click(function() {
         $("#runNumberInputBrowseCaller").val($(this).attr('data-ref'));
         $("#myModal").modal();
     });
 
     $(".navigation-arrow").click(function(o){
-        var callerID = "currRunNumberInput";
+        var callerID = "currRunPath";
         var direction = 1;
 
         if ($(this).attr("id").startsWith("ref")) {
-            callerID = "refRunNumberInput";
+            callerID = "refRunPath";
         }
 
         if ($(this).attr("id").endsWith("Prev")) {
@@ -57,7 +57,7 @@ $(document).ready(function() {
         $("#runNumberInputBrowseCaller").attr("data-path", file.split("users")[1]);
     });
 
-    if($('#refRunNumberInput').val() === "" && $('#currRunNumberInput').val() === "") {
+    if($('#refRunPath').val() === "" && $('#currRunPath').val() === "") {
         disableCheckboxes("checkboxAccordion", true);
     }
 

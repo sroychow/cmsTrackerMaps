@@ -2,15 +2,15 @@
 function encodeOptions() {
     var ret = "?link=true";
     ret += encodeCheckboxes("checkboxAccordion");
-    ret += encodeTextfield("refRunNumberInput");
-    ret += encodeTextfield("currRunNumberInput");
+    ret += encodeTextfield("refRunPath");
+    ret += encodeTextfield("currRunPath");
     ret += encodeSelectedMap();
     return ret;
 }
 
 function decodeOptions() {
-    var refPath = decodeTextfield("refRunNumberInput");
-    var currPath = decodeTextfield("currRunNumberInput");
+    var refPath = decodeTextfield("refRunPath");
+    var currPath = decodeTextfield("currRunPath");
     decodeCheckboxes(refPath, currPath);
     decodeSelectedMap();
 }

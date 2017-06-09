@@ -17,15 +17,15 @@
 </header>
 
 <body>
-  <div class="alert alert-info fade in" style="text-align: center">
+  <div class="alert alert-info fade in">
     <strong>Bug, Comment, Suggestion? Send us <a href="mailto:filip.ilic@cern.ch,pawel.jurgielewicz@cern.ch" target="_top" class="alert-link"> an email</a></strong>
     <strong><br>Even better; submit a  <a href="https://github.com/imKuehlschrank/cmsTrackerMaps" class="alert-link">pull request </a> </strong>
   </div>
 
-  <div class="panel-group" style="margin-bottom: 10px">
+  <div class="panel-group">
     <div class="panel panel-default">
       <div id="jumbotronCollapse" class="panel-collapse collapse in">
-        <div class="panel-body" style="padding: 0">        
+        <div class="panel-body">        
           <div class="jumbotron">
             <div class="container" id="optionsPane">
               <div class="row">
@@ -41,10 +41,10 @@
                         <div class="input-group-btn">
                           <button class="btn btn-default navigation-arrow" id="refPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
-                        <input type="text" class="form-control" id="refRunNumberInput" placeholder="REFERENCE" disabled>
+                        <input type="text" class="form-control" id="refRunPath" placeholder="REFERENCE" disabled>
                         <div class="input-group-btn">
                           <button class="btn btn-default navigation-arrow" id="refNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="refRunNumberInputBrowse" data-ref="refRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
 
@@ -52,10 +52,10 @@
                         <div class="input-group-btn">
                           <button class="btn btn-default navigation-arrow" id="currPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
-                        <input type="text" class="form-control" id="currRunNumberInput" placeholder="CURRENT" disabled>
+                        <input type="text" class="form-control" id="currRunPath" placeholder="CURRENT" disabled>
                         <div class="input-group-btn">
                           <button class="btn btn-default navigation-arrow" id="currNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="currRunNumberInputBrowse" data-ref="currRunNumberInput"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
                     </div>
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="col-md-offset-4 col-md-2">
-                      <button class="btn btn-warning" id="link-me" style="width: 100%">
+                      <button class="btn btn-warning btn-block" id="link-me">
                         <span class="glyphicon glyphicon-floppy-disk"></span> Link Me!
                       </button>
                     </div>

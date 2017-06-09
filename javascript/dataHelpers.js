@@ -83,7 +83,7 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
         break;
 
         default: 
-            console.log("Unsupported filetype");
+            console.log("Unsupported filetype: " + ext);
     }
 }
 
@@ -113,8 +113,8 @@ function reloadCheckedTabs()
     $("#checkboxAccordion input:checked").each(function() {
         var id = $(this).attr("id");
 
-        var refPath = $('#refRunNumberInput').val();
-        var currPath = $('#currRunNumberInput').val();
+        var refPath = $('#refRunPath').val();
+        var currPath = $('#currRunPath').val();
 
         addRmTkMapPanel(id, false, refPath, currPath);
         addRmTkMapPanel(id, true, refPath, currPath);
@@ -125,6 +125,8 @@ function reloadCheckedTabs()
 
 function getNeighbourRun(id, direction) {
     var path = $('#' + id).val();
+
+    if (path.length == 0) return;
 
     var curr_run_str = getRunNumberFromString(path);
 
@@ -270,7 +272,7 @@ return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>"
                     "<div class='col-md-6 currColRightHeading'>" + 
                     "<label class='checkbox'>" + 
                     "<input type='checkbox' class='toggleDifferenceView'>" + 
-                    "Toggle diff" + 
+                    "Difference to Reference" + 
                     "</label>" + 
                 "</div>" +
             "</div>" +

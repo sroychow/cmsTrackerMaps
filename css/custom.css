@@ -3,6 +3,10 @@
 	margin-bottom: 20px;
 }
 
+.alert{
+	text-align: center;
+}
+
 #checkboxAccordion .panel{
 	margin-top: 0;
 }
@@ -29,6 +33,10 @@
 
 .modal-content .modal-footer{
 
+}
+
+.panel-group{
+	margin-bottom: 10px;
 }
 
 .panel-group .panel-footer{
@@ -101,7 +109,11 @@
 	padding: 0;
 }
 
-.extandable-tab-list-content .panel .panel-body{
+/*.extandable-tab-list-content .panel .panel-body{
+	padding: 0;
+}*/
+
+.panel-body{
 	padding: 0;
 }
 
