@@ -43,23 +43,23 @@ var mapDescriptions =
 
   "PIXEL":
   [
-    {"name" : "Tcharge",                    "resource" :"Tcharge.png",                  "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Thitefficiency",             "resource" :"Thitefficiency.png",           "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tmissing",                   "resource" :"Tmissing.png",                 "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tnum_clusters_ontrack",      "resource" :"Tnum_clusters_ontrack.png",    "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tresidual_x",                "resource" :"Tresidual_x.png",              "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tresidual_y",                "resource" :"Tresidual_y.png",              "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tsize",                      "resource" :"Tsize.png",                    "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Tvalid",                     "resource" :"Tvalid.png",                   "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "adc",                        "resource" :"adc.png",                      "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "num_clusters",               "resource" :"num_clusters.png",             "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "num_digis",                  "resource" :"num_digis.png",                "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "size",                       "resource" :"size.png",                     "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "charge",                     "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Trechitsize_x",              "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Trechitsize_y",              "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "minmax",                     "resource" :"minmax.out"                                               },
-    {"name" : "PixZeroOccROCs",             "resource" :"PixZeroOccROCs_run.txt"                                    }
+    {"name" : "Cluster Charge On Track",                 "resource" :"Tcharge.png",                  "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Hits Efficiency",                         "resource" :"Thitefficiency.png",           "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Missing Hits",                            "resource" :"Tmissing.png",                 "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Number of Clusters On-track",             "resource" :"Tnum_clusters_ontrack.png",    "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Residual X",                              "resource" :"Tresidual_x.png",              "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Residual Y",                              "resource" :"Tresidual_y.png",              "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Cluster Size On Track",                   "resource" :"Tsize.png",                    "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Number of Valid Hits",                    "resource" :"Tvalid.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Digi ADC",                                "resource" :"adc.png",                      "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Total Number of Clusters",                "resource" :"num_clusters.png",             "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Total Number of Digis",                   "resource" :"num_digis.png",                "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Inclusive Cluster Size",                  "resource" :"size.png",                     "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Inclusive Cluster Size",                  "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Inclusive Cluster Size",                  "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Inclusive Cluster Size",                  "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Inclusive Cluster Size",                  "resource" :"minmax.out"                                                     },
+    {"name" : "Dead ROCS",                               "resource" :"PixZeroOccROCs_run.txt"                                         }
   ]
 }
 
