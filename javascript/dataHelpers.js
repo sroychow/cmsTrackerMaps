@@ -73,6 +73,11 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
             $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
         break;
 
+        case "out":
+            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");
+            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
+        break;
+
         default: 
             console.log("Unsupported filetype: " + ext);
     }

@@ -39,12 +39,33 @@ var mapDescriptions =
     {"name" : "FED errors per modules",                                                     "resource" :"FractionOfBadChannels.png",    "emptyMap" : "img/tkMapEmpty.png"},
     {"name" : "Fraction of bad components per module found by the prompt calibration loop", "resource" :"PCLBadComponents.png",         "emptyMap" : "img/tkMapEmpty.png"},
     {"name" : "Type of bad components per module found by the prompt calibration loop",     "resource" :"PCLBadComponents_Run_.png",    "emptyMap" : "img/tkMapEmpty.png"}
+  ],
+
+  "PIXEL":
+  [
+    {"name" : "Tcharge",                    "resource" :"Tcharge.png",                  "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Thitefficiency",             "resource" :"Thitefficiency.png",           "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tmissing",                   "resource" :"Tmissing.png",                 "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tnum_clusters_ontrack",      "resource" :"Tnum_clusters_ontrack.png",    "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tresidual_x",                "resource" :"Tresidual_x.png",              "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tresidual_y",                "resource" :"Tresidual_y.png",              "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tsize",                      "resource" :"Tsize.png",                    "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Tvalid",                     "resource" :"Tvalid.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "adc",                        "resource" :"adc.png",                      "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "num_clusters",               "resource" :"num_clusters.png",             "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "num_digis",                  "resource" :"num_digis.png",                "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "size",                       "resource" :"size.png",                     "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "charge",                     "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Trechitsize_x",              "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Trechitsize_y",              "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "minmax",                     "resource" :"minmax.out"                                               },
+    {"name" : "PixZeroOccROCs",             "resource" :"PixZeroOccROCs_run.txt"                                    }
   ]
 }
 
 
 
-///////////////////////////////// THIS IS THE COMPLETE DATASET INFORMATION AS OF 9.JUNE 2017 ////////////////////////////////
+///////////////////////////////// THIS IS THE COMPLETE DATASET INFORMATION AS OF 16.JUNE 2017 ////////////////////////////////
 
 // var mapDescriptions =
 // {
@@ -87,5 +108,26 @@ var mapDescriptions =
 //     {"name" : "FED errors per modules",                                                     "resource" :"FractionOfBadChannels.png",    "emptyMap" : "img/tkMapEmpty.png"},
 //     {"name" : "Fraction of bad components per module found by the prompt calibration loop", "resource" :"PCLBadComponents.png",         "emptyMap" : "img/tkMapEmpty.png"},
 //     {"name" : "Type of bad components per module found by the prompt calibration loop",     "resource" :"PCLBadComponents_Run_.png",    "emptyMap" : "img/tkMapEmpty.png"}
+//   ],
+
+//   "PIXEL":
+//   [
+//     {"name" : "Tcharge",                    "resource" :"Tcharge.png",                  "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Thitefficiency",             "resource" :"Thitefficiency.png",           "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tmissing",                   "resource" :"Tmissing.png",                 "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tnum_clusters_ontrack",      "resource" :"Tnum_clusters_ontrack.png",    "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tresidual_x",                "resource" :"Tresidual_x.png",              "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tresidual_y",                "resource" :"Tresidual_y.png",              "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tsize",                      "resource" :"Tsize.png",                    "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Tvalid",                     "resource" :"Tvalid.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "adc",                        "resource" :"adc.png",                      "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "num_clusters",               "resource" :"num_clusters.png",             "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "num_digis",                  "resource" :"num_digis.png",                "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "size",                       "resource" :"size.png",                     "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "charge",                     "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Trechitsize_x",              "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "Trechitsize_y",              "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
+//     {"name" : "minmax",                     "resource" :"minmax.out"                                               },
+//     {"name" : "PixZeroOccROCs",             "resource" :"PixZeroOccROCs_run.txt"                                    }
 //   ]
 // }
