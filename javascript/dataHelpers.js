@@ -8,10 +8,21 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
 
     if (isChecked == true) {
         var newInput;
-        if (info.name === "BAD modules from quality tests") {
-            newInput = buildDiffBadModulePanel(currID);
-        } else {
-            newInput = buildPanelContentString(currID);
+
+        switch(ext) {
+            case "png":
+                newInput = buildPanelContentString(currID);
+                break;
+
+            // Same handling for these 3 cases
+            case "txt":
+            case "log":
+            case "out":
+                newInput = buildDiffBadModulePanel(currID);
+                break;
+
+            default:
+                console.log("Unsupported filetype");
         }
 
         $(".extandable-tab-list-content").append(newInput);
@@ -28,6 +39,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
 }
 
 function addToComparisonView(nrid, id, rsrc, csrc) {
+
     var info = getConfigInfoFromName($('#' + nrid).attr('label'));
     var filename = info.res;
     var emptyMap = info.map;
@@ -75,28 +87,27 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
         break;
 
         case "txt":
-            if (info.name === "BAD modules from quality tests") {
-                jQuery.get(buildFileNameWithRunNr(refsrc, ext), function(data) {
-                    $('#refBadModules').val(data);
-                });
+            jQuery.get(buildFileNameWithRunNr(refsrc, ext), function(data) {
+                $('#ref' + id).val(data);});
 
-                jQuery.get(buildFileNameWithRunNr(currsrc, ext), function(data) {
-                    $('#currBadModules').val(data);
-                }); 
-            } else { 
-                $('#' + id + ' .refCol').html("<object data='"  + buildFileNameWithRunNr(refsrc, ext)  + "' />");      
-                $('#' + id + ' .currCol').html("<object data='" + buildFileNameWithRunNr(currsrc, ext) + "' />");    
-            }
+            jQuery.get(buildFileNameWithRunNr(currsrc, ext), function(data) {
+                $('#curr' + id).val(data);}); 
         break;
 
         case "log": 
-            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");      
-            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");   
+            jQuery.get(refsrc, function(data) {
+                $('#ref' + id).val(data);});
+
+            jQuery.get(currsrc, function(data) {
+                $('#curr' + id).val(data);});
         break;
 
         case "out":
-            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");      
-            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");   
+            jQuery.get(refsrc, function(data) {
+                $('#ref' + id).val(data);});
+
+            jQuery.get(currsrc, function(data) {
+                $('#curr' + id).val(data);});
         break;
 
         default: 
@@ -274,14 +285,20 @@ $(window).resize(function() {
 
 
 
-function diffUsingJS(viewType) {
+function diffUsingJS(viewType, elemID) {
+    var refstr = 'ref'+String(elemID);
+    var currstr = 'curr'+String(elemID);
+    var diffstr = 'diff'+String(elemID);
+
+    $('#'+diffstr).toggle();
+
   "use strict";
   var byId = function (id) { return document.getElementById(id); },
-    base = difflib.stringAsLines(byId("refBadModules").value),
-    newtxt = difflib.stringAsLines(byId("currBadModules").value),
+    base = difflib.stringAsLines(byId(refstr).value),
+    newtxt = difflib.stringAsLines(byId(currstr).value),
     sm = new difflib.SequenceMatcher(base, newtxt),
     opcodes = sm.get_opcodes(),
-    diffoutputdiv = byId("diffBadModules"),
+    diffoutputdiv = byId(diffstr),
     contextSize = 0;
 
   diffoutputdiv.innerHTML = "";
@@ -350,7 +367,7 @@ return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>"
                             "</div>" +
                         "</div>" +
                     "</div>" +
-                    "<div class='panel-body'>" +  "<textarea id='refBadModules' readonly></textarea>" + 
+                    "<div class='panel-body'>" +  "<textarea id='ref"+id+"' readonly></textarea>" + 
                     "</div>" +
                 "</div>"+
             "</div>" + 
@@ -364,14 +381,14 @@ return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>"
                             "</div>" +
                         "</div>" +
                     "</div>" +
-                    "<div class='panel-body'>" +  "<textarea id='currBadModules' readonly></textarea>" + 
+                    "<div class='panel-body'>" +  "<textarea id='curr"+id+"' readonly></textarea>" + 
                     "</div>" +
                 "</div>"+
             "</div>" + 
 
             "<div class='viewType'>" + 
-                "<input type='button' value='Side By Side Diff' onclick='diffUsingJS(0);'/>" +
+                "<input type='button' value='Toggle Diff' onclick='diffUsingJS(0,\""+id+"\");'/>" +
             "</div>" + 
-            "<div id='diffBadModules'> </div>" +  
+            "<div id='diff"+id+"' style='display:none;'> </div>" +  
         "</div>";     
 }
