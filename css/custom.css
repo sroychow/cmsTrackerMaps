@@ -121,3 +121,22 @@
 {
 	width: 100%;
 }
+
+/*This is for the diff view of the bad module text file*/
+.textInput {
+  display: block;
+  width: 100%;
+  float: left;
+}
+
+textarea {
+  width:100%;
+  height:300px;
+}
+
+.viewType {
+  font-size: 16px;
+  clear: both;
+  text-align: center;
+  padding: 1em;
+}

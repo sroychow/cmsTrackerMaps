@@ -1,8 +1,19 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     var currID = "inputCheckBoxPanel" + id;
 
+    var info = getConfigInfoFromName($('#' + id).attr('label'));
+    var filename = info.res;
+    var emptyMap = info.map;
+    var ext = filename.substr(filename.lastIndexOf('.') + 1);
+
     if (isChecked == true) {
-        var newInput = buildPanelContentString(currID);
+        var newInput;
+        if (info.name === "BAD modules from quality tests") {
+            newInput = buildDiffBadModulePanel(currID);
+        } else {
+            newInput = buildPanelContentString(currID);
+        }
+
         $(".extandable-tab-list-content").append(newInput);
 
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
@@ -64,18 +75,28 @@ function addToComparisonView(nrid, id, rsrc, csrc) {
         break;
 
         case "txt":
-            $('#' + id + ' .refCol').html("<object data='"  + buildFileNameWithRunNr(refsrc, ext)  + "' />");
-            $('#' + id + ' .currCol').html("<object data='" + buildFileNameWithRunNr(currsrc, ext) + "' />");
+            if (info.name === "BAD modules from quality tests") {
+                jQuery.get(buildFileNameWithRunNr(refsrc, ext), function(data) {
+                    $('#refBadModules').val(data);
+                });
+
+                jQuery.get(buildFileNameWithRunNr(currsrc, ext), function(data) {
+                    $('#currBadModules').val(data);
+                }); 
+            } else { 
+                $('#' + id + ' .refCol').html("<object data='"  + buildFileNameWithRunNr(refsrc, ext)  + "' />");      
+                $('#' + id + ' .currCol').html("<object data='" + buildFileNameWithRunNr(currsrc, ext) + "' />");    
+            }
         break;
 
         case "log": 
-            $('#' + id + ' .refCol').html("<object data='" + refsrc + "' />");
-            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
+            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");      
+            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");   
         break;
 
         case "out":
-            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");
-            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");
+            $('#' + id + ' .refCol').html("<object data='"  + refsrc  + "' />");      
+            $('#' + id + ' .currCol').html("<object data='" + currsrc + "' />");   
         break;
 
         default: 
@@ -136,7 +157,6 @@ function getNeighbourRun(id, direction) {
 
 function attachWheelZoomListeners(sectionToLookIn) {
     // ---------------- Helper Functions ----------------
-
     function assignTransform(section, master, slave) {
         var trans = section.find(master).css("transform");
         section.find(slave).css("transform", trans);
@@ -252,6 +272,34 @@ $(window).resize(function() {
     }
 });
 
+
+
+function diffUsingJS(viewType) {
+  "use strict";
+  var byId = function (id) { return document.getElementById(id); },
+    base = difflib.stringAsLines(byId("refBadModules").value),
+    newtxt = difflib.stringAsLines(byId("currBadModules").value),
+    sm = new difflib.SequenceMatcher(base, newtxt),
+    opcodes = sm.get_opcodes(),
+    diffoutputdiv = byId("diffBadModules"),
+    contextSize = 0;
+
+  diffoutputdiv.innerHTML = "";
+  contextSize = contextSize || null;
+
+  diffoutputdiv.appendChild(diffview.buildView({
+    baseTextLines: base,
+    newTextLines: newtxt,
+    opcodes: opcodes,
+    baseTextName: "Reference",
+    newTextName: "Current",
+    contextSize: 0,
+    viewType: viewType
+  }));
+}
+
+
+
 function buildPanelContentString(id) { 
 return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" + 
 "<div class='row'>" +
@@ -288,4 +336,42 @@ return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>"
         "</div>" + 
     "</div>" +
 "</div>";  
+}
+
+function buildDiffBadModulePanel(id) {
+return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" + 
+        "<div class='row'>" +
+            "<div class='col-md-6'>" +  
+                "<div class='panel panel-default'>" +   
+                    "<div class='panel-heading'>" +
+                        "<div class='row'>" + 
+                            "<div class='col-md-6'>" + 
+                            "Reference" + 
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class='panel-body'>" +  "<textarea id='refBadModules' readonly></textarea>" + 
+                    "</div>" +
+                "</div>"+
+            "</div>" + 
+
+            "<div class='col-md-6'>" +  
+                "<div class='panel panel-default'>" +   
+                    "<div class='panel-heading'>" +
+                        "<div class='row'>" + 
+                            "<div class='col-md-6'>" + 
+                            "Current" + 
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class='panel-body'>" +  "<textarea id='currBadModules' readonly></textarea>" + 
+                    "</div>" +
+                "</div>"+
+            "</div>" + 
+
+            "<div class='viewType'>" + 
+                "<input type='button' value='Side By Side Diff' onclick='diffUsingJS(0);'/>" +
+            "</div>" + 
+            "<div id='diffBadModules'> </div>" +  
+        "</div>";     
 }
