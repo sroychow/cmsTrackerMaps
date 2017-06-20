@@ -1,5 +1,5 @@
 class ParamEncoder { 
-    encodeOptions() {
+    static encodeOptions() {
         var ret = "?link=true";
         ret += this.encodeCheckboxes("checkboxAccordion");
         ret += this.encodeTextfield("refRunPath");
@@ -8,7 +8,7 @@ class ParamEncoder {
         return ret;
     }
 
-    encodeCheckboxes(name) {
+    static encodeCheckboxes(name) {
         var ret = "";
         $('#' + name + ' :checkbox').each(function() {
             ret += "&checkbox";
@@ -19,13 +19,13 @@ class ParamEncoder {
         return ret;
     }
 
-    encodeTextfield(name) {
+    static encodeTextfield(name) {
         var ret = "&" + name + "=";
         ret += $('#' + name).val();
         return ret;
     }
 
-    encodeSelectedMap() {
+    static encodeSelectedMap() {
         var ret = "&mapSelect=";
         ret += $('.extandable-tab-list-ref .active > a').prop('id');
         return ret;

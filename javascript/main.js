@@ -1,26 +1,21 @@
 $(document).ready(function() {
 
     loadCheckboxes();
-
-    var PD = new ParamDecoder();
-    PD.decodeOptions();
-    delete PD;
+    ParamDecoder.decodeOptions();
 
     $(".panel-extend-checkbox").on('click', function(e) {
 
         var refPath = $('#refRunPath').val();
         var currPath = $('#currRunPath').val();
 
-        addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
+        PanelBuilder.addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
         console.log($(this).parent().text());
     });
 
     $("#link-me").click(function(e) {
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
-        var PE = new ParamEncoder();
-        window.location.href = url + PE.encodeOptions();
-        delete PE;
+        window.location.href = url + ParamEncoder.encodeOptions();
     });
 
     $("#refRunPathBrowse, #currRunPathBrowse").click(function() {
