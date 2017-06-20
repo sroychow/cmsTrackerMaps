@@ -290,8 +290,6 @@ function diffUsingJS(viewType, elemID) {
     var currstr = 'curr'+String(elemID);
     var diffstr = 'diff'+String(elemID);
 
-    $('#'+diffstr).toggle();
-
   "use strict";
   var byId = function (id) { return document.getElementById(id); },
     base = difflib.stringAsLines(byId(refstr).value),
@@ -387,8 +385,11 @@ return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>"
             "</div>" + 
 
             "<div class='viewType'>" + 
-                "<input type='button' value='Toggle Diff' onclick='diffUsingJS(0,\""+id+"\");'/>" +
+                "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" + 
+                    "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
+                    "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                "</div>" +
             "</div>" + 
-            "<div id='diff"+id+"' style='display:none;'> </div>" +  
+            "<div id='diff"+id+"'> </div>" +  
         "</div>";     
 }

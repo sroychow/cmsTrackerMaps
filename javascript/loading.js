@@ -15,8 +15,6 @@ $(document).ready(function() {
     $("#link-me").click(function(e) {
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.location.href = url + encodeOptions();
-
-        // alert('Link created, ready to share your findings!\n');
     });
 
     $("#refRunPathBrowse, #currRunPathBrowse").click(function() {
@@ -63,5 +61,9 @@ $(document).ready(function() {
 
     $("#hideUnhideMenu").click(function(){
         $(this).find("span").toggleClass("glyphicon-menu-up").toggleClass("glyphicon-menu-down");
+    });
+
+    $(".btn-group > .btn").click(function(){
+        $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
     });
 });
