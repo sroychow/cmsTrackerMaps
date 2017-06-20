@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
     loadCheckboxes();
-    decodeOptions();
+
+    var PD = new ParamDecoder();
+    PD.decodeOptions();
+    delete PD;
 
     $(".panel-extend-checkbox").on('click', function(e) {
 
@@ -14,7 +17,10 @@ $(document).ready(function() {
 
     $("#link-me").click(function(e) {
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
-        window.location.href = url + encodeOptions();
+
+        var PE = new ParamEncoder();
+        window.location.href = url + PE.encodeOptions();
+        delete PE;
     });
 
     $("#refRunPathBrowse, #currRunPathBrowse").click(function() {
