@@ -27,7 +27,6 @@ function getRunNumberFromString(path) {
     return runnr;
 }
 
-
 function getNeighbourRun(id, direction) {
     var path = $('#' + id).val();
 

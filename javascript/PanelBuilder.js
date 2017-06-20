@@ -12,14 +12,14 @@ class PanelBuilder {
 
             switch(ext) {
                 case "png":
-                    newInput = this.buildPanelContentString(currID);
+                    newInput = this.buildPanelWithImages(currID);
                     break;
 
                 // Same handling for these 3 cases
                 case "txt":
                 case "log":
                 case "out":
-                    newInput = this.buildDiffBadModulePanel(currID);
+                    newInput = this.buildPanelWithText(currID);
                     break;
 
                 default:
@@ -27,10 +27,8 @@ class PanelBuilder {
             }
 
             $(".extandable-tab-list-content").append(newInput);
-
             newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
             $(".extandable-tab-list-ref").append(newInput);
-
             this.addToComparisonView(id, currID, refPath, currPath);
 
         } else {
@@ -200,7 +198,7 @@ class PanelBuilder {
       }));
     }
 
-    static buildPanelContentString(id) {
+    static buildPanelWithImages(id) {
 	    return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
 	    "<div class='row'>" +
 	        "<div class='col-md-6'>" +
@@ -238,7 +236,7 @@ class PanelBuilder {
 	    "</div>";
     }
 
-    static buildDiffBadModulePanel(id) {
+    static buildPanelWithText(id) {
 	    return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
 	            "<div class='row'>" +
 	                "<div class='col-md-6'>" +
@@ -246,7 +244,8 @@ class PanelBuilder {
 	                        "<div class='panel-heading'>" +
 	                            "<div class='row'>" +
 	                                "<div class='col-md-6'>" +
-	                                "Reference" +
+	                                   "Reference " +
+                                        "<button type='button' class='btn btn-xs toggleTextarea' totoggle='#ref"+id+"' ><i class='glyphicon glyphicon-menu-up'></i></button>" + 
 	                                "</div>" +
 	                            "</div>" +
 	                        "</div>" +
@@ -260,7 +259,8 @@ class PanelBuilder {
 	                        "<div class='panel-heading'>" +
 	                            "<div class='row'>" +
 	                                "<div class='col-md-6'>" +
-	                                "Current" +
+	                                "Current " +
+                                    "<button type='button' class='btn btn-xs toggleTextarea' totoggle='#curr"+id+"' ><i class='glyphicon glyphicon-menu-up'></i></button>" + 
 	                                "</div>" +
 	                            "</div>" +
 	                        "</div>" +
@@ -270,6 +270,7 @@ class PanelBuilder {
 	                "</div>" +
 
 	                "<div class='viewType'>" +
+                    "<div class='small'>Choose Diff Style</div>" +
 	                    "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
 	                        "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='PanelBuilder.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
 	                        "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='PanelBuilder.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
