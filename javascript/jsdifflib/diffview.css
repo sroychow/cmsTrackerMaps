@@ -49,7 +49,7 @@ table.diff tbody th {
 }
 table.diff thead {
 	border-bottom:1px solid #BBC;
-	background:#EFEFEF;
+	/*background:#EFEFEF;*/
 	font-family:Verdana
 }
 table.diff thead th.texttitle {
