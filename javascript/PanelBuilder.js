@@ -4,7 +4,6 @@ class PanelBuilder {
 
         var info = getConfigInfoFromName($('#' + id).attr('label'));
         var filename = info.res;
-        var emptyMap = info.map;
         var ext = filename.substr(filename.lastIndexOf('.') + 1);
 
         if (isChecked == true) {
@@ -29,7 +28,7 @@ class PanelBuilder {
             $(".extandable-tab-list-content").append(newInput);
             newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
             $(".extandable-tab-list-ref").append(newInput);
-            this.addToComparisonView(id, currID, refPath, currPath);
+            this.addToComparisonView(currID, refPath, currPath, info);
 
         } else {
             $("#" + currID).remove();
@@ -37,10 +36,8 @@ class PanelBuilder {
         }
     }
 
-    static addToComparisonView(nrid, id, rsrc, csrc) {
-        var info = getConfigInfoFromName($('#' + nrid).attr('label'));
+    static addToComparisonView(id, rsrc, csrc, info) {
         var filename = info.res;
-        var emptyMap = info.map;
         var ext = filename.substr(filename.lastIndexOf('.') + 1);
 
         var refsrc  = rsrc + filename;
@@ -49,68 +46,68 @@ class PanelBuilder {
             case "png":
                 var refFinal  = refsrc;
                 var currFinal = currsrc;
-
                 if (filename === "PCLBadComponents_Run_.png") {
                     // special snowflake case where filename = PCLBadComponents_Run_XXXXXX.png
-                    // where XXXXX is the 6 digit run number.
                     refFinal  = this.buildFileNameWithRunNr(refsrc, ext);
                     currFinal = this.buildFileNameWithRunNr(currsrc, ext);
                 }
 
+                this.addPngToPanel(refFinal, currFinal, id, info.map);
+                break;
 
-                $('#' + id + ' .refCol').html("<div class='imgContainer'>\
-                                                   <img class='imgRef' src='"   + refFinal  + "'/>\
-                                                </div>");
-
-                $('#' + id + ' .currCol').html("<div class='imgContainer'>\
-                                                   <img class='imgCurr' src='" + currFinal + "'/>\
-                                                </div>");
-
-                $('#' + id + " .diffCol").append("\
-                                        <div  class='imgContainer '>\
-                                            <div class='imgDiffWrapper imgDiff' style='background-image: url(\"" + refFinal + "\"), url(\"" + currFinal + "\")'>\
-                                                <div class='cleanRef ' style='background-image: url(\"" + emptyMap + "\")'></div>\
-                                            </div>\
-                                        </div>");
-
-                this.attachWheelZoomListeners('#' + id);
-
-                $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
-                $("#" + id + " .toggleDifferenceView").change(function(e) {
-                    var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
-                    $(this).closest(".panel").find(".currCol").toggle();
-                    $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
-                });
-
-            break;
-
+            // Similar handling for these 3 cases
             case "txt":
-                jQuery.get(this.buildFileNameWithRunNr(refsrc, ext), function(data) {
-                    $('#ref' + id).val(data);});
-
-                jQuery.get(this.buildFileNameWithRunNr(currsrc, ext), function(data) {
-                    $('#curr' + id).val(data);});
-            break;
+                refsrc  = this.buildFileNameWithRunNr(refsrc, ext);
+                currsrc = this.buildFileNameWithRunNr(currsrc, ext);
+                this.addTextToPanel(refsrc, currsrc, id);
+                break;
 
             case "log":
-                jQuery.get(refsrc, function(data) {
-                    $('#ref' + id).val(data);});
-
-                jQuery.get(currsrc, function(data) {
-                    $('#curr' + id).val(data);});
-            break;
-
+                this.addTextToPanel(refsrc, currsrc, id);
+                break;
+                
             case "out":
-                jQuery.get(refsrc, function(data) {
-                    $('#ref' + id).val(data);});
-
-                jQuery.get(currsrc, function(data) {
-                    $('#curr' + id).val(data);});
-            break;
+                this.addTextToPanel(refsrc, currsrc, id);
+                break;
 
             default:
                 console.log("Unsupported filetype: " + ext);
         }
+    }
+
+    static addPngToPanel(refFinal, currFinal, id, emptyMap){
+        $('#' + id + ' .refCol').html("<div class='imgContainer'>\
+                                           <img class='imgRef' src='"   + refFinal  + "'/>\
+                                        </div>");
+
+        $('#' + id + ' .currCol').html("<div class='imgContainer'>\
+                                           <img class='imgCurr' src='" + currFinal + "'/>\
+                                        </div>");
+
+        $('#' + id + " .diffCol").append("\
+                                <div  class='imgContainer '>\
+                                    <div class='imgDiffWrapper imgDiff' style='background-image: url(\"" + refFinal + "\"), url(\"" + currFinal + "\")'>\
+                                        <div class='cleanRef ' style='background-image: url(\"" + emptyMap + "\")'></div>\
+                                    </div>\
+                                </div>");
+
+        PanZoomHandler.attachWheelZoomListeners('#' + id);
+
+        $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
+        $("#" + id + " .toggleDifferenceView").change(function(e) {
+            var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
+            $(this).closest(".panel").find(".currCol").toggle();
+            $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
+        });
+    }
+
+    static addTextToPanel(refsrc, currsrc, id) {
+        jQuery.get(refsrc, function(data) {
+        $('#ref' + id).val(data);});
+
+        jQuery.get(currsrc, function(data) {
+        $('#curr' + id).val(data);
+        });
     }
 
     static buildFileNameWithRunNr(name, extension) {
@@ -118,84 +115,6 @@ class PanelBuilder {
       var tmp = name.split('.');
       var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
       return ret;
-    }
-
-    static attachWheelZoomListeners(sectionToLookIn) {
-        // ---------------- Helper Functions ----------------
-        function assignTransform(section, master, slave) {
-            var trans = section.find(master).css("transform");
-            section.find(slave).css("transform", trans);
-        }
-
-        function setPanzoomParams(section, elem) {
-            return section.find(elem).panzoom({
-                startTransform: 'scale(1)',
-                maxScale: 10,
-                minScale: 1,
-                increment: 0.1,
-                contain: 'automatic'
-            });
-        }
-
-        function linkZoom(section, pz, master, src, dst) {
-          pz.parent().on('mousewheel.focal', function(e) {
-              e.preventDefault();
-              var delta = e.delta || e.originalEvent.wheelDelta;
-              var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-              pz.panzoom('zoom', zoomOut, {
-                  animate: false,
-                  focal: e
-              });
-
-            assignTransform(section, src, dst);
-          });
-          section.find(master).parent().on("mouseup pointerup",function(e) {
-              assignTransform(section, src, dst);
-          });
-        }
-
-        // ---------------- Start doing stuff here ----------------
-        var $section = $(sectionToLookIn);
-
-        var $pz1 = setPanzoomParams($section, '.imgRef');
-        linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".currCol .imgCurr");
-        linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".diffCol .imgDiff");
-
-        var $pz2 = setPanzoomParams($section, '.imgCurr');
-        linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
-        linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
-
-        var $pz3 = setPanzoomParams($section, '.imgDiff');
-        linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".refCol .imgRef");
-        linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".currCol .imgCurr");
-    }
-
-    static diffUsingJS(viewType, elemID) {
-        var refstr = 'ref'+String(elemID);
-        var currstr = 'curr'+String(elemID);
-        var diffstr = 'diff'+String(elemID);
-
-      "use strict";
-      var byId = function (id) { return document.getElementById(id); },
-        base = difflib.stringAsLines(byId(refstr).value),
-        newtxt = difflib.stringAsLines(byId(currstr).value),
-        sm = new difflib.SequenceMatcher(base, newtxt),
-        opcodes = sm.get_opcodes(),
-        diffoutputdiv = byId(diffstr),
-        contextSize = 0;
-
-      diffoutputdiv.innerHTML = "";
-      contextSize = contextSize || null;
-
-      diffoutputdiv.appendChild(diffview.buildView({
-        baseTextLines: base,
-        newTextLines: newtxt,
-        opcodes: opcodes,
-        baseTextName: "Reference",
-        newTextName: "Current",
-        contextSize: 0,
-        viewType: viewType
-      }));
     }
 
     static buildPanelWithImages(id) {
@@ -272,8 +191,8 @@ class PanelBuilder {
 	                "<div class='viewType'>" +
                     "<div class='small'>Choose Diff Style</div>" +
 	                    "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
-	                        "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='PanelBuilder.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
-	                        "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='PanelBuilder.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+	                        "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='DiffHandler.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
+	                        "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
 	                    "</div>" +
 	                "</div>" +
 	                "<div id='diff"+id+"'> </div>" +

@@ -1,0 +1,43 @@
+# Tracker Maps
+
+This document aims to give future developers/maintainers an introduction to the "Tracker Maps Reloaded" website.  
+
+
+## Design
+
+An important design decision is that adding additional resources should be as easy as possible. A data file (<code>data.js</code>) contains the resource name to be displayed on the checkboxes, the - as concrete as possible - resource name (i.e. location).
+
+### Classes 
+
+*   <code>ParamEncoder</code>: Generation of the parameter string in the url to be created when sharing the link
+*   <code>ParamDecoder</code>: Reverse of encoder; parse parameters and recreate the view
+*   <code>PanelBuilder</code>: Generator of the panels which are used to display the resources. Different behaviour depending on resource type <code>(txt, log, out, png)</code>
+*   <code>PanZoomHandler</code>: Handle synchronizing zooming and panning in images (<code>libs/panzoom</code>)
+*   <code>DiffHandler</code>: Handle calls to the diff library (<code>libs/jsdifflib</code>)
+*   <code>FileTree</code>: Handles the file browsing and data selection (<code>libs/FileTree</code>)
+
+### Hints
+
+#### Adding new resource
+Understand how the data is loaded and displayed. Specifically take a look at <code>data.js</code> where the data is defined. The function <code>loadCheckboxes()</code> directly handles the generation of the checkboxes from the data. <code>loadCheckboxes()</code> is called in the onclick handlers found in <code>main.js</code>. From there take a look at the onclick handler that listens for the <code>.panel-extend-checkbox</code> class. From there you're going to have to take a look how the <code>PanelBuilder</code> works. The important functions to consider are <code>PanelBulider::addRmTkMapPanel</code>, and <code>PanelBulider::addToComparisonView</code>.
+It is unlikely that you're going to have to touch either <code>ParamEn/Decoder</code>; if it turns out that you do need to add something **always** do it in both. Don't introduce asymetries.
+
+#### General
+
+The expected lifespan of this tool is just until ~2020.<br>
+Test thoroughly on **Chrome, Firefox, Safari**  before pushing to live.<br>
+
+## Additional Material
+
+Keep the manual 'doc/tkmap_manual.pdf' is linked in the banner with the caption "How To". Keep it up to date. Chances are more people than you expect are using it.
+
+## Libraries Used
+
+*   <a href="https://jquery.com/">JQuery</a>
+*   <a href="https://github.com/timmywil/jquery.panzoom">PanZoom</a>
+*   <a href="https://github.com/cemerick/jsdifflib">JsDiffLib</a>
+*   <a href="https://www.abeautifulsite.net/jquery-file-tree"> JQuery File Tree</a>
+
+
+<br><br><br>
+*Leave the code in better shape than you found it* - Sun Tzu

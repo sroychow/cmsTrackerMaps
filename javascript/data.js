@@ -1,3 +1,11 @@
+// The grouping is more or less arbitrary and should be changed if more PIXEL related
+// resources are added.
+
+//name:       label string to be displayed in the checkboxList
+//resource:   filename that should be loaded. Sometimes incomplete since it contains
+//            the run number and needs to be assembled ad-hoc.
+//emptyMap:   for png images the empty detector template ( see 'img/')
+
 var mapDescriptions =
 {
   "BAD MODULES":
