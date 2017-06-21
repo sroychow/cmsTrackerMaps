@@ -20,6 +20,9 @@ An important design decision is that adding additional resources should be as ea
 
 #### Adding new resource
 Understand how the data is loaded and displayed. Specifically take a look at <code>data.js</code> where the data is defined. The function <code>loadCheckboxes()</code> directly handles the generation of the checkboxes from the data. <code>loadCheckboxes()</code> is called in the onclick handlers found in <code>main.js</code>. From there take a look at the onclick handler that listens for the <code>.panel-extend-checkbox</code> class. From there you're going to have to take a look how the <code>PanelBuilder</code> works. The important functions to consider are <code>PanelBulider::addRmTkMapPanel</code>, and <code>PanelBulider::addToComparisonView</code>.
+It is here were you will have to adapt things - if at all.
+
+#### Changing Decoder / Encoder
 It is unlikely that you're going to have to touch either <code>ParamEn/Decoder</code>; if it turns out that you do need to add something **always** do it in both. Don't introduce asymetries.
 
 #### General
@@ -29,7 +32,7 @@ Test thoroughly on **Chrome, Firefox, Safari**  before pushing to live.<br>
 
 ## Additional Material
 
-Keep the manual 'doc/tkmap_manual.pdf' is linked in the banner with the caption "How To". Keep it up to date. Chances are more people than you expect are using it.
+Keep the manual 'doc/tkmap_manual.pdf' up to date.
 
 ## Libraries Used
 
