@@ -60,10 +60,10 @@ var mapDescriptions =
     {"name" : "Total Number of Clusters",                "resource" :"num_clusters.png",             "emptyMap" : "img/pxMapEmpty.png"},
     {"name" : "Total Number of Digis",                   "resource" :"num_digis.png",                "emptyMap" : "img/pxMapEmpty.png"},
     {"name" : "Inclusive Cluster Size",                  "resource" :"size.png",                     "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Inclusive Cluster Size",                  "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Inclusive Cluster Size",                  "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Inclusive Cluster Size",                  "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
-    {"name" : "Inclusive Cluster Size",                  "resource" :"minmax.out"                                                     },
+    {"name" : "Inclusive Cluster Charge",                "resource" :"charge.png",                   "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Cluster On Track Size X",                 "resource" :"Trechitsize_x.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Cluster On Track Size Y",                 "resource" :"Trechitsize_y.png",            "emptyMap" : "img/pxMapEmpty.png"},
+    {"name" : "Min and Max Value",                       "resource" :"minmax.out"                                                     },
     {"name" : "Dead ROCS",                               "resource" :"PixZeroOccROCs_run.txt"                                         }
   ]
 }
