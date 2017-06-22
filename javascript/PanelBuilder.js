@@ -32,7 +32,6 @@ class PanelBuilder {
             newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
             $(".extandable-tab-list-ref").append(newInput);
             this.addToComparisonView(currID, refPath, currPath, info);
-            $("#" + currID + "lnk").click();
         } else {
             $("#" + currID).remove();
             $("#" + currID + "lnk").remove();
@@ -119,8 +118,6 @@ class PanelBuilder {
       var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
       return ret;
     }
-
-
 
     static buildPanelWithImages(id) {
 	    return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +

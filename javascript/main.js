@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    loadCheckboxes();
-    ParamDecoder.decodeOptions();
+
+    Loader.loadCheckboxes();
+    decodeOptions();
 
     $('#treeContainer').fileTree({
         root: '/data/users/event_display/',
@@ -8,17 +9,13 @@ $(document).ready(function() {
     }, function(file) {
         $("#runNumberInputBrowseCaller").attr("data-path", file.split("users")[1]);
     });
-
-    // if($('#refRunPath').val() === "" && $('#currRunPath').val() === "") {
-    //     disableCheckboxes("checkboxAccordion", true);
-    // }
 });
 
 // create the parameters that are appended to the url
 // to enable sharing of links
 $(document).on('click', '#link-me', function(e) {
     var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    window.location.href = url + ParamEncoder.encodeOptions();
+    window.location.href = url + encodeOptions();
 });
 
 // when the checkboxes for the individual resources are
@@ -37,7 +34,6 @@ $(document).on('click', '#dataBrowseOKbtn', function() {
     var inputObj = $("#" + $("#runNumberInputBrowseCaller").val());
     inputObj.val(pathToPaste);
     reloadCheckedTabs();
-    disableCheckboxes("checkboxAccordion", false);
 });
 
 $(document).on('click', '#refRunPathBrowse, #currRunPathBrowse', function() {
