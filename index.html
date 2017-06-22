@@ -7,13 +7,14 @@
   <script src="libs/panzoom/test/libs/jquery.js"></script>
   <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
+  <script src="javascript/ParamEncoder.js"></script>
+  <script src="javascript/ParamDecoder.js"></script>
   <script src="javascript/data.js"></script>
   <script src="javascript/utils.js"></script>
   <script src="javascript/DiffHandler.js"></script>
   <script src="javascript/PanZoomHandler.js"></script>
   <script src="javascript/PanelBuilder.js"></script>
-  <script src="javascript/ParamEncoder.js"></script>
-  <script src="javascript/ParamDecoder.js"></script>
+
   <script src="javascript/main.js"></script>
   
   <script src="libs/FileTree/jqueryFileTree.js"></script>
@@ -26,8 +27,7 @@
 </header>
 
 <body>
-  <div class="alert alert-info fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <div class="alert alert-default fade in small">
     <div align="center"><strong>How-To <a href=doc/tkmap_manual.pdf><i class='glyphicon glyphicon-info-sign'></i></a></strong></div>
     <div align="center"><strong>Bug, Comment, Suggestion? <a href="mailto:filip.ilic@cern.ch" target="_top" ><i class='glyphicon glyphicon-envelope'></i> </a></strong></div>
   </div>
@@ -40,11 +40,11 @@
             <div class="container" id="optionsPane">
               <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="panel-group" id="checkboxAccordion"></div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <div class="row">
                     <div class="form-group">
                       <div class="input-group">
@@ -87,13 +87,13 @@
         </div>
       </div>
     </div>
-    <div class="panel-footer">
+<!--     <div class="panel-footer">
       <a data-toggle="collapse" href="#jumbotronCollapse">
         <button class="btn btn-primary btn-block" id="hideUnhideMenu" >
           <span class="glyphicon glyphicon-menu-up"></span>
         </button>
       </a>
-    </div>
+    </div> -->
   </div>
 
   <div class="container" id="TrackerMaps">

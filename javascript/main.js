@@ -9,9 +9,9 @@ $(document).ready(function() {
         $("#runNumberInputBrowseCaller").attr("data-path", file.split("users")[1]);
     });
 
-    if($('#refRunPath').val() === "" && $('#currRunPath').val() === "") {
-        disableCheckboxes("checkboxAccordion", true);
-    }
+    // if($('#refRunPath').val() === "" && $('#currRunPath').val() === "") {
+    //     disableCheckboxes("checkboxAccordion", true);
+    // }
 });
 
 // create the parameters that are appended to the url

@@ -11,7 +11,7 @@ class ParamEncoder {
     static encodeCheckboxes(name) {
         var ret = "";
         $('#' + name + ' :checkbox').each(function() {
-            ret += "&checkbox";
+            ret += "&";
             ret += $(this).prop('id');
             ret += "=";
             ret += $(this).prop('checked');

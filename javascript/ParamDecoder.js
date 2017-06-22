@@ -8,12 +8,16 @@ class ParamDecoder {
 
     static decodeCheckboxes(refPath, currPath) {
         var checkboxID = 0;
-        for (var group in mapDescriptions) {
-            for (var elem in mapDescriptions[group]) {
-                var val = this.getUrlParameter("checkbox" + checkboxID) === "true";
-                PanelBuilder.addRmTkMapPanel(checkboxID, val, refPath, currPath); // TODO: this needs to be a singleton GUI ELEMENT BUILDER or smth
-                $('#' + checkboxID).attr('checked', val);
-                ++checkboxID;
+        for(var detector in mapDescriptions) {
+            for (var group in mapDescriptions[detector]) {
+                for (var elem in mapDescriptions[detector][group]) {
+                    var val = this.getUrlParameter("checkbox" + checkboxID) === "true";
+
+                    if(val) {
+                        $('#checkbox' + checkboxID).click();
+                    }
+                    ++checkboxID;
+                }
             }
         }
     }

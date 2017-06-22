@@ -21,60 +21,89 @@ function getNeighbourRun(id, direction) {
         });
 }
 
-// take the data from 'mapDescriptions' (data.js) and populate checkboxes
 function loadCheckboxes() {
+    var groupID = 0;
+    var detID = 0;
     var checkboxID = 0;
-    var row = 0;
-    for (var group in mapDescriptions) {
-        if (mapDescriptions.hasOwnProperty(group)) {
-            var newPanelObject = "<div class='panel panel-default'>" +
-                "     <a data-toggle='collapse' data-parent='#checkboxAccordion' href='#listCollapse" + row + "'>" +
-                "       <button class='btn btn-default btn-block'>" +
-                "         <span class='glyphicon glyphicon-menu-right'></span> " + group +
-                "       </button>" +
-                "     </a>" +
+    for (var detector in mapDescriptions) {
 
-                "     <div class='panel-collapse collapse' id='listCollapse" + row + "'>" +
-                "       <div class='panel-body'>" +
-                "         <div class='row'>" +
-                "           <div class='col-md-offset-1 col-md-11' id='checkboxList" + row + "'></div> " +
-                "         </div>" +
-                "      </div>" +
-                "     </div>" +
-                "  </div>";
+        console.log("  " + detector);
+        var detPanel =  buildCheckboxPanel("det" + detID, detector);
+        $("#checkboxAccordion").append(detPanel);
 
-            $("#checkboxAccordion").append(newPanelObject);
-            var col = 0;
-            var newInput = '';
-            for (var elem in mapDescriptions[group]) {
-                var elem_name = mapDescriptions[group][elem].name;
-                newInput += "<label class='checkbox'><input type='checkbox'\
-                              id='" + checkboxID + "' label='" + elem_name +  "' class='panel-extend-checkbox'>" + elem_name + "</label>";
+        for (var group in mapDescriptions[detector]) {
+
+            console.log("   " + group);
+            var groupPanel = buildCheckboxPanelSub("group" + groupID, group);
+            $("#det" + detID).append(groupPanel);
+
+
+            for (var elem in mapDescriptions[detector][group]) {
+                var elem_name = mapDescriptions[detector][group][elem].name;
+                console.log("        " + elem_name);
+                var elemPanel = "<div class='panel-body'><input type='checkbox' id='checkbox" + checkboxID + "' label='"+ elem_name +"' class='panel-extend-checkbox'>" + elem_name + "</div>";
+
+                $("#group" + groupID).append(elemPanel);
                 checkboxID++;
             }
-            $("#checkboxList" + row).html(newInput);
-            ++row;
+            groupID++;
+        }
+        detID++;
+    }
+}
+
+function getConfigInfoFromName(name) {
+    console.log(name);
+    for (var detector in mapDescriptions) {
+        for (var group in mapDescriptions[detector]) {
+            for (var elem in mapDescriptions[detector][group]) {
+                var e = mapDescriptions[detector][group][elem];
+
+                if(name === e['name']) {
+                    console.log(elem);
+                    var obj = new Object();
+                    obj.name = e['name'];
+                    obj.res  = e['resource'];
+                    obj.map  = e['emptyMap'];
+
+                    return obj;
+                }
+            }
         }
     }
 }
 
-// return info object containing 'mapDescriptions' in a nice format
-// obj.name <==> label string of checkboxList
-// obj.res  <==> resource to be loaded ( filename )
-// obj.map  <==> for png images the empty template ( see 'img/')
-function getConfigInfoFromName(name) {
-  for (var group in mapDescriptions) {
-    for (var elem in mapDescriptions[group]) {
-      if(name === mapDescriptions[group][elem]['name']) {
-        var obj = new Object();
-        obj.name = mapDescriptions[group][elem]['name'];
-        obj.res = mapDescriptions[group][elem]['resource'];
-        obj.map = mapDescriptions[group][elem]['emptyMap'];
-        return obj;
-      }
-    }
-  }
+function buildCheckboxPanel(id, displayname) { 
+    return "<div class='panel-group'>" +
+                "<div class='panel panel-primary'>" +
+                    "<div class='panel-heading'>" +
+                    "<h4 class='panel-title'>" +
+                    "<a data-toggle='collapse' href='#"+id+"'>"+displayname+"</a>" +
+                    "</h4>" +
+                    "</div>" +
+                    "<div id='" + id + "' class='panel-collapse collapse'>" +
+
+                    "</div>" +
+                "</div>" +
+            "</div>";
 }
+
+function buildCheckboxPanelSub(id, displayname) { 
+    return "<div class='panel-group'>" +
+                "<div class='panel panel-default'>" +
+                    "<div class='panel-heading'>" +
+                    "<h4 class='panel-title'>" +
+                    "<a data-toggle='collapse' href='#"+id+"'>"+displayname+"</a>" +
+                    "</h4>" +
+                    "</div>" +
+                    "<div id='" + id + "' class='panel-collapse collapse'>" +
+
+                    "</div>" +
+                "</div>" +
+            "</div>";
+}
+
+
 
 function disableCheckboxes(name, disable) {
     $('#' + name + ' :checkbox').each(function() {
@@ -83,8 +112,10 @@ function disableCheckboxes(name, disable) {
 }
 
 function reloadCheckedTabs(){
+    var count = 0;
     var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
     $("#checkboxAccordion input:checked").each(function() {
+        console.log(count++);
         var id = $(this).attr("id");
         var refPath = $('#refRunPath').val();
         var currPath = $('#currRunPath').val();

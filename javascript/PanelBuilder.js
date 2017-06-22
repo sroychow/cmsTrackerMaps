@@ -2,11 +2,14 @@ class PanelBuilder {
     static addRmTkMapPanel(id, isChecked, refPath, currPath) {
         var currID = "inputCheckBoxPanel" + id;
 
-        var info = getConfigInfoFromName($('#' + id).attr('label'));
-        var filename = info.res;
-        var ext = filename.substr(filename.lastIndexOf('.') + 1);
+        if (isChecked) {
 
-        if (isChecked == true) {
+            var info = getConfigInfoFromName($('#'+id).attr('label'));
+            console.log(info);
+
+            var filename = info.res;
+            var ext = filename.substr(filename.lastIndexOf('.') + 1);
+
             var newInput;
 
             switch(ext) {
@@ -117,6 +120,8 @@ class PanelBuilder {
       return ret;
     }
 
+
+
     static buildPanelWithImages(id) {
 	    return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
 	    "<div class='row'>" +
@@ -192,7 +197,7 @@ class PanelBuilder {
                     "<div class='small'>Choose Diff Style</div>" +
 	                    "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
 	                        "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='DiffHandler.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
-	                        "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                            "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
 	                    "</div>" +
 	                "</div>" +
 	                "<div id='diff"+id+"'> </div>" +
