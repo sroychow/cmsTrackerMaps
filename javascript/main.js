@@ -23,7 +23,7 @@ $(document).on('click', '#link-me', function(e) {
 $(document).on('click', '.panel-extend-checkbox', function() {
     var refPath = $('#refRunPath').val();
     var currPath = $('#currRunPath').val();
-    PanelBuilder.addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
+    addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
     console.log($(this).parent().text());
 });
 
@@ -50,7 +50,7 @@ $(document).on('click', '.navigation-arrow', function(){
     if ($(this).attr("id").endsWith("Prev")) {
         direction = -1;
     }
-    getNeighbourRun(callerID, direction);
+    Loader.loadNeighbourRun(callerID, direction);
 });
 
 // --------------------- Eyecandy ---------------------

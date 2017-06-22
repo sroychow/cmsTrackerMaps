@@ -8,17 +8,11 @@ function getRunNumberFromString(path) {
     return runnr;
 }
 
-// return the the adjacent run (since the numbering is not strictly continuous)
-// where direction refers to either previous or next run (-1/+1)
-function getNeighbourRun(id, direction) {
-    var path = $('#' + id).val();
-    if (path.length == 0) return;
-    var curr_run_str = getRunNumberFromString(path);
-    $.post('php/loadNeighbourRun.php', { dir : path, startRunNumber : curr_run_str, direction : direction },
-        function(data) {
-            $('#' + id).val(data);
-            reloadCheckedTabs();
-        });
+function buildFileNameWithRunNr(name, extension) {
+  var runnr = getRunNumberFromString(name);
+  var tmp = name.split('.');
+  var ret = tmp[0] + runnr + '.' + extension;// + tmp[1];
+  return ret;
 }
 
 function getConfigInfoFromName(name) {
@@ -42,36 +36,6 @@ function getConfigInfoFromName(name) {
     }
 }
 
-function buildCheckboxPanel(id, displayname) { 
-    return "<div class='panel-group'>" +
-                "<div class='panel panel-primary'>" +
-                    "<div class='panel-heading'>" +
-                    "<h4 class='panel-title'>" +
-                    "<a data-toggle='collapse' href='#"+id+"'>"+displayname+"</a>" +
-                    "</h4>" +
-                    "</div>" +
-                    "<div id='" + id + "' class='panel-collapse collapse'>" +
-
-                    "</div>" +
-                "</div>" +
-            "</div>";
-}
-
-function buildCheckboxPanelSub(id, displayname) { 
-    return "<div class='panel-group'>" +
-                "<div class='panel panel-default'>" +
-                    "<div class='panel-heading'>" +
-                    "<h4 class='panel-title'>" +
-                    "<a data-toggle='collapse' href='#"+id+"'>"+displayname+"</a>" +
-                    "</h4>" +
-                    "</div>" +
-                    "<div id='" + id + "' class='panel-collapse collapse'>" +
-
-                    "</div>" +
-                "</div>" +
-            "</div>";
-}
-
 function reloadCheckedTabs(){
     var count = 0;
     var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
@@ -80,8 +44,8 @@ function reloadCheckedTabs(){
         var id = $(this).attr("id");
         var refPath = $('#refRunPath').val();
         var currPath = $('#currRunPath').val();
-        PanelBuilder.addRmTkMapPanel(id, false, refPath, currPath);
-        PanelBuilder.addRmTkMapPanel(id, true, refPath, currPath);
+        addRmTkMapPanel(id, false, refPath, currPath);
+        addRmTkMapPanel(id, true, refPath, currPath);
     });
     $('#' + activeTabID).click();
 }
