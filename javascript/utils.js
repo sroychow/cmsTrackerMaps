@@ -41,12 +41,10 @@ function loadCheckboxes() {
             for (var elem in mapDescriptions[detector][group]) {
                 var elem_name = mapDescriptions[detector][group][elem].name;
                 console.log("        " + elem_name);
-                var elemPanel = "<div class='panel'>" +
-                                "<div class='checkbox'>" + 
+                var elemPanel = "<div class='panel-title checkbox small'>" +
                                 "<label><input type='checkbox' id='checkbox" + checkboxID + "' label='"+ elem_name +"' class='panel-extend-checkbox'>" +
                                  elem_name + 
                                  "</label>" +
-                                 "</div>" +
                                  "</div>";
 
                 $("#group" + groupID).append(elemPanel);
