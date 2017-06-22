@@ -29,7 +29,7 @@ function loadCheckboxes() {
 
         console.log("  " + detector);
         var detPanel =  buildCheckboxPanel("det" + detID, detector);
-        $("#checkboxAccordion").append(detPanel);
+        $("#checkboxPlaceholder").append(detPanel);
 
         for (var group in mapDescriptions[detector]) {
 
@@ -41,7 +41,13 @@ function loadCheckboxes() {
             for (var elem in mapDescriptions[detector][group]) {
                 var elem_name = mapDescriptions[detector][group][elem].name;
                 console.log("        " + elem_name);
-                var elemPanel = "<div class='panel-body'><input type='checkbox' id='checkbox" + checkboxID + "' label='"+ elem_name +"' class='panel-extend-checkbox'>" + elem_name + "</div>";
+                var elemPanel = "<div class='panel'>" +
+                                "<div class='checkbox'>" + 
+                                "<label><input type='checkbox' id='checkbox" + checkboxID + "' label='"+ elem_name +"' class='panel-extend-checkbox'>" +
+                                 elem_name + 
+                                 "</label>" +
+                                 "</div>" +
+                                 "</div>";
 
                 $("#group" + groupID).append(elemPanel);
                 checkboxID++;
@@ -103,8 +109,6 @@ function buildCheckboxPanelSub(id, displayname) {
             "</div>";
 }
 
-
-
 function disableCheckboxes(name, disable) {
     $('#' + name + ' :checkbox').each(function() {
         $(this).attr("disabled", disable);
@@ -114,7 +118,7 @@ function disableCheckboxes(name, disable) {
 function reloadCheckedTabs(){
     var count = 0;
     var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
-    $("#checkboxAccordion input:checked").each(function() {
+    $("#checkboxPlaceholder input:checked").each(function() {
         console.log(count++);
         var id = $(this).attr("id");
         var refPath = $('#refRunPath').val();
