@@ -7,14 +7,15 @@ This document aims to give future developers/maintainers an introduction to the 
 
 An important design decision is that adding additional resources should be as easy as possible. A data file (<code>data.js</code>) contains the resource name to be displayed on the checkboxes, the - as concrete as possible - resource name (i.e. location).
 
-### Classes 
+### Collections (~Classes) 
 
-*   <code>ParamEncoder</code>: Generation of the parameter string in the url to be created when sharing the link
-*   <code>ParamDecoder</code>: Reverse of encoder; parse parameters and recreate the view
-*   <code>PanelBuilder</code>: Generator of the panels which are used to display the resources. Different behaviour depending on resource type <code>(txt, log, out, png)</code>
-*   <code>PanZoomHandler</code>: Handle synchronizing zooming and panning in images (<code>libs/panzoom</code>)
-*   <code>DiffHandler</code>: Handle calls to the diff library (<code>libs/jsdifflib</code>)
-*   <code>FileTree</code>: Handles the file browsing and data selection (<code>libs/FileTree</code>)
+*   <code>ParamEncoder.js</code>: Generation of the parameter string in the url to be created when sharing the link
+*   <code>ParamDecoder.js</code>: Reverse of encoder; parse parameters and recreate the view
+*   <code>Loader.js</code>: Loads the data, and handles data initialization / new run selection
+*   <code>PanelBuilder.js</code>: Generator of the panels which are used to display the resources. Different behaviour depending on resource type <code>(txt, log, out, png)</code>
+*   <code>PanZoomHandler.js</code>: Handle synchronizing zooming and panning in images (<code>libs/panzoom</code>)
+*   <code>DiffHandler.js</code>: Handle calls to the diff library (<code>libs/jsdifflib</code>)
+*   <code>FileTree.js</code>: Handles the file browsing and data selection (<code>libs/FileTree</code>)
 
 ### Hints
 
