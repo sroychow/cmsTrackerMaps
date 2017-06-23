@@ -2,12 +2,10 @@ function Loader() {
     this.mapDescriptions;
 }
 
-// TODO: mapdescriptions in data.js as json, and load here
-// also make this Loader into a singleton so theres
-// not more than once instance of mapdescrit flying around
+// TODO: make into singleton, and load mapDescr properly (make into json)
+// without assigning it as global var in index.html
 Loader.prototype.loadData = function() {
     this.mapDescriptions = mapDescriptions;
-    // console.log(this.mapDescriptions);
 };
 
 Loader.prototype.loadCheckboxes = function() {
@@ -51,4 +49,16 @@ Loader.prototype.loadNeighbourRun = function(id, direction) {
             reloadCheckedTabs();
         }
     );
+}
+
+Loader.prototype.reloadCheckedTabs = function(){
+    var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
+    $("#checkboxPlaceholder input:checked").each(function() {
+        var id = $(this).attr("id");
+        var refPath = $('#refRunPath').val();
+        var currPath = $('#currRunPath').val();
+        addRmTkMapPanel(id, false, refPath, currPath);
+        addRmTkMapPanel(id, true, refPath, currPath);
+    });
+    $('#' + activeTabID).click();
 }

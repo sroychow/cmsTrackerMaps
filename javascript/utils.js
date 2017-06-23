@@ -16,14 +16,12 @@ function buildFileNameWithRunNr(name, extension) {
 }
 
 function getConfigInfoFromName(name) {
-    console.log(name);
     for (var detector in mapDescriptions) {
         for (var group in mapDescriptions[detector]) {
             for (var elem in mapDescriptions[detector][group]) {
                 var e = mapDescriptions[detector][group][elem];
 
                 if(name === e['name']) {
-                    console.log(elem);
                     var obj = new Object();
                     obj.name = e['name'];
                     obj.res  = e['resource'];
@@ -36,19 +34,7 @@ function getConfigInfoFromName(name) {
     }
 }
 
-function reloadCheckedTabs(){
-    var count = 0;
-    var activeTabID = $('.extandable-tab-list-ref .active > a').prop('id');
-    $("#checkboxPlaceholder input:checked").each(function() {
-        console.log(count++);
-        var id = $(this).attr("id");
-        var refPath = $('#refRunPath').val();
-        var currPath = $('#currRunPath').val();
-        addRmTkMapPanel(id, false, refPath, currPath);
-        addRmTkMapPanel(id, true, refPath, currPath);
-    });
-    $('#' + activeTabID).click();
-}
+
 
 // allows for proper difference view scaling
 $(window).resize(function() {

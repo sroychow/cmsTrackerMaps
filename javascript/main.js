@@ -18,6 +18,13 @@ $(document).on('click', '#link-me', function(e) {
     window.location.href = url + encodeOptions();
 });
 
+$(document).on('click', '#send-link-me', function(e) {
+    var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    event.preventDefault();
+    var emailBody = "You can see the issue here: \n" + url + encodeOptions();
+    window.location = 'mailto:?body=' + encodeURIComponent(emailBody);
+ });
+
 // when the checkboxes for the individual resources are
 // clicked: add/remove the corresponding panel
 $(document).on('click', '.panel-extend-checkbox', function() {
