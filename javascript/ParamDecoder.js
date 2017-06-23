@@ -1,11 +1,11 @@
 function decodeOptions() {
     var refPath = this.decodeTextfield("refRunPath");
     var currPath = this.decodeTextfield("currRunPath");
-    this.decodeCheckboxes(refPath, currPath);
+    this.decodeCheckboxes();
     this.decodeSelectedMap();
 }
 
-function decodeCheckboxes(refPath, currPath) {
+function decodeCheckboxes() {
     var checkboxID = 0;
     for(var detector in Loader.mapDescriptions) {
         for (var group in Loader.mapDescriptions[detector]) {

@@ -1,4 +1,3 @@
-
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     var currID = "inputCheckBoxPanel" + id;
 

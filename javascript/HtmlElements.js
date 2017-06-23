@@ -109,9 +109,9 @@ function buildPanelWithText(id) {
                 "<div class='viewType'>" +
                     "<div class='small'>Choose Diff</div>" +
                         "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
-                            "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='DiffHandler.hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
-                            "<button type='button' id='sideDiffButton'   class='btn' onclick='DiffHandler.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
-                            "<button type='button' id='inlineDiffButton' class='btn' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                            "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
+                            "<button type='button' id='sideDiffButton'   class='btn' onclick='diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
+                            "<button type='button' id='inlineDiffButton' class='btn' onclick='diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
                         "</div>" +
                     "</div>" +
                 "<div id='diff"+id+"'> </div>" +

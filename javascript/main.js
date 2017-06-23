@@ -18,10 +18,11 @@ $(document).on('click', '#link-me', function(e) {
     window.location.href = url + encodeOptions();
 });
 
+// --------------------- Button handlers for linking results ---------------------
 $(document).on('click', '#send-link-me', function(e) {
     var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
     event.preventDefault();
-    var emailBody = "You can see the issue here: \n" + url + encodeOptions();
+    var emailBody = "\n \nYou can see the issue here: \n" + url + encodeOptions();
     window.location = 'mailto:?body=' + encodeURIComponent(emailBody);
  });
 
@@ -60,6 +61,22 @@ $(document).on('click', '.navigation-arrow', function(){
     Loader.loadNeighbourRun(callerID, direction);
 });
 
+// --------------------- Manipulation of hidden 
+//                       checkbox for image diff --------------------
+$(document).on('click', '.enableDiffImg', function() {
+   var tmp = $(this).attr('toToggle');
+   if(!$('#' + tmp).prop('checked')) {
+        $('#' + tmp).click();
+   }
+});
+
+$(document).on('click', '.disableDiffImg', function() {
+   var tmp = $(this).attr('toToggle');
+   if($('#' + tmp).prop('checked')) {
+        $('#' + tmp).click();
+   }
+});
+
 // --------------------- Eyecandy ---------------------
 $(document).on('click', '#diffButtonGroup > .btn', function() { 
      $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
@@ -76,16 +93,3 @@ $(document).on('click', '.toggleTextarea', function() {
 })
 
 
-$(document).on('click', '.enableDiffImg', function() {
-   var tmp = $(this).attr('toToggle');
-   if(!$('#' + tmp).prop('checked')) {
-        $('#' + tmp).click();
-   }
-});
-
-$(document).on('click', '.disableDiffImg', function() {
-   var tmp = $(this).attr('toToggle');
-   if($('#' + tmp).prop('checked')) {
-        $('#' + tmp).click();
-   }
-});
