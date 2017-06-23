@@ -51,10 +51,7 @@ function buildPanelWithImages(id) {
                             "Current" +
                             "</div>" +
                         "<div class='col-md-6 currColRightHeading'>" +
-                        "<label class='checkbox'>" +
-                        "<input type='checkbox' class='toggleDifferenceView'>" +
-                        "Difference to Reference" +
-                        "</label>" +
+                        "<input type='checkbox' class='toggleDifferenceView' id='toggle"+id+"' style='display: none;'>" +
                     "</div>" +
                 "</div>" +
             "</div>" +
@@ -62,7 +59,17 @@ function buildPanelWithImages(id) {
                 "<div class='panel-body diffCol'></div>" +
                 "</div>"+
             "</div>" +
+
         "</div>" +
+
+                "<div class='viewType'>" +
+                    "<div class='small'>Choose Diff</div>" +
+                        "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
+                            "<button type='button' class='btn btn-primary disableDiffImg' toToggle='toggle"+id+"'> Disabled </button>" +
+                            "<button type='button' class='btn enableDiffImg' toToggle='toggle"+id+"'> Enabled </button>" +
+                        "</div>" +
+                    "</div>" +
+
     "</div>";
 }
 
@@ -100,12 +107,13 @@ function buildPanelWithText(id) {
                 "</div>" +
 
                 "<div class='viewType'>" +
-                "<div class='small'>Choose Diff Style</div>" +
-                    "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
-                        "<button type='button' id='sideDiffButton'   class='btn btn-default' onclick='DiffHandler.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
-                        "<button type='button' id='inlineDiffButton' class='btn btn-default' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                    "<div class='small'>Choose Diff</div>" +
+                        "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
+                            "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='DiffHandler.hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
+                            "<button type='button' id='sideDiffButton'   class='btn' onclick='DiffHandler.diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
+                            "<button type='button' id='inlineDiffButton' class='btn' onclick='DiffHandler.diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                        "</div>" +
                     "</div>" +
-                "</div>" +
                 "<div id='diff"+id+"'> </div>" +
             "</div>";
 }

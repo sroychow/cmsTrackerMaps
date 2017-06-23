@@ -1,5 +1,8 @@
 class DiffHandler { 
     static diffUsingJS(viewType, elemID) {
+
+       DiffHandler.hideDiff('false', elemID);
+
         var refstr = 'ref'+String(elemID);
         var currstr = 'curr'+String(elemID);
         var diffstr = 'diff'+String(elemID);
@@ -25,5 +28,14 @@ class DiffHandler {
         contextSize: 0,
         viewType: viewType
       }));
+    }
+
+    static hideDiff(isHide, elemID) {
+      var diffstr = 'diff'+String(elemID);
+      if(isHide === 'true'){
+        $("#" + diffstr).hide();
+      } else {
+        $("#" + diffstr).show();
+      }
     }
 }

@@ -16,10 +16,10 @@ function buildFileNameWithRunNr(name, extension) {
 }
 
 function getConfigInfoFromName(name) {
-    for (var detector in mapDescriptions) {
-        for (var group in mapDescriptions[detector]) {
-            for (var elem in mapDescriptions[detector][group]) {
-                var e = mapDescriptions[detector][group][elem];
+    for (var detector in Loader.mapDescriptions) {
+        for (var group in Loader.mapDescriptions[detector]) {
+            for (var elem in Loader.mapDescriptions[detector][group]) {
+                var e = Loader.mapDescriptions[detector][group][elem];
 
                 if(name === e['name']) {
                     var obj = new Object();

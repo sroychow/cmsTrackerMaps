@@ -105,10 +105,11 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
 
 function addTextToPanel(refsrc, currsrc, id) {
     jQuery.get(refsrc, function(data) {
-    $('#ref' + id).val(data);});
+        $('#ref' + id).val(data);
+    });
 
     jQuery.get(currsrc, function(data) {
-    $('#curr' + id).val(data);
+        $('#curr' + id).val(data);
     });
 }
 

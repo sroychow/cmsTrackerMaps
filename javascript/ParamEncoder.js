@@ -10,10 +10,12 @@ function encodeOptions() {
 function encodeCheckboxes (name) {
     var ret = "";
     $('#' + name + ' :checkbox').each(function() {
-        ret += "&";
-        ret += $(this).prop('id');
-        ret += "=";
-        ret += $(this).prop('checked');
+        if($(this).prop('checked')) {
+            ret += "&";
+            ret += $(this).prop('id');
+            ret += "=";
+            ret += $(this).prop('checked');
+        }
     });
     return ret;
 }

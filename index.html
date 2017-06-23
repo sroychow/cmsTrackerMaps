@@ -10,7 +10,7 @@
   <script src="javascript/Loader.js"></script>
   <script src="javascript/ParamEncoder.js"></script>
   <script src="javascript/ParamDecoder.js"></script>
-  <script src="javascript/data.js"></script>
+  <script src="javascript/data.json"></script>
   <script src="javascript/utils.js"></script>
 
   <script src="javascript/HtmlElements.js"></script>
@@ -78,22 +78,18 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                    </div>
 
-                    <div class="col-md-offset-4 col-md-2">
-                      <button class="btn btn-link btn-block" id="link-me">
-                        <span class="glyphicon glyphicon-link"></span> Link Me
-                      </button>
-
-                      <button class="btn btn-link btn-block" id="send-link-me">
-                        <span class="glyphicon glyphicon-send"></span> Mail Link
-                      </button>
-                    </div>
+                <div align="right">
+                  <div class="btn-group-vertical btn-group">
+                    <button type="button" class="btn btn-default" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
+                    <button type="button" class="btn btn-default" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
                   </div>
+
                 </div>
               </div>
+
+
+
             </div>
           </div>
         </div>
@@ -124,7 +120,7 @@
           <div id="treeContainer"></div>
         </div>
         <div class="modal-footer">
-          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-warning btn-block"> OK</button>
+          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-primary btn-block"> OK</button>
         </div>
       </div>
     </div>

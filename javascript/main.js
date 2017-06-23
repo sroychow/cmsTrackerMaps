@@ -40,7 +40,7 @@ $(document).on('click', '#dataBrowseOKbtn', function() {
     var pathToPaste = $("#runNumberInputBrowseCaller").attr("data-path");
     var inputObj = $("#" + $("#runNumberInputBrowseCaller").val());
     inputObj.val(pathToPaste);
-    reloadCheckedTabs();
+    Loader.reloadCheckedTabs();
 });
 
 $(document).on('click', '#refRunPathBrowse, #currRunPathBrowse', function() {
@@ -61,7 +61,7 @@ $(document).on('click', '.navigation-arrow', function(){
 });
 
 // --------------------- Eyecandy ---------------------
-$(document).on('click', '.btn-group > .btn', function() { 
+$(document).on('click', '#diffButtonGroup > .btn', function() { 
      $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
 })
 
@@ -74,3 +74,18 @@ $(document).on('click', '.toggleTextarea', function() {
     var toToggle = String($(this).attr('toToggle'));
     $(toToggle).toggle();
 })
+
+
+$(document).on('click', '.enableDiffImg', function() {
+   var tmp = $(this).attr('toToggle');
+   if(!$('#' + tmp).prop('checked')) {
+        $('#' + tmp).click();
+   }
+});
+
+$(document).on('click', '.disableDiffImg', function() {
+   var tmp = $(this).attr('toToggle');
+   if($('#' + tmp).prop('checked')) {
+        $('#' + tmp).click();
+   }
+});

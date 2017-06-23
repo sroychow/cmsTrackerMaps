@@ -43,10 +43,11 @@ Loader.prototype.loadNeighbourRun = function(id, direction) {
     var path = $('#' + id).val();
     if (path.length == 0) return;
     var curr_run_str = getRunNumberFromString(path);
+    var self = this;
     $.post('php/loadNeighbourRun.php', { dir : path, startRunNumber : curr_run_str, direction : direction },
         function(data) {
             $('#' + id).val(data);
-            reloadCheckedTabs();
+            self.reloadCheckedTabs();
         }
     );
 }
