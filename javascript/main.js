@@ -18,6 +18,10 @@ $(document).on('click', '#link-me', function(e) {
     window.location.href = url + encodeOptions();
 });
 
+$(document).on('click', "#siteNameBtn", function(e){
+    $("#link-me").click();
+});
+
 // --------------------- Button handlers for linking results ---------------------
 $(document).on('click', '#send-link-me', function(e) {
     var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
@@ -91,5 +95,34 @@ $(document).on('click', '.toggleTextarea', function() {
     var toToggle = String($(this).attr('toToggle'));
     $(toToggle).toggle();
 })
+
+// Navigate between runs with left & right arrow ( + SHIFT)
+$("body").on('keydown', function(e){
+    var code = e.keyCode;
+    var isShift = e.shiftKey;
+
+    if (code == 37)
+    {
+        if (isShift)
+        {
+            $("#refPrev").click();
+        }
+        else
+        {
+            $("#currPrev").click();
+        }
+    }
+    else if (code == 39)
+    {
+        if (isShift)
+        {
+            $("#refNext").click();
+        }
+        else
+        {
+            $("#currNext").click();
+        }
+    }
+});
 
 

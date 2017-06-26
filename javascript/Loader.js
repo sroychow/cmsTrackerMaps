@@ -13,11 +13,11 @@ Loader.prototype.loadCheckboxes = function() {
     var detID = 0;
     var checkboxID = 0;
     for (var detector in this.mapDescriptions) {
-        var detPanel =  buildCheckboxPanel("det" + detID, detector);
+        var detPanel =  buildCheckboxPanel("det" + detID, detector, "a");
         $("#checkboxPlaceholder").append(detPanel);
 
         for (var group in this.mapDescriptions[detector]) {
-            var groupPanel = buildCheckboxPanelSub("group" + groupID, group);
+            var groupPanel = buildCheckboxPanelSub("group" + groupID, group, /*"det" + detID*/"w");
             $("#det" + detID).append(groupPanel);
 
             for (var elem in this.mapDescriptions[detector][group]) {
@@ -34,6 +34,7 @@ Loader.prototype.loadCheckboxes = function() {
             groupID++;
         }
         detID++;
+        // break;
     }
 };
 

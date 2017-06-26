@@ -32,6 +32,11 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
         newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
         $(".extandable-tab-list-ref").append(newInput);
         addToView(currID, refPath, currPath, info);
+
+        // $(document).on('click', 'a[id^=\"inputCheckBoxPanelcheckbox\"]', function() {
+        //     console.log($(this).attr("id"));
+        // });
+
     } else {
         $("#" + currID).remove();
         $("#" + currID + "lnk").remove();
@@ -94,7 +99,7 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
 
     attachWheelZoomListeners('#' + id);
 
-    $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
+    // $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
     $("#" + id + " .toggleDifferenceView").change(function(e) {
         var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
         $(this).closest(".panel").find(".currCol").toggle();
@@ -109,6 +114,13 @@ function addTextToPanel(refsrc, currsrc, id) {
 
     jQuery.get(currsrc, function(data) {
         $('#curr' + id).val(data);
+    });
+
+    $(document).on('click', '#sideDiffButton, #inlineDiffButton', function(){
+        $(this).closest(".row").siblings().first().css("display", "none");
+    });
+    $(document).on('click', '#noneDiffButton', function(){
+        $(this).closest(".row").siblings().first().css("display", "initial");
     });
 }
 

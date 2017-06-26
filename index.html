@@ -35,10 +35,28 @@
 </header>
 
 <body>
-  <div class="alert alert-default fade in small">
-    <div align="center"><strong>How-To <a href=doc/tkmap_manual.pdf><i class='glyphicon glyphicon-info-sign'></i></a></strong></div>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" id="siteNameBtn">Tracker Maps</a>
+      </div>
+      <div class="btn-group ">
+      <a class="btn btn-default navbar-btn" data-toggle='collapse' href='#jumbotronCollapse' id=""><i class="glyphicon glyphicon-cog"></i> Toggle options</a>
+      <button type="button" class="btn btn-default navbar-btn" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
+      <button type="button" class="btn btn-default navbar-btn" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="doc/tkmap_manual.pdf" target="_blank">How to? <i class='glyphicon glyphicon-info-sign'></i> </a></li>
+        <li><a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" >Bug, Comment, Suggestion? <i class='glyphicon glyphicon-envelope'></i> </a></li>
+      </ul>
+    </div>
+  </nav> 
+
+<!--   <div class="alert alert-default fade in small">
+    <div align="center"><strong>How-To <a href="doc/tkmap_manual.pdf" target="_blank"><i class='glyphicon glyphicon-info-sign'></i></a></strong></div>
     <div align="center"><strong>Bug, Comment, Suggestion? <a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" ><i class='glyphicon glyphicon-envelope'></i> </a></strong></div>
-  </div>
+  </div> -->
 
   <div class="panel-group">
     <div class="panel panel-default">
@@ -79,17 +97,15 @@
                     </div>
                   </div>
 
-                <div align="right">
-                  <div class="btn-group-vertical btn-group">
-                    <button type="button" class="btn btn-default" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
-                    <button type="button" class="btn btn-default" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
+                <!-- <div class="row">
+                  <div style="text-align: right;">
+                    <div class="btn-group-vertical btn-group" >
+                      <button type="button" class="btn btn-default" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
+                      <button type="button" class="btn btn-default" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
+                    </div>
                   </div>
-
-                </div>
+                </div> -->
               </div>
-
-
-
             </div>
           </div>
         </div>
@@ -101,7 +117,12 @@
     <!-- INCLUDED STUFF -->
     <div class="row">
       <div class="col-lg-12">
-        <ul class="nav nav-tabs extandable-tab-list-ref"></ul>
+        <!-- <ul class="nav nav-tabs extandable-tab-list-ref"></ul> -->
+          <nav class="navbar">
+            <div class="container-fluid" style="padding: 0;">
+              <ul class="nav navbar-nav extandable-tab-list-ref"></ul>
+            </div>
+          </nav> 
         <div class="tab-content extandable-tab-list-content"></div>
       </div>
     </div>
