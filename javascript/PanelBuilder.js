@@ -63,8 +63,12 @@ function addToView(id, rsrc, csrc, info) {
             break;
 
         case "txt":
-            refsrc  = buildFileNameWithRunNr(refsrc, ext);
-            currsrc = buildFileNameWithRunNr(currsrc, ext);
+
+            if (!filename.startsWith("Masked")) //INCOSISTENCIES IN FILE NAMING...
+            {
+                refsrc  = buildFileNameWithRunNr(refsrc, ext);
+                currsrc = buildFileNameWithRunNr(currsrc, ext);
+            }
             this.addTextToPanel(refsrc, currsrc, id);
             break;
 

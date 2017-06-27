@@ -68,6 +68,28 @@ var mapDescriptions =
       [
         {"name" : "Min and Max Value",                       "resource" :"minmax.out"                                                     },
         {"name" : "Dead ROCS",                               "resource" :"PixZeroOccROCs_run.txt"                                         }
-      ]
+      ],
+
+      "ROCS":
+      [
+        {"name" : "Masked Barrel L1", "resource" : "PXBarrel_Layer1_coded.png", "emptyMap" : "img/rocPXB1Empty.png"},
+        {"name" : "Masked Barrel L2", "resource" : "PXBarrel_Layer2_coded.png", "emptyMap" : "img/rocPXB2Empty.png"},
+        {"name" : "Masked Barrel L3", "resource" : "PXBarrel_Layer3_coded.png", "emptyMap" : "img/rocPXB3Empty.png"},
+        {"name" : "Masked Barrel L4", "resource" : "PXBarrel_Layer4_coded.png", "emptyMap" : "img/rocPXB4Empty.png"},
+        {"name" : "Masked Endcap R1", "resource" : "PXForward_Ring1_coded.png", "emptyMap" : "img/rocPXF1Empty.png"},
+        {"name" : "Masked Endcap R2", "resource" : "PXForward_Ring2_coded.png", "emptyMap" : "img/rocPXF2Empty.png"},
+      ],
+
+      "ROCS Logs":
+      [
+        {"name" : "Masked ROC during the Run", "resource" : "MaskedROC_Diff.txt"},
+        {"name" : "Masked ROC Run - Beginning", "resource" : "MaskedROC_offline.txt"},
+        {"name" : "Masked ROC Run - End", "resource" : "MaskedROC_online.txt"},
+      ],
   }
 }
+
+
+
+
+

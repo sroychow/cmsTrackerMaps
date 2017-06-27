@@ -45,31 +45,4 @@ $(window).resize(function() {
     }
 });
 
-// Navigate between runs with left & right arrow ( + SHIFT)
-$("body").on('keydown', function(e){
-    var code = e.keyCode;
-    var isShift = e.shiftKey;
 
-    if (code == 37)
-    {
-        if (isShift)
-        {
-            $("#refPrev").click();
-        }
-        else
-        {
-            $("#currPrev").click();
-        }
-    }
-    else if (code == 39)
-    {
-        if (isShift)
-        {
-            $("#refNext").click();
-        }
-        else
-        {
-            $("#currNext").click();
-        }
-    }
-});

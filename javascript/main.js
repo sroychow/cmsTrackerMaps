@@ -95,3 +95,48 @@ $(document).on('click', '.toggleTextarea', function() {
     var toToggle = String($(this).attr('toToggle'));
     $(toToggle).toggle();
 })
+
+// --------------------- Keyboard and Mouse ---------------------
+$(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it
+    if(e.which == 2)
+    {
+        e.preventDefault();
+        console.log("mouseDown");
+
+        var thisID = $(this).attr('id');
+        console.log(thisID);
+
+        var checkboxID = thisID.substr(18, thisID.length - 18 - 3);
+        console.log(checkboxID);
+
+        $("#checkboxPlaceholder #" + checkboxID).click();
+    }
+})
+
+$("body").on('keydown', function(e){            // Navigate between runs with left & right arrow ( + SHIFT)
+    var code = e.keyCode;
+    var isShift = e.shiftKey;
+
+    if (code == 37)
+    {
+        if (isShift)
+        {
+            $("#refPrev").click();
+        }
+        else
+        {
+            $("#currPrev").click();
+        }
+    }
+    else if (code == 39)
+    {
+        if (isShift)
+        {
+            $("#refNext").click();
+        }
+        else
+        {
+            $("#currNext").click();
+        }
+    }
+});
