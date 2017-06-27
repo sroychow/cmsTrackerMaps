@@ -1,26 +1,21 @@
 function buildCheckboxPanel(id, displayname, dataParent) { 
-    return "<div class='panel-group' id='wtf'>" +
-                "<div class='panel panel-primary'>" +
-                    "<div class='panel-heading'>" +
-                        "<a class='btn btn-primary btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+displayname+"</a>" +
-                    "</div>" +
-                    "<div id='" + id + "' class='panel-collapse collapse'>" +
-
-                    "</div>" +
+    return  "<div class='panel panel-primary'>" +
+                "<div class='panel-heading'>" +
+                    "<a class='btn btn-primary btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+displayname+"</a>" +
                 "</div>" +
+                "<div id='" + id + "' class='panel-collapse collapse panel-group'></div>" +
             "</div>";
 }
 
 function buildCheckboxPanelSub(id, displayname, dataParent) { 
-    return "<div class='panel-group'>" +
-                "<div class='panel panel-default'>" +
-                    "<div class='panel-heading'>" +
-                        "<a class='btn btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+displayname+"</a>" +
-                    "</div>" +
-                    "<div id='" + id + "' class='panel-collapse collapse'>" +
-
-                    "</div>" +
+    return  "<div class='panel panel-default'>" +
+                "<div class='panel-heading'>" + 
+                    "<a class='btn btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>" + 
+                        "<span class='glyphicon glyphicon-menu-right'></span>" +
+                        displayname +
+                    "</a>" +
                 "</div>" +
+                "<div id='" + id + "' class='panel-collapse collapse'></div>" +
             "</div>";
 }
 
@@ -50,9 +45,7 @@ function buildPanelWithImages(id) {
                 "<div class='row'>" +
                     "<div class='viewType'>" +
                         "<div class='col-md-12' style='visibility: hidden;'>dummy</div>" + 
-                        "<div class='col-md-6'>" + 
-                            "Choose Diff" +
-                        "</div>" +
+                        "<label class='col-md-6 control-label'>Choose Diff</label>" +
                         "<div class='col-md-6'>" + 
                             "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
                                 "<button type='button' class='btn btn-primary disableDiffImg' toToggle='toggle"+id+"'> Disabled </button>" +
@@ -108,8 +101,8 @@ function buildPanelWithText(id) {
             "<div class='row'>" + 
                 "<div class='viewType'>" +
                     "<div class='col-md-12' style='visibility: hidden;'>dummy</div>" + 
-                    "<div class='col-md-6'>Choose Diff</div>" +
-                    "<div class='col-md-6>" +
+                    "<label class='col-md-6 control-label'>Choose Diff</label>" + 
+                    "<div class='col-md-6'>" +
                         "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
                             "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
                             "<button type='button' id='sideDiffButton'   class='btn' onclick='diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +

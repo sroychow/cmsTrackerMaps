@@ -7,6 +7,10 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	margin-bottom: 20px;
 }
 
+.jumbotron .form-group{
+	margin-bottom: 0;
+}
+
 .alert{
 	text-align: center;
 }
@@ -36,7 +40,13 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 }
 
 .panel-group{
-	margin-bottom: 0px;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.panel-group .panel{
+	margin-bottom: 0;
+	margin-top: 0 !important;
 }
 
 .panel-group .panel-footer{
@@ -163,13 +173,24 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	font-weight: bold;
 }
 
-#checkboxPlaceholder .panel-group .panel-heading{
+.navbar .extandable-tab-list-ref li{
+/*	border: 1px solid red;
+	border-radius: 0 0 30px 30px;*/
+	margin: 0 0.5px;
+}
+
+#checkboxPlaceholder .panel-heading{
 	padding: 0;
 }
 
-#checkboxPlaceholder .panel-group .panel-primary .panel-heading > a{
+/*#checkboxPlaceholder .panel-group .panel-primary .panel-heading > a{
 	font-weight: bold;
-/*	text-transform: uppercase;*/
+		text-transform: uppercase;
+}*/
+
+#checkboxPlaceholder > .panel > .panel-heading > a{
+	text-transform: uppercase;
+	font-weight: bold;
 }
 
 #checkboxPlaceholder .panel-group .panel-default .panel-heading > a{
@@ -177,8 +198,16 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	color: #333;
 }
 
-#checkboxPlaceholder > .panel-group{
-	box-shadow: 2px 2px 6px #888888;
+#checkboxPlaceholder, .jumbotron .form-group{
+	box-shadow: 2px 2px 6px #666;
+}
+
+#checkboxPlaceholder > .panel{
+	border: none;
+}
+
+#checkboxPlaceholder .panel-heading span.glyphicon{
+	padding-right: 10px;
 }
 
 .tab-content{
@@ -214,12 +243,13 @@ textarea {
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 1%,rgba(255,255,255,1) 41%,rgba(255,255,255,1) 100%);
 }
 
-.viewType .col-md-6{
+.viewType .control-label{
 	text-align: right;
-	/*vertical-align: bottom;*/
-	font-weight: bold;
-	height: 30px;
-	padding-top: 2px;
+	padding-top: 15px;
+}
+
+.viewType .btn-group{
+	padding: 10px 0px;
 }
 
 div[id^="diffinputCheckBoxPanelcheckbox"]{

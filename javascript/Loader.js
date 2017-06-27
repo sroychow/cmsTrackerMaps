@@ -13,11 +13,11 @@ Loader.prototype.loadCheckboxes = function() {
     var detID = 0;
     var checkboxID = 0;
     for (var detector in this.mapDescriptions) {
-        var detPanel =  buildCheckboxPanel("det" + detID, detector, "a");
+        var detPanel =  buildCheckboxPanel("det" + detID, detector, "checkboxPlaceholder");
         $("#checkboxPlaceholder").append(detPanel);
 
         for (var group in this.mapDescriptions[detector]) {
-            var groupPanel = buildCheckboxPanelSub("group" + groupID, group, /*"det" + detID*/"w");
+            var groupPanel = buildCheckboxPanelSub("group" + groupID, group, "det" + detID);
             $("#det" + detID).append(groupPanel);
 
             for (var elem in this.mapDescriptions[detector][group]) {
