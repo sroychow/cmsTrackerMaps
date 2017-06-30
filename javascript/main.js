@@ -117,26 +117,31 @@ $("body").on('keydown', function(e){            // Navigate between runs with le
     var code = e.keyCode;
     var isShift = e.shiftKey;
 
-    if (code == 37)
-    {
-        if (isShift)
-        {
+    if (code == 37){
+        if (isShift){
             $("#refPrev").click();
         }
-        else
-        {
+        else{
             $("#currPrev").click();
         }
-    }
-    else if (code == 39)
-    {
-        if (isShift)
-        {
+    } else if (code == 39){
+        if (isShift){
             $("#refNext").click();
         }
-        else
-        {
+        else{
             $("#currNext").click();
         }
     }
+});
+
+// ----------------- Play -----------------
+$(document).on('click', '#startShit', function() {
+    console.log("starting shit");
+    var startRunPath = $('#refRunPath').val();
+    var endRunPath = $('#currRunPath').val();
+
+    console.log(startRunPath);
+    console.log(endRunPath);
+    getListOfNeigborRuns(startRunPath, endRunPath);
+
 });

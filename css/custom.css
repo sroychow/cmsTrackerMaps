@@ -199,7 +199,7 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 }
 
 #checkboxPlaceholder, .jumbotron .form-group{
-	box-shadow: 2px 2px 6px #666;
+	/*box-shadow: 2px 2px 6px #666;*/
 }
 
 #checkboxPlaceholder > .panel{
@@ -250,6 +250,10 @@ textarea {
 
 .viewType .btn-group{
 	padding: 10px 0px;
+}
+
+.playercontainer {
+	height:500;
 }
 
 div[id^="diffinputCheckBoxPanelcheckbox"]{

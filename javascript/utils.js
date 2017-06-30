@@ -34,8 +34,6 @@ function getConfigInfoFromName(name) {
     }
 }
 
-
-
 // allows for proper difference view scaling
 $(window).resize(function() {
     var objs = $(".toggleDifferenceView");
@@ -45,4 +43,28 @@ $(window).resize(function() {
     }
 });
 
+function getListOfNeigborRuns(startRunPath, endRunPath) {
 
+    // Get List Of Runs to display
+    var path = startRunPath;
+    var start_run_nr = getRunNumberFromString(startRunPath);
+    var end_run_nr = getRunNumberFromString(endRunPath);
+
+    console.log(start_run_nr);
+    console.log(end_run_nr);
+
+    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
+        function(data) {
+            var obj = jQuery.parseJSON(data);
+            console.log(obj[0]);
+
+            for(var i=0; i<obj.length; ++i){
+                var tmpstring ="<img src='" + obj[i] +"QTestAlarm.png'></img>";
+                console.log(tmpstring);
+                $('#PlayerImageTag').append(tmpstring);
+            }
+
+            $('#PlayerImageTag').imgplay({rate: 10}); 
+        }
+    );
+}

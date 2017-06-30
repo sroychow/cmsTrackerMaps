@@ -2,6 +2,12 @@
 <header>
   <title>TrackerMaps Reloaded</title>
 
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link href="libs/imgplay/dist/jquery.imgplay.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="libs/panzoom/test/libs/jquery.js"></script>
+
   <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
   <script src="libs/panzoom/test/libs/jquery.js"></script>
@@ -26,6 +32,7 @@
   <link rel="stylesheet" type="text/css" href="libs/jsdifflib/diffview.css"/>
   <script type="text/javascript" src="libs/jsdifflib/diffview.js"></script>
   <script type="text/javascript" src="libs/jsdifflib/difflib.js"></script>
+  <script type="text/javascript" src="libs/imgplay/dist/jquery.imgplay.js"></script>
 
   <script type="text/javascript">
     var Loader = new Loader();
@@ -94,8 +101,19 @@
                           <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
+
+                            <div>
+                              <button class="btn btn-default" id="startShit"> Start it</button>
+                            </div>
+
+                            <div id="PlayerContainer" class="playercontainer">
+                              <div id="PlayerImageTag" class="imageplayer center">
+                              </div>
+                            </div>
                     </div>
                   </div>
+
+
 
                 <!-- <div class="row">
                   <div style="text-align: right;">
@@ -150,5 +168,8 @@
   <!-- </div> -->
   <input type="hidden" id="runNumberInputBrowseCaller" val="">
 
+
+
+</script>
 </body>
 </html>

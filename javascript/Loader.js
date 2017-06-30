@@ -42,6 +42,7 @@ Loader.prototype.loadCheckboxes = function() {
 // where direction refers to either previous or next run (-1/+1)
 Loader.prototype.loadNeighbourRun = function(id, direction) {
     var path = $('#' + id).val();
+    console.log("path is here: " + path);
     if (path.length == 0) return;
     var curr_run_str = getRunNumberFromString(path);
     var self = this;
