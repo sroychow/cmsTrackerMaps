@@ -1,45 +1,55 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
-    var currID = "inputCheckBoxPanel" + id;
+    if(global_mode==='timeline') {
+        alert("ok we are trying to add stuff while in timeline mode");
 
-    if (isChecked) {
-        var info = getConfigInfoFromName($('#'+id).attr('label'));
-        var filename = info.res;
-        var ext = filename.substr(filename.lastIndexOf('.') + 1);
-        var newInput;
+        if (isChecked) {
+            // add the stupid player thing
 
-        switch(ext) {
-            case "png":
-                newInput = buildPanelWithImages(currID);
-                break;
-
-            case "txt":
-                newInput = buildPanelWithText(currID);
-                break;
-
-            case "log":
-                newInput = buildPanelWithText(currID);
-                break;
-
-            case "out":
-                newInput = buildPanelWithText(currID);
-                break;
-
-            default:
-                console.log("Unsupported filetype");
+            
+        } else {
+            // remove the whole panel with the player thing in it.
         }
 
-        $(".extandable-tab-list-content").append(newInput);
-        newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
-        $(".extandable-tab-list-ref").append(newInput);
-        addToView(currID, refPath, currPath, info);
 
-        // $(document).on('click', 'a[id^=\"inputCheckBoxPanelcheckbox\"]', function() {
-        //     console.log($(this).attr("id"));
-        // });
+    } else { 
+        var currID = "inputCheckBoxPanel" + id;
 
-    } else {
-        $("#" + currID).remove();
-        $("#" + currID + "lnk").remove();
+        if (isChecked) {
+            var info = getConfigInfoFromName($('#'+id).attr('label'));
+            var filename = info.res;
+            var ext = filename.substr(filename.lastIndexOf('.') + 1);
+            var newInput;
+
+            switch(ext) {
+                case "png":
+                    newInput = buildPanelWithImages(currID);
+                    break;
+
+                case "txt":
+                    newInput = buildPanelWithText(currID);
+                    break;
+
+                case "log":
+                    newInput = buildPanelWithText(currID);
+                    break;
+
+                case "out":
+                    newInput = buildPanelWithText(currID);
+                    break;
+
+                default:
+                    console.log("Unsupported filetype");
+            }
+
+            $(".extandable-tab-list-content").append(newInput);
+            newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
+            $(".extandable-tab-list-ref").append(newInput);
+            addToView(currID, refPath, currPath, info);
+
+        } else {
+            $("#" + currID).remove();
+            $("#" + currID + "lnk").remove();
+        }
     }
 }
 

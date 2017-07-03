@@ -86,6 +86,10 @@ $(document).on('click', '#diffButtonGroup > .btn', function() {
      $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
 })
 
+$(document).on('click', '#modeButtonGroup > .btn', function() { 
+     $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
+})
+
 $(document).on('click', '#hideUnhideMenu', function() {
     $(this).find("span").toggleClass("glyphicon-menu-up").toggleClass("glyphicon-menu-down");
 })
@@ -142,6 +146,27 @@ $(document).on('click', '#startShit', function() {
 
     console.log(startRunPath);
     console.log(endRunPath);
-    getListOfNeigborRuns(startRunPath, endRunPath);
+    loadImagesToImagePlayer("QTestAlarm.png", startRunPath, endRunPath);
+});
 
+$(document).on('click', '.mode-selector', function() {
+    var mode = $(this).attr('mode');
+    console.log("You are in mode:" + mode);
+
+    //change the caption in ref and curr run 
+
+    switch(mode) {
+        case "compare":
+            $('#refRunPath').attr("placeholder", "REFERENCE");
+            $('#currRunPath').attr("placeholder", "CURRENT");
+            global_mode = 'compare';
+            break;
+        case "timeline":
+            $('#refRunPath').attr("placeholder", "FROM");
+            $('#currRunPath').attr("placeholder", "TO");
+            global_mode = 'timeline';
+            break;
+        default:
+            // alert("something went wrong");
+    }
 });

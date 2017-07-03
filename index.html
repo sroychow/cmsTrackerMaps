@@ -37,19 +37,21 @@
   <script type="text/javascript">
     var Loader = new Loader();
     Loader.loadData();
+
+    var global_mode = "compare";
   </script>
 
 </header>
 
 <body>
 
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-light">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#" id="siteNameBtn">Tracker Maps</a>
       </div>
       <div class="btn-group ">
-      <a class="btn btn-default navbar-btn" data-toggle='collapse' href='#jumbotronCollapse' id=""><i class="glyphicon glyphicon-cog"></i> Toggle options</a>
+      <a class="btn btn-default navbar-btn" data-toggle='collapse' href='#jumbotronCollapse' id=""><i class="glyphicon glyphicon-cog"></i> Toggle Selection</a>
       <button type="button" class="btn btn-default navbar-btn" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
       <button type="button" class="btn btn-default navbar-btn" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
       </div>
@@ -58,6 +60,9 @@
         <li><a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" >Bug, Comment, Suggestion? <i class='glyphicon glyphicon-envelope'></i> </a></li>
       </ul>
     </div>
+
+
+
   </nav> 
 
 <!--   <div class="alert alert-default fade in small">
@@ -66,11 +71,29 @@
   </div> -->
 
   <div class="panel-group">
+
+
     <div class="panel panel-default">
       <div id="jumbotronCollapse" class="panel-collapse collapse in">
         <div class="panel-body">
           <div class="jumbotron">
             <div class="container" id="optionsPane">
+
+
+
+              <div class="center">
+                <div class="row">
+                  <div style="text-align: right;">
+                    <label>Mode:</label>
+                    <div class="btn-group " id="modeButtonGroup" >
+                      <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
+                      <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline"><i class="glyphicon glyphicon-film"></i> Timeline</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
               <div class="row">
 
                 <div class="col-md-6">
@@ -102,27 +125,18 @@
                         </div>
                       </div>
 
-                            <div>
-                              <button class="btn btn-default" id="startShit"> Start it</button>
-                            </div>
+    <!--                             <div>
+                                  <button class="btn btn-primary" id="startShit"> Start playback</button>
+                                </div>
 
-                            <div id="PlayerContainer" class="playercontainer">
-                              <div id="PlayerImageTag" class="imageplayer center">
-                              </div>
-                            </div>
+                                <div id="PlayerContainer" class="playercontainer">
+                                  <div id="PlayerImageTag" class="imageplayer">
+                                  </div>
+                                </div> 
+      -->
                     </div>
                   </div>
 
-
-
-                <!-- <div class="row">
-                  <div style="text-align: right;">
-                    <div class="btn-group-vertical btn-group" >
-                      <button type="button" class="btn btn-default" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
-                      <button type="button" class="btn btn-default" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
-                    </div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>

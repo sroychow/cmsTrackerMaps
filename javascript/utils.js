@@ -43,9 +43,9 @@ $(window).resize(function() {
     }
 });
 
-function getListOfNeigborRuns(startRunPath, endRunPath) {
+function loadImagesToImagePlayer(resname, startRunPath, endRunPath) {
 
-    // Get List Of Runs to display
+    // Get List Of Runs to displaya
     var path = startRunPath;
     var start_run_nr = getRunNumberFromString(startRunPath);
     var end_run_nr = getRunNumberFromString(endRunPath);
@@ -55,16 +55,18 @@ function getListOfNeigborRuns(startRunPath, endRunPath) {
 
     $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
         function(data) {
+        $('div#PlayerImageTag > img').remove();
+
             var obj = jQuery.parseJSON(data);
             console.log(obj[0]);
 
             for(var i=0; i<obj.length; ++i){
-                var tmpstring ="<img src='" + obj[i] +"QTestAlarm.png'></img>";
+                var tmpstring ="<img class='timeline-image' src='" + obj[i] + resname + "'></img>";
                 console.log(tmpstring);
                 $('#PlayerImageTag').append(tmpstring);
             }
 
-            $('#PlayerImageTag').imgplay({rate: 10}); 
+            $('#PlayerImageTag').imgplay({rate: 5}); 
         }
     );
 }
