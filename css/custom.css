@@ -98,8 +98,8 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 
 .extandable-tab-list-ref li.active > a
 {
-	/*color : white;*/
-	/*background-color: #428bca;*/
+	color : white;
+	background-color: #428bca;
 	border-radius: 0 0 10px 10px;
 	/*font-weight: bold;*/
 }
@@ -254,7 +254,7 @@ textarea {
 }
 
 .playercontainer {
-	height:50%;
+	height:60%;
 	width:80%;
 }
 

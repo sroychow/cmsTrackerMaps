@@ -1,5 +1,6 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     if(global_mode==='timeline') {
+        // clearCheckboxselection();
         // alert("ok we are trying to add stuff while in timeline mode");
         var currID = "inputCheckBoxPanel" + id;
 
@@ -19,14 +20,12 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             var endRunPath = $('#currRunPath').val();
             console.log(startRunPath);
             console.log(endRunPath);
-            loadImagesToImagePlayer(filename, startRunPath, endRunPath);
-
+            loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
 
         } else {
             $("#" + currID).remove();
             $("#" + currID + "lnk").remove();
         }
-
 
     } else { 
         var currID = "inputCheckBoxPanel" + id;
@@ -70,7 +69,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     }
 }
 
-function loadImagesToImagePlayer(resname, startRunPath, endRunPath) {
+function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
     // Get List Of Runs to displaya
     var path = startRunPath;
@@ -82,18 +81,17 @@ function loadImagesToImagePlayer(resname, startRunPath, endRunPath) {
 
     $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
         function(data) {
-        $('div#PlayerImageTag > img').remove();
 
             var obj = jQuery.parseJSON(data);
             console.log(obj[0]);
 
             for(var i=0; i<obj.length; ++i){
-                var tmpstring ="<img class='timeline-image' src='" + obj[i] + resname + "'></img>";
-                console.log(tmpstring);
-                $('#PlayerImageTag').append(tmpstring);
+                var newimage ="<img src='" + obj[i] + resname + "'>";
+                // console.log(newimage);
+                $('#imageplayer'+id).append(newimage);
             }
 
-            $('#PlayerImageTag').imgplay({rate: 5}); 
+            $('#imageplayer'+id).imgplay({rate: 5}); 
         }
     );
 }

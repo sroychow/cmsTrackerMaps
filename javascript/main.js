@@ -156,8 +156,8 @@ $(document).on('click', '.mode-selector', function() {
 
     clearCheckboxselection();
 
-    $('#refRunPath').val("");
-    $('#currRunPath').val("");
+    // $('#refRunPath').val("");
+    // $('#currRunPath').val("");
     switch(mode) {
         case "compare":
             $('#refRunPath').attr("placeholder", "REFERENCE");
