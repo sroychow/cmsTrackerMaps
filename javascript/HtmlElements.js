@@ -27,6 +27,19 @@ function buildTimelinePanel(id) {
 
 function buildPanelWithImages(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
+                
+            
+            "<div class='row'>" + 
+                "<div class='viewType'>" +
+                  "<div style='text-align: center;'>"+
+                    "<label>Diff: </label>"+
+                            "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
+                                "<button type='button' class='btn btn-primary disableDiffImg' toToggle='toggle"+id+"'> Disabled </button>" +
+                                "<button type='button' class='btn enableDiffImg' toToggle='toggle"+id+"'> Enabled </button>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+
                 "<div class='row'>" +
                     "<div class='col-md-6'>" +
                         "<div class='panel panel-default'>" +
@@ -48,25 +61,25 @@ function buildPanelWithImages(id) {
                     "</div>" +
                 "</div>" +
 
-                "<div class='row'>" +
-                    "<div class='viewType'>" +
-                        "<div class='col-md-12' style='visibility: hidden;'>dummy</div>" + 
-                        "<label class='col-md-6 control-label'>Choose Diff</label>" +
-                        "<div class='col-md-6'>" + 
-                            "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
-                                "<button type='button' class='btn btn-primary disableDiffImg' toToggle='toggle"+id+"'> Disabled </button>" +
-                                "<button type='button' class='btn enableDiffImg' toToggle='toggle"+id+"'> Enabled </button>" +
-                            "</div>" +
-                        "</div>" +
-                    "</div>" + 
-                "</div>" +
-
             "</div>";
 }
 
 function buildPanelWithText(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
-            "<div class='row rawText' >" +
+            
+            "<div class='row'>" + 
+                "<div class='viewType'>" +
+                  "<div style='text-align: center;'>"+
+                    "<label>Diff: </label>"+
+                        "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
+                            "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
+                            "<button type='button' id='sideDiffButton'   class='btn' onclick='diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
+                            "<button type='button' id='inlineDiffButton' class='btn' onclick='diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+
+            "<div class='row' id='rawtext"+id+"'>" +
                 "<div class='col-md-6'>" +
                     "<div class='panel panel-default'>" +
                         "<div class='panel-heading'>" +
@@ -104,17 +117,5 @@ function buildPanelWithText(id) {
                 "<div id='diff"+id+"'> </div>" +
             "</div>" + 
 
-            "<div class='row'>" + 
-                "<div class='viewType'>" +
-                    "<div class='col-md-12' style='visibility: hidden;'>dummy</div>" + 
-                    "<label class='col-md-6 control-label'>Choose Diff</label>" + 
-                    "<div class='col-md-6'>" +
-                        "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
-                            "<button type='button' id='noneDiffButton'   class='btn btn-primary' onclick='hideDiff(\"true\",\""+id+"\");'> Disabled </button>" +
-                            "<button type='button' id='sideDiffButton'   class='btn' onclick='diffUsingJS(0,\""+id+"\");'> Side by Side</button>" +
-                            "<button type='button' id='inlineDiffButton' class='btn' onclick='diffUsingJS(1,\""+id+"\");'> Combined Inline</button>" +
-                        "</div>" +
-                    "</div>" +
-                "</div>" +
             "</div>";
 }

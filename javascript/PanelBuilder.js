@@ -172,12 +172,5 @@ function addTextToPanel(refsrc, currsrc, id) {
     jQuery.get(currsrc, function(data) {
         $('#curr' + id).val(data);
     });
-
-    $(document).on('click', '#sideDiffButton, #inlineDiffButton', function(){
-        $(this).closest(".row").siblings().first().css("display", "none");
-    });
-    $(document).on('click', '#noneDiffButton', function(){
-        $(this).closest(".row").siblings().first().css("display", "initial");
-    });
 }
 

@@ -4,6 +4,7 @@ function diffUsingJS(viewType, elemID) {
     var currstr = 'curr'+String(elemID);
     var diffstr = 'diff'+String(elemID);
 
+    $('#rawtext'+elemID).hide();
   "use strict";
     var byId = function (id) { return document.getElementById(id); },
     base = difflib.stringAsLines(byId(refstr).value),
@@ -28,6 +29,8 @@ function diffUsingJS(viewType, elemID) {
 };
 
 function hideDiff(isHide, elemID) {
+    $('#rawtext'+elemID).show();
+
   var diffstr = 'diff'+String(elemID);
   if(isHide === 'true')
     $("#" + diffstr).hide();
