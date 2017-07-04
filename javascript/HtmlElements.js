@@ -19,6 +19,19 @@ function buildCheckboxPanelSub(id, displayname, dataParent) {
             "</div>";
 }
 
+function buildTimelinePanel(id) {
+
+
+    return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
+            "<div id='" + id + "'>"+
+            "<div id='PlayerContainer' class='playercontainer'>" +
+              "<div id='PlayerImageTag' class='imageplayer'>" +
+              "</div>" +
+            "</div>" +
+            "</div>"; 
+            "</div>";
+}
+
 function buildPanelWithImages(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
                 "<div class='row'>" +

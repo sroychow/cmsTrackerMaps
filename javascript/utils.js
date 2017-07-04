@@ -43,30 +43,18 @@ $(window).resize(function() {
     }
 });
 
-function loadImagesToImagePlayer(resname, startRunPath, endRunPath) {
 
-    // Get List Of Runs to displaya
-    var path = startRunPath;
-    var start_run_nr = getRunNumberFromString(startRunPath);
-    var end_run_nr = getRunNumberFromString(endRunPath);
-
-    console.log(start_run_nr);
-    console.log(end_run_nr);
-
-    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
-        function(data) {
-        $('div#PlayerImageTag > img').remove();
-
-            var obj = jQuery.parseJSON(data);
-            console.log(obj[0]);
-
-            for(var i=0; i<obj.length; ++i){
-                var tmpstring ="<img class='timeline-image' src='" + obj[i] + resname + "'></img>";
-                console.log(tmpstring);
-                $('#PlayerImageTag').append(tmpstring);
+function clearCheckboxselection() {
+    var checkboxID = 0;
+    for(var detector in Loader.mapDescriptions) {
+        for (var group in Loader.mapDescriptions[detector]) {
+            for (var elem in Loader.mapDescriptions[detector][group]) {
+                var isChecked = $('#checkbox' + checkboxID).is(':checked');
+                if(isChecked) {
+                    $('#checkbox' + checkboxID).click();
+                }
+                ++checkboxID;
             }
-
-            $('#PlayerImageTag').imgplay({rate: 5}); 
         }
-    );
+    }
 }

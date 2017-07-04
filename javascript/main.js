@@ -100,6 +100,7 @@ $(document).on('click', '.toggleTextarea', function() {
     $(toToggle).toggle();
 })
 
+
 // --------------------- Keyboard and Mouse ---------------------
 $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it
     if(e.which == 2)
@@ -140,21 +141,23 @@ $("body").on('keydown', function(e){            // Navigate between runs with le
 
 // ----------------- Play -----------------
 $(document).on('click', '#startShit', function() {
-    console.log("starting shit");
-    var startRunPath = $('#refRunPath').val();
-    var endRunPath = $('#currRunPath').val();
+    // console.log("starting shit");
+    // var startRunPath = $('#refRunPath').val();
+    // var endRunPath = $('#currRunPath').val();
 
-    console.log(startRunPath);
-    console.log(endRunPath);
-    loadImagesToImagePlayer("QTestAlarm.png", startRunPath, endRunPath);
+    // console.log(startRunPath);
+    // console.log(endRunPath);
+    // loadImagesToImagePlayer("QTestAlarm.png", startRunPath, endRunPath);
 });
 
 $(document).on('click', '.mode-selector', function() {
     var mode = $(this).attr('mode');
     console.log("You are in mode:" + mode);
 
-    //change the caption in ref and curr run 
+    clearCheckboxselection();
 
+    $('#refRunPath').val("");
+    $('#currRunPath').val("");
     switch(mode) {
         case "compare":
             $('#refRunPath').attr("placeholder", "REFERENCE");

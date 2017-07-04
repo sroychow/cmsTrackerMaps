@@ -1,4 +1,5 @@
 function decodeOptions() {
+    this.decodeMode();
     var refPath = this.decodeTextfield("refRunPath");
     var currPath = this.decodeTextfield("currRunPath");
     this.decodeCheckboxes();
@@ -28,6 +29,11 @@ function decodeTextfield(name) {
 
 function decodeSelectedMap() {
     $('#' + this.getUrlParameter("mapSelect")).click();
+}
+
+function decodeMode() {
+    console.log('#' + this.getUrlParameter("mode") + "-mode-btn");
+    $('#' + this.getUrlParameter("mode") + "-mode-btn").click();
 }
 
 function getUrlParameter(sParam) {

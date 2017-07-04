@@ -1,13 +1,30 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
     if(global_mode==='timeline') {
-        alert("ok we are trying to add stuff while in timeline mode");
+        // alert("ok we are trying to add stuff while in timeline mode");
+        var currID = "inputCheckBoxPanel" + id;
 
         if (isChecked) {
-            // add the stupid player thing
+            var info = getConfigInfoFromName($('#'+id).attr('label'));
+            var filename = info.res;
+            var ext = filename.substr(filename.lastIndexOf('.') + 1);
 
-            
+            // add the stupid player thing
+            var newInput = buildTimelinePanel(currID);
+            $(".extandable-tab-list-content").append(newInput);
+            newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
+            $(".extandable-tab-list-ref").append(newInput);
+
+
+            var startRunPath = $('#refRunPath').val();
+            var endRunPath = $('#currRunPath').val();
+            console.log(startRunPath);
+            console.log(endRunPath);
+            loadImagesToImagePlayer(filename, startRunPath, endRunPath);
+
+
         } else {
-            // remove the whole panel with the player thing in it.
+            $("#" + currID).remove();
+            $("#" + currID + "lnk").remove();
         }
 
 
@@ -52,6 +69,35 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
         }
     }
 }
+
+function loadImagesToImagePlayer(resname, startRunPath, endRunPath) {
+
+    // Get List Of Runs to displaya
+    var path = startRunPath;
+    var start_run_nr = getRunNumberFromString(startRunPath);
+    var end_run_nr = getRunNumberFromString(endRunPath);
+
+    console.log(start_run_nr);
+    console.log(end_run_nr);
+
+    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
+        function(data) {
+        $('div#PlayerImageTag > img').remove();
+
+            var obj = jQuery.parseJSON(data);
+            console.log(obj[0]);
+
+            for(var i=0; i<obj.length; ++i){
+                var tmpstring ="<img class='timeline-image' src='" + obj[i] + resname + "'></img>";
+                console.log(tmpstring);
+                $('#PlayerImageTag').append(tmpstring);
+            }
+
+            $('#PlayerImageTag').imgplay({rate: 5}); 
+        }
+    );
+}
+
 
 function addToView(id, rsrc, csrc, info) {
     var filename = info.res;

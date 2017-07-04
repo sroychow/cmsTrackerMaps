@@ -98,9 +98,10 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 
 .extandable-tab-list-ref li.active > a
 {
-	background-color: #eee;
-	border-radius: 0 0 30px 30px;
-	font-weight: bold;
+	/*color : white;*/
+	/*background-color: #428bca;*/
+	border-radius: 0 0 10px 10px;
+	/*font-weight: bold;*/
 }
 
 /*.extandable-tab-list-ref li > a:hover
@@ -253,7 +254,8 @@ textarea {
 }
 
 .playercontainer {
-	height:500;
+	height:50%;
+	width:80%;
 }
 
 div[id^="diffinputCheckBoxPanelcheckbox"]{

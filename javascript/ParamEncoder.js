@@ -1,5 +1,6 @@
 function encodeOptions() {
     var ret = "?link=true";
+    ret += this.encodeMode();
     ret += this.encodeCheckboxes("checkboxPlaceholder");
     ret += this.encodeTextfield("refRunPath");
     ret += this.encodeTextfield("currRunPath");
@@ -29,5 +30,12 @@ function encodeTextfield (name) {
 function encodeSelectedMap () {
     var ret = "&mapSelect=";
     ret += $('.extandable-tab-list-ref .active > a').prop('id');
+    return ret;
+}
+
+
+function encodeMode() {
+    var ret = "&mode=";
+    ret += global_mode;
     return ret;
 }
