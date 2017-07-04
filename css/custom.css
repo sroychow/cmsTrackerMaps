@@ -99,8 +99,9 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 .extandable-tab-list-ref li.active > a
 {
 	color : white;
-	background-color: #428bca;
-	border-radius: 0 0 10px 10px;
+	background-color: #337AB7;
+	/*background-color: #DDD;*/
+	border-radius: 10px 10px 0 0;
 	/*font-weight: bold;*/
 }
 
@@ -273,4 +274,12 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	padding: 5px 0;
 	font-weight: bold;
 	font-family: Verdana;
+}
+
+.moduleleveltree{
+	text-align: left;
+}
+
+.detectorleveltree{
+	text-align: left;
 }

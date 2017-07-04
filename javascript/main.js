@@ -139,16 +139,7 @@ $("body").on('keydown', function(e){            // Navigate between runs with le
     }
 });
 
-// ----------------- Play -----------------
-$(document).on('click', '#startShit', function() {
-    // console.log("starting shit");
-    // var startRunPath = $('#refRunPath').val();
-    // var endRunPath = $('#currRunPath').val();
 
-    // console.log(startRunPath);
-    // console.log(endRunPath);
-    // loadImagesToImagePlayer("QTestAlarm.png", startRunPath, endRunPath);
-});
 
 $(document).on('click', '.mode-selector', function() {
     var mode = $(this).attr('mode');
@@ -170,6 +161,17 @@ $(document).on('click', '.mode-selector', function() {
             global_mode = 'timeline';
             break;
         default:
-            // alert("something went wrong");
+            alert("mode not implemented");
     }
 });
+
+// This triggers a resize event every time the tab pane containing
+// the images/logs is clicked.
+// This is done _specifically_ to target a bug in the timeline playback.
+// What the bug was: when opening multiple tabs for playback,
+// the only one of the selected ones was scaled properly. The others
+// were thumbnail size. Cause of the bug was not found, but the libraries
+// use of globals might be the root cause.
+$(document).on('click', '.tab-pane', function() {
+    $(window).trigger('resize');
+})

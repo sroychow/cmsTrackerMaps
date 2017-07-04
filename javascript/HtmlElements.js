@@ -1,20 +1,17 @@
 function buildCheckboxPanel(id, displayname, dataParent) { 
-    return  "<div class='panel panel-primary'>" +
-                "<div class='panel-heading'>" +
-                    "<a class='btn btn-primary btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+displayname+"</a>" +
-                "</div>" +
+    return  "<div class='panel panel-primary '>" +
+                    "<a class='btn btn-default btn-block detectorleveltree' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+
+                    "<span class='glyphicon glyphicon-triangle-right'></span> "+ displayname+"</a>" +
                 "<div id='" + id + "' class='panel-collapse collapse panel-group'></div>" +
             "</div>";
 }
 
 function buildCheckboxPanelSub(id, displayname, dataParent) { 
     return  "<div class='panel panel-default'>" +
-                "<div class='panel-heading'>" + 
-                    "<a class='btn btn-block' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>" + 
-                        "<span class='glyphicon glyphicon-menu-right'></span>" +
+                    "<a class='btn btn-default btn-block moduleleveltree' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>" + 
+                        "<span class='glyphicon glyphicon-menu-right'></span>    " +
                         displayname +
                     "</a>" +
-                "</div>" +
                 "<div id='" + id + "' class='panel-collapse collapse'></div>" +
             "</div>";
 }

@@ -87,7 +87,6 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
             for(var i=0; i<obj.length; ++i){
                 var newimage ="<img src='" + obj[i] + resname + "'>";
-                // console.log(newimage);
                 $('#imageplayer'+id).append(newimage);
             }
 
