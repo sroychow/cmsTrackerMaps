@@ -27,8 +27,6 @@ function buildTimelinePanel(id) {
 
 function buildPanelWithImages(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
-                
-            
             "<div class='row'>" + 
                 "<div class='viewType'>" +
                   "<div style='text-align: center;'>"+

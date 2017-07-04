@@ -1,66 +1,51 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
-    if(global_mode==='timeline') {
-        // clearCheckboxselection();
-        // alert("ok we are trying to add stuff while in timeline mode");
+     {
         var currID = "inputCheckBoxPanel" + id;
 
         if (isChecked) {
             var info = getConfigInfoFromName($('#'+id).attr('label'));
             var filename = info.res;
             var ext = filename.substr(filename.lastIndexOf('.') + 1);
+            var layout;
 
-            // add the stupid player thing
-            var newInput = buildTimelinePanel(currID);
-            $(".extandable-tab-list-content").append(newInput);
-            newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
-            $(".extandable-tab-list-ref").append(newInput);
+            // --------- define the layout to be bulit depending on mode ---------
+            if(global_mode==='timeline') {
+                layout = buildTimelinePanel(currID);
+            }
+            
+            if(global_mode==='compare')  {
+                switch(ext) {
+                    case "png":
+                        layout = buildPanelWithImages(currID);
+                        break;
 
+                    case "txt":
+                    case "log":
+                    case "out":
+                        layout = buildPanelWithText(currID);
+                        break;
 
-            var startRunPath = $('#refRunPath').val();
-            var endRunPath = $('#currRunPath').val();
-            console.log(startRunPath);
-            console.log(endRunPath);
-            loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
-
-        } else {
-            $("#" + currID).remove();
-            $("#" + currID + "lnk").remove();
-        }
-
-    } else { 
-        var currID = "inputCheckBoxPanel" + id;
-
-        if (isChecked) {
-            var info = getConfigInfoFromName($('#'+id).attr('label'));
-            var filename = info.res;
-            var ext = filename.substr(filename.lastIndexOf('.') + 1);
-            var newInput;
-
-            switch(ext) {
-                case "png":
-                    newInput = buildPanelWithImages(currID);
-                    break;
-
-                case "txt":
-                    newInput = buildPanelWithText(currID);
-                    break;
-
-                case "log":
-                    newInput = buildPanelWithText(currID);
-                    break;
-
-                case "out":
-                    newInput = buildPanelWithText(currID);
-                    break;
-
-                default:
-                    console.log("Unsupported filetype");
+                    default:
+                        console.log("Unsupported filetype");
+                }
             }
 
-            $(".extandable-tab-list-content").append(newInput);
-            newInput = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
-            $(".extandable-tab-list-ref").append(newInput);
-            addToView(currID, refPath, currPath, info);
+            $(".extandable-tab-list-content").append(layout);
+            var linktab = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
+            $(".extandable-tab-list-ref").append(linktab);
+
+            // --------- Add content to the layout ---------
+            if(global_mode==='timeline') {
+                var startRunPath = $('#refRunPath').val();
+                var endRunPath = $('#currRunPath').val();
+                console.log(startRunPath);
+                console.log(endRunPath);
+                loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
+            }
+
+            if(global_mode==='compare')  {
+                addToView(currID, refPath, currPath, info);
+            }
 
         } else {
             $("#" + currID).remove();
@@ -68,6 +53,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
         }
     }
 }
+
 
 function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 

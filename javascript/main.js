@@ -100,6 +100,10 @@ $(document).on('click', '.toggleTextarea', function() {
     $(toToggle).toggle();
 })
 
+$(document).on('click', '.hidenav', function() {
+    $(this).find("span").toggleClass("glyphicon-triangle-top").toggleClass("glyphicon-triangle-bottom");
+})
+
 
 // --------------------- Keyboard and Mouse ---------------------
 $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it
