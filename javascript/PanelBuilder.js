@@ -83,16 +83,14 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
     $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
         function(data) {
-
             var obj = jQuery.parseJSON(data);
-            console.log(obj[0]);
 
             for(var i=0; i<obj.length; ++i){
                 var newimage ="<img src='" + obj[i] + resname + "'>";
                 $('#imageplayer'+id).append(newimage);
             }
 
-            $('#imageplayer'+id).imgplay({rate: 5}); 
+            $('#imageplayer'+id).imgplay({rate: 8}); 
         }
     );
 }

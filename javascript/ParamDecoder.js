@@ -43,7 +43,7 @@ function decodeMode() {
             break;
 
         default: 
-            console.log("[ERROR] Trying to load unknown mode; switching to default(compare mode)");
+            console.log("Trying to load unknown mode; switching to default(compare mode)");
             $('#compare-mode-btn').click();
     }
 }

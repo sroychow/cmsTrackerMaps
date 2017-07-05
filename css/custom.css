@@ -240,11 +240,6 @@ textarea {
 	padding: 10px 0px;
 }
 
-.playercontainer {
-	height:60%;
-	width:80%;
-}
-
 div[id^="diffinputCheckBoxPanelcheckbox"]{
 	padding: 20px 25px;
 }
@@ -260,6 +255,11 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	padding: 5px 0;
 	font-weight: bold;
 	font-family: Verdana;
+}
+
+.playercontainer {
+	height:40%;
+	width:60%;
 }
 
 .moduleleveltree{
