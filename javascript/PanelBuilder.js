@@ -44,10 +44,9 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
                         return;
                     }
             }
-            
 
             $(".extandable-tab-list-content").append(layout);
-            var linktab = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
+            var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
             $(".extandable-tab-list-ref").append(linktab);
 
             // --------- Add content to the layout ---------
@@ -81,12 +80,14 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
     console.log(start_run_nr);
     console.log(end_run_nr);
 
-    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr },
+    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr, resource: resname },
         function(data) {
+            console.log(data);
             var obj = jQuery.parseJSON(data);
 
             for(var i=0; i<obj.length; ++i){
-                var newimage ="<img src='" + obj[i] + resname + "'>";
+                console.log(obj[i]);
+                var newimage ="<img src='" + obj[i] +"'>";
                 $('#imageplayer'+id).append(newimage);
             }
 

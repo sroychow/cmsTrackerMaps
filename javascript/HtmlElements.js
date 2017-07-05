@@ -1,6 +1,6 @@
 function buildCheckboxPanel(id, displayname, dataParent) { 
     return  "<div class='panel panel-primary '>" +
-                    "<a class='btn btn-default btn-block detectorleveltree' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+
+                    "<a class='btn btn-primary btn-block detectorleveltree' data-toggle='collapse' data-parent='#" + dataParent + "' href='#"+id+"'>"+
                     "<span class='glyphicon glyphicon-triangle-right'></span> "+ displayname+"</a>" +
                 "<div id='" + id + "' class='panel-collapse collapse panel-group'></div>" +
             "</div>";

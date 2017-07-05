@@ -3,6 +3,8 @@
 $startDir = urldecode($_POST['dir']);
 $startRunNumber = urldecode($_POST['startRunNumber']);
 $endRunNumber = urldecode($_POST['endRunNumber']);
+$resourceName = urldecode($_POST['resource']);
+
 clearstatcache();
 
 $listOfRuns = array();
@@ -15,8 +17,8 @@ for($i=$startRunNumber; $i<=$endRunNumber; $i++) {
 	$newDir = str_replace($startRunNumber, $currentNumber, $startDir);
 	$newDir = str_replace($startGrpDir, $grpDir, $newDir);
 
-	if( file_exists("/data/users" . $newDir) ) {
-		array_push($listOfRuns, $newDir);
+	if( file_exists("/data/users" . $newDir . $resourceName) ) {
+		array_push($listOfRuns, $newDir . $resourceName);
 	}
 }
 

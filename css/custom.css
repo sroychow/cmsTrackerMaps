@@ -96,19 +96,6 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	margin-bottom: 0;
 }
 
-.extandable-tab-list-ref li.active > a
-{
-	/*color : #333333;*/
-	/*background-color: #337AB7;*/
-	/*background-color: #eee;*/
-	border-radius: 10px 10px 0 0;
-	/*font-weight: bold;*/
-}
-
-/*.extandable-tab-list-ref li > a:hover
-{
-	box-shadow: 2px 2px 8px #aaa;
-}*/
 
 .alert .list-group-item{
 	padding: 5px 7px;
@@ -118,11 +105,6 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	padding: 0;
 	margin: 0;
 }
-
-/*.extandable-tab-list-content .panel .panel-heading{
-	padding: 2px;
-	text-align: center;
-}*/
 
 .extandable-tab-list-content .panel .panel-heading label{
 	padding: 0;
@@ -175,20 +157,9 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 	font-weight: bold;
 }
 
-.navbar .extandable-tab-list-ref li{
-/*	border: 1px solid red;
-	border-radius: 0 0 30px 30px;*/
-	margin: 0 0.5px;
-}
-
 #checkboxPlaceholder .panel-heading{
 	padding: 0;
 }
-
-/*#checkboxPlaceholder .panel-group .panel-primary .panel-heading > a{
-	font-weight: bold;
-		text-transform: uppercase;
-}*/
 
 #checkboxPlaceholder > .panel > .panel-heading > a{
 	text-transform: uppercase;
@@ -198,10 +169,6 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 #checkboxPlaceholder .panel-group .panel-default .panel-heading > a{
 	text-align: left;
 	color: #333;
-}
-
-#checkboxPlaceholder, .jumbotron .form-group{
-	/*box-shadow: 2px 2px 6px #666;*/
 }
 
 #checkboxPlaceholder > .panel{
@@ -258,8 +225,9 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 }
 
 .playercontainer {
-	height:40%;
-	width:60%;
+	height:50%;
+	width:100%;
+	margin: 0 auto;
 }
 
 .moduleleveltree{
