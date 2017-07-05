@@ -247,3 +247,8 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	float:right;
 	color: #aaa;
 }
+
+.close {
+    margin: -2px 0px 0px 10px;
+    font-size: 18px;
+}

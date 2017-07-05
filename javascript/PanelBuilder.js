@@ -46,7 +46,9 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             }
 
             $(".extandable-tab-list-content").append(layout);
-            var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
+            var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
+                                 "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
+                                "</a></li>";
             $(".extandable-tab-list-ref").append(linktab);
 
             // --------- Add content to the layout ---------

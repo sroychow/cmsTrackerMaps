@@ -106,22 +106,6 @@ $(document).on('click', '.hidenav', function() {
 
 
 // --------------------- Keyboard and Mouse ---------------------
-$(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it
-    if(e.which == 2)
-    {
-        e.preventDefault();
-        console.log("mouseDown");
-
-        var thisID = $(this).attr('id');
-        console.log(thisID);
-
-        var checkboxID = thisID.substr(18, thisID.length - 18 - 3);
-        console.log(checkboxID);
-
-        $("#checkboxPlaceholder #" + checkboxID).click();
-    }
-})
-
 $("body").on('keydown', function(e){            // Navigate between runs with left & right arrow ( + SHIFT)
     var code = e.keyCode;
     var isShift = e.shiftKey;
@@ -168,6 +152,12 @@ $(document).on('click', '.mode-selector', function() {
             alert("mode not implemented");
     }
 });
+
+$(document).on('click', '.closeTab', function() {
+    var id = $(this).attr('toClose');
+    console.log(id);
+    $('#'+id).click();
+})
 
 // This triggers a resize event every time the tab pane containing
 // the images/logs is clicked.
