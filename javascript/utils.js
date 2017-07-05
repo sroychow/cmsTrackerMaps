@@ -34,6 +34,10 @@ function getConfigInfoFromName(name) {
     }
 }
 
+function getExtensionFromFilename(filename) { 
+    return filename.substr(filename.lastIndexOf('.') + 1);
+}
+
 // allows for proper difference view scaling
 $(window).resize(function() {
     var objs = $(".toggleDifferenceView");

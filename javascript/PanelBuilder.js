@@ -9,10 +9,6 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             var layout;
 
             // --------- define the layout to be bulit depending on mode ---------
-            if(global_mode==='timeline') {
-                layout = buildTimelinePanel(currID);
-            }
-            
             if(global_mode==='compare')  {
                 switch(ext) {
                     case "png":
@@ -27,24 +23,44 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
 
                     default:
                         console.log("Unsupported filetype");
+                        return;
                 }
             }
+
+            if(global_mode==='timeline') {
+                switch(ext) {
+                    case "png":
+                        layout = buildTimelinePanel(currID);
+                        break;
+
+                    case "txt":
+                    case "log":
+                    case "out":
+                        console.log('Cannot display timeline for textfiles files (txt/log/out)');
+                        return;
+
+                    default:
+                        console.log("Unsupported filetype");
+                        return;
+                    }
+            }
+            
 
             $(".extandable-tab-list-content").append(layout);
             var linktab = "<li><a data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + $('#' + id).attr('label') + "</a></li>";
             $(".extandable-tab-list-ref").append(linktab);
 
             // --------- Add content to the layout ---------
+            if(global_mode==='compare')  {
+                addToView(currID, refPath, currPath, info);
+            }
+
             if(global_mode==='timeline') {
                 var startRunPath = $('#refRunPath').val();
                 var endRunPath = $('#currRunPath').val();
                 console.log(startRunPath);
                 console.log(endRunPath);
                 loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
-            }
-
-            if(global_mode==='compare')  {
-                addToView(currID, refPath, currPath, info);
             }
 
         } else {
@@ -84,7 +100,7 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
 function addToView(id, rsrc, csrc, info) {
     var filename = info.res;
-    var ext = filename.substr(filename.lastIndexOf('.') + 1);
+    var ext = getExtensionFromFilename(filename);
 
     var refsrc  = rsrc + filename;
     var currsrc = csrc + filename;

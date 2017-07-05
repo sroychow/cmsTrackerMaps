@@ -22,9 +22,33 @@ Loader.prototype.loadCheckboxes = function() {
 
             for (var elem in this.mapDescriptions[detector][group]) {
                 var elem_name = this.mapDescriptions[detector][group][elem].name;
+                var elem_res  = this.mapDescriptions[detector][group][elem].resource;
+
+                // build the little icon next to the text based on ext
+                var ext = getExtensionFromFilename(elem_res);
+                var display_elem;
+                switch(ext) {
+                    case "png":
+                        display_elem = "glyphicon-picture";
+                        break;
+
+                    case "txt":
+                    case "log":
+                    case "out":
+                        display_elem = "glyphicon-list-alt";
+                        break;
+
+                    default:
+                        display_elem = "glyphicon-ban-circle";                    
+                }
+
+
+
                 var elemPanel = "<div class='panel-title checkbox small'>" +
                                 "<label><input type='checkbox' id='checkbox" + checkboxID + "' label='"+ elem_name +"' class='panel-extend-checkbox'>" +
-                                 elem_name +
+                                 elem_name + " " +
+                                 "<span class='glyphicon " + display_elem + " displayfiletype'></span>    " +
+
                                  "</label>" +
                                  "</div>";
 

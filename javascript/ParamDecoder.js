@@ -32,8 +32,20 @@ function decodeSelectedMap() {
 }
 
 function decodeMode() {
-    console.log('#' + this.getUrlParameter("mode") + "-mode-btn");
-    $('#' + this.getUrlParameter("mode") + "-mode-btn").click();
+    var mode =  this.getUrlParameter("mode");
+
+    switch(mode) {
+        case "compare":
+            $('#compare-mode-btn').click();
+            break;
+        case "timeline":
+            $('#timeline-mode-btn').click();
+            break;
+
+        default: 
+            console.log("[ERROR] Trying to load unknown mode; switching to default(compare mode)");
+            $('#compare-mode-btn').click();
+    }
 }
 
 function getUrlParameter(sParam) {

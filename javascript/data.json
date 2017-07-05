@@ -82,9 +82,9 @@ var mapDescriptions =
 
       "ROCS Logs":
       [
-        {"name" : "Masked ROC during the Run", "resource" : "MaskedROC_Diff.txt"},
+        {"name" : "Masked ROC during the Run",  "resource" : "MaskedROC_Diff.txt"},
         {"name" : "Masked ROC Run - Beginning", "resource" : "MaskedROC_offline.txt"},
-        {"name" : "Masked ROC Run - End", "resource" : "MaskedROC_online.txt"},
+        {"name" : "Masked ROC Run - End",       "resource" : "MaskedROC_online.txt"},
       ],
   }
 }
