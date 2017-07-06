@@ -36,6 +36,6 @@ function encodeSelectedMap () {
 
 function encodeMode() {
     var ret = "&mode=";
-    ret += global_mode;
+    ret += ModeHandler.getMode();
     return ret;
 }

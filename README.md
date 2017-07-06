@@ -12,6 +12,7 @@ An important design decision is that adding additional resources should be as ea
 *   <code>ParamEncoder.js</code>: Generation of the parameter string in the url to be created when sharing the link
 *   <code>ParamDecoder.js</code>: Reverse of encoder; parse parameters and recreate the view
 *   <code>Loader.js</code>: Loads the data, and handles data initialization / new run selection
+*   <code>ModeHandler.js</code>: Handles the chaning of viewmodes which affects mostly the <code>PanelBuilder</code>
 *   <code>PanelBuilder.js</code>: Generator of the panels which are used to display the resources. Different behaviour depending on resource type <code>(txt, log, out, png)</code>
 *   <code>PanZoomHandler.js</code>: Handle synchronizing zooming and panning in images (<code>libs/panzoom</code>)
 *   <code>DiffHandler.js</code>: Handle calls to the diff library (<code>libs/jsdifflib</code>)
@@ -19,8 +20,11 @@ An important design decision is that adding additional resources should be as ea
 
 ### Hints
 
-#### Adding new resource
-Understand how the data is loaded and displayed. Specifically take a look at <code>data.js</code> where the data is defined. The function <code>loadCheckboxes()</code> directly handles the generation of the checkboxes from the data. <code>loadCheckboxes()</code> is called in the onclick handlers found in <code>main.js</code>. From there take a look at the onclick handler that listens for the <code>.panel-extend-checkbox</code> class. From there you're going to have to take a look how the <code>PanelBuilder</code> works. The important functions to consider are <code>PanelBulider::addRmTkMapPanel</code>, and <code>PanelBulider::addToComparisonView</code>.
+#### Simple addition of new plots
+If the resource you want to add is a <code>png, txt, log, out </code> just add it to the corresponding detector and submodule in <code>data.json</code>.
+
+#### Adding new resource type
+Understand how the data is loaded and displayed. Specifically take a look at <code>data.json</code> where the data is defined. The function <code>loadCheckboxes()</code> directly handles the generation of the checkboxes from the data. <code>loadCheckboxes()</code> is called in the onclick handlers found in <code>main.js</code>. From there take a look at the onclick handler that listens for the <code>.panel-extend-checkbox</code> class. From there you're going to have to take a look how the <code>PanelBuilder</code> works. The important functions to consider are <code>PanelBulider::addRmTkMapPanel</code>, and <code>PanelBulider::addToComparisonView</code>.
 It is here were you will have to adapt things - if at all.
 
 #### Changing Decoder / Encoder
@@ -41,6 +45,8 @@ Keep the manual 'doc/tkmap_manual.pdf' up to date.
 *   <a href="https://github.com/timmywil/jquery.panzoom">PanZoom</a>
 *   <a href="https://github.com/cemerick/jsdifflib">JsDiffLib</a>
 *   <a href="https://www.abeautifulsite.net/jquery-file-tree"> JQuery File Tree</a>
+*   <a href="https://github.com/nterms/imgplay"> imgplay</a>
+
 
 
 <br><br><br>

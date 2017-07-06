@@ -9,7 +9,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             var layout;
 
             // --------- define the layout to be bulit depending on mode ---------
-            if(global_mode==='compare')  {
+            if(ModeHandler.getMode()==='compare')  {
                 switch(ext) {
                     case "png":
                         layout = buildPanelWithImages(currID);
@@ -27,7 +27,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
                 }
             }
 
-            if(global_mode==='timeline') {
+            if(ModeHandler.getMode()==='timeline') {
                 switch(ext) {
                     case "png":
                         layout = buildTimelinePanel(currID);
@@ -52,15 +52,13 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             $(".extandable-tab-list-ref").append(linktab);
 
             // --------- Add content to the layout ---------
-            if(global_mode==='compare')  {
+            if(ModeHandler.getMode()==='compare')  {
                 addToView(currID, refPath, currPath, info);
             }
 
-            if(global_mode==='timeline') {
+            if(ModeHandler.getMode()==='timeline') {
                 var startRunPath = $('#refRunPath').val();
                 var endRunPath = $('#currRunPath').val();
-                console.log(startRunPath);
-                console.log(endRunPath);
                 loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
             }
 
@@ -79,16 +77,11 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
     var start_run_nr = getRunNumberFromString(startRunPath);
     var end_run_nr = getRunNumberFromString(endRunPath);
 
-    console.log(start_run_nr);
-    console.log(end_run_nr);
-
     $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr, resource: resname },
         function(data) {
-            console.log(data);
             var obj = jQuery.parseJSON(data);
 
             for(var i=0; i<obj.length; ++i){
-                console.log(obj[i]);
                 var newimage ="<img src='" + obj[i] +"'>";
                 $('#imageplayer'+id).append(newimage);
             }

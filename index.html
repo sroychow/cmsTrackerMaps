@@ -13,6 +13,7 @@
   <script src="libs/panzoom/test/libs/jquery.js"></script>
   <script src="libs/bootstrap/js/bootstrap.min.js"></script>
   
+  <script src="javascript/ModeHandler.js"></script>
   <script src="javascript/Loader.js"></script>
   <script src="javascript/ParamEncoder.js"></script>
   <script src="javascript/ParamDecoder.js"></script>
@@ -35,7 +36,8 @@
   <script type="text/javascript" src="libs/imgplay/dist/jquery.imgplay.js"></script>
 
   <script type="text/javascript">
-    var global_mode = "compare";
+    // var global_mode = "compare";
+    var ModeHandler = new ModeHandler();
 
     var Loader = new Loader();
     Loader.loadData();

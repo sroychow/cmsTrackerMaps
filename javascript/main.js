@@ -131,8 +131,10 @@ $("body").on('keydown', function(e){            // Navigate between runs with le
 
 $(document).on('click', '.mode-selector', function() {
     var mode = $(this).attr('mode');
-    console.log("You are in mode:" + mode);
 
+    ModeHandler.changeMode(mode);
+
+/*
     clearCheckboxselection();
 
     // $('#refRunPath').val("");
@@ -151,6 +153,7 @@ $(document).on('click', '.mode-selector', function() {
         default:
             alert("mode not implemented");
     }
+    */
 });
 
 $(document).on('click', '.closeTab', function() {
@@ -167,5 +170,6 @@ $(document).on('click', '.closeTab', function() {
 // were thumbnail size. Cause of the bug was not found, but the libraries
 // use of globals might be the root cause.
 $(document).on('click', '.tab-pane', function() {
-    $(window).trigger('resize');
+    if(ModeHandler.getMode()==="timeline")
+        $(window).trigger('resize');
 })
