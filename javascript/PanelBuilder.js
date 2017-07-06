@@ -46,6 +46,7 @@ function addRmTkMapPanel(id, isChecked, refPath, currPath) {
             }
 
             $(".extandable-tab-list-content").append(layout);
+            console.log(layout);
             var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
                                  "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
                                 "</a></li>";
@@ -82,11 +83,15 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
             var obj = jQuery.parseJSON(data);
 
             for(var i=0; i<obj.length; ++i){
-                var newimage ="<img src='" + obj[i] +"'>";
-                $('#imageplayer'+id).append(newimage);
+                if(i==0)
+                    var newimage ="<img src='" + obj[i] +"' width='800' height='400'>";
+                else
+                    var newimage ="<img src='" + obj[i] +"' style='display: none;' width='800' height='400'>";
+
+                console.log(newimage);
+                $('#timelineContainer'+id).find('#timelineImages').append(newimage);
             }
 
-            $('#imageplayer'+id).imgplay({rate: 8}); 
         }
     );
 }

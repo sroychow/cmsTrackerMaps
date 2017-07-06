@@ -224,10 +224,14 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	font-family: Verdana;
 }
 
-.playercontainer {
+.timelineContainer {
 	height:50%;
-	width:100%;
+	width:70%;
 	margin: 0 auto;
+}
+
+.timelineImages {
+
 }
 
 .moduleleveltree{

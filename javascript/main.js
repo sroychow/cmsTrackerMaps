@@ -170,6 +170,77 @@ $(document).on('click', '.closeTab', function() {
 // were thumbnail size. Cause of the bug was not found, but the libraries
 // use of globals might be the root cause.
 $(document).on('click', '.tab-pane', function() {
-    if(ModeHandler.getMode()==="timeline")
+    if(ModeHandler.getMode()==="timeline") 
         $(window).trigger('resize');
 })
+
+var timelineInterval;
+var currentFrame = 0;
+var isplaying = 0;
+$(document).on('click', '.playbutton', function() {
+    $(this).find("span").toggleClass("glyphicon-play").toggleClass("glyphicon-stop");
+
+    if(isplaying) {
+        pause(this);
+    } else {
+        play(this);
+    }
+});
+
+$(document).on('click', '.stopbutton', function() {
+    restartPlayback(this);
+});
+
+$(document).on('click', '.nextbutton', function() {
+    nextFrame(this);
+});
+
+
+function nextFrame(context) {
+    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
+    var frames = timelineImagesID.children();
+    var frameCount = frames.length;
+
+    for(var i = 0; i<frameCount; i++){
+        frames[i].style.display = "none";
+    }
+    frames[(currentFrame+1) % frameCount].style.display = "block";
+    currentFrame++;
+}
+
+function restartPlayback(context) {
+    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
+    var frames = timelineImagesID.children();
+    var frameCount = frames.length;
+
+    for(var i = 0; i<frameCount; i++){
+        frames[i].style.display = "none";
+    }
+    frames[0].style.display = "block";
+    currentFrame=0;
+    clearInterval(timelineInterval);
+}
+
+
+function play(context) {
+    restartPlayback(context);
+    var timelineImagesID = $(context).parent().parent().find('#timelineImages')
+
+    var frames = timelineImagesID.children();
+    var frameCount = frames.length;
+    var i = currentFrame;
+
+    frames[currentFrame].style.display = "block";
+
+    timelineInterval = setInterval(function () {
+        frames[i % frameCount].style.display = "none";
+        frames[++i % frameCount].style.display = "block";
+        currentFrame = i;
+    }, 100);
+    isplaying=1;
+}
+
+function pause(context) {
+    clearInterval(timelineInterval);
+    isplaying=0; 
+}
