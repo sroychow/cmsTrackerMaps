@@ -88,10 +88,14 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
                 else
                     var newimage ="<img src='" + obj[i] +"' style='display: none;' width='800' height='400'>";
 
-                console.log(newimage);
                 $('#timelineContainer'+id).find('#timelineImages').append(newimage);
-            }
 
+            }                
+            var newslider= "<input class='timelineslider' id='slider'  type='text' data-slider-min='0' "+
+                                   "data-slider-max='"+obj.length+"' data-slider-step='1' data-slider-value='0'/>";
+
+            $('#timelineContainer'+id).find('#sliderGroup').append(newslider);
+            $('.timelineslider').bootstrapSlider();
         }
     );
 }

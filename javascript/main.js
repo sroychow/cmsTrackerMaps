@@ -106,6 +106,21 @@ $(document).on('click', '.hidenav', function() {
 
 
 // --------------------- Keyboard and Mouse ---------------------
+$(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it       
+     if(e.which == 2)       
+     {      
+         e.preventDefault();        
+         console.log("mouseDown");      
+        
+         var thisID = $(this).attr('id');       
+         console.log(thisID);       
+        
+         var checkboxID = thisID.substr(18, thisID.length - 18 -  3);      
+         console.log(checkboxID);       
+        
+         $("#checkboxPlaceholder #" + checkboxID).click();      
+     }      
+ })
 $("body").on('keydown', function(e){            // Navigate between runs with left & right arrow ( + SHIFT)
     var code = e.keyCode;
     var isShift = e.shiftKey;
@@ -131,29 +146,7 @@ $("body").on('keydown', function(e){            // Navigate between runs with le
 
 $(document).on('click', '.mode-selector', function() {
     var mode = $(this).attr('mode');
-
     ModeHandler.changeMode(mode);
-
-/*
-    clearCheckboxselection();
-
-    // $('#refRunPath').val("");
-    // $('#currRunPath').val("");
-    switch(mode) {
-        case "compare":
-            $('#refRunPath').attr("placeholder", "REFERENCE");
-            $('#currRunPath').attr("placeholder", "CURRENT");
-            global_mode = 'compare';
-            break;
-        case "timeline":
-            $('#refRunPath').attr("placeholder", "FROM");
-            $('#currRunPath').attr("placeholder", "TO");
-            global_mode = 'timeline';
-            break;
-        default:
-            alert("mode not implemented");
-    }
-    */
 });
 
 $(document).on('click', '.closeTab', function() {
@@ -174,73 +167,29 @@ $(document).on('click', '.tab-pane', function() {
         $(window).trigger('resize');
 })
 
+
+
+// ---- Timeline player and its controls ---- // 
 var timelineInterval;
-var currentFrame = 0;
-var isplaying = 0;
 $(document).on('click', '.playbutton', function() {
-    $(this).find("span").toggleClass("glyphicon-play").toggleClass("glyphicon-stop");
+    $(this).find("span").toggleClass("glyphicon-play").toggleClass("glyphicon-pause");
+
+    var isplaying = $(this).attr('isplaying')==='true';
+    var currentframe = $(this).attr('currentframe');
 
     if(isplaying) {
+        $(this).attr('isplaying', 'false');
         pause(this);
+
     } else {
-        play(this);
+        $(this).attr('isplaying', 'true');
+        play(this);        
     }
 });
 
-$(document).on('click', '.stopbutton', function() {
-    restartPlayback(this);
+
+
+$(document).on('change', '.timelineslider', function() {
+    var changedTo =$(this).parent().parent().find('#sliderGroup').find('#slider').attr('value');
+    setFrame(this, changedTo);
 });
-
-$(document).on('click', '.nextbutton', function() {
-    nextFrame(this);
-});
-
-
-function nextFrame(context) {
-    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
-    var frames = timelineImagesID.children();
-    var frameCount = frames.length;
-
-    for(var i = 0; i<frameCount; i++){
-        frames[i].style.display = "none";
-    }
-    frames[(currentFrame+1) % frameCount].style.display = "block";
-    currentFrame++;
-}
-
-function restartPlayback(context) {
-    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
-    var frames = timelineImagesID.children();
-    var frameCount = frames.length;
-
-    for(var i = 0; i<frameCount; i++){
-        frames[i].style.display = "none";
-    }
-    frames[0].style.display = "block";
-    currentFrame=0;
-    clearInterval(timelineInterval);
-}
-
-
-function play(context) {
-    restartPlayback(context);
-    var timelineImagesID = $(context).parent().parent().find('#timelineImages')
-
-    var frames = timelineImagesID.children();
-    var frameCount = frames.length;
-    var i = currentFrame;
-
-    frames[currentFrame].style.display = "block";
-
-    timelineInterval = setInterval(function () {
-        frames[i % frameCount].style.display = "none";
-        frames[++i % frameCount].style.display = "block";
-        currentFrame = i;
-    }, 100);
-    isplaying=1;
-}
-
-function pause(context) {
-    clearInterval(timelineInterval);
-    isplaying=0; 
-}

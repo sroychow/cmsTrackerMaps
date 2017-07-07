@@ -256,3 +256,8 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
     margin: -2px 0px 0px 10px;
     font-size: 18px;
 }
+
+
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}

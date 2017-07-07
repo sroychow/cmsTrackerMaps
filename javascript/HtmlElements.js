@@ -23,11 +23,12 @@ function buildTimelinePanel(id) {
                           "<div id='timelineImages' class='timelineImages'>" + 
                           "</div>"+
 
-                          "<div id='timelineControls'>" + 
+                          "<div id='sliderGroup'>" + 
+                          "</div>" +
 
-                              "<button type='button' class='btn btn-default playbutton'><span class='glyphicon glyphicon-play'></span></button>" + 
 
-                              "<button type='button' class='btn btn-default nextbutton'><span class='glyphicon glyphicon-step-forward'></span></button>" + 
+                          "<div id='timelineControls' class='btn-group'>" + 
+                              "<button type='button' class='btn playbutton' isplaying='false' currentframe='0'><span class='glyphicon glyphicon-play'></span></button>" + 
                           "</div>" + 
                       "</div>"+
             "</div>";
