@@ -20,15 +20,16 @@ function buildTimelinePanel(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
                       "<div class='timelineContainer' id='timelineContainer" + id + "'>" + 
 
-                          "<div id='timelineImages' class='timelineImages'>" + 
+                          "<div id='timelineImages'>" + 
                           "</div>"+
 
-                          "<div id='sliderGroup'>" + 
-                          "</div>" +
+                          "<div id='timelineControls'>" + 
+                                "<button type='button' class='btn btn-link playbutton' isplaying='false' currentframe='0'><span class='glyphicon glyphicon-play'></span></button>" + 
+                                "<div id='sliderGroup'><label id='progresslabel' class='label'> </label></div>" +
 
-
-                          "<div id='timelineControls' class='btn-group'>" + 
-                              "<button type='button' class='btn playbutton' isplaying='false' currentframe='0'><span class='glyphicon glyphicon-play'></span></button>" + 
+                                "<button type='button' class='btn btn-link'><span class='glyphicon glyphicon-cog'></span></button>" + 
+                                "<button type='button' class='btn btn-link fullscreenSwitch'><span class='glyphicon glyphicon-resize-full'></span></button>" + 
+                                                                
                           "</div>" + 
                       "</div>"+
             "</div>";

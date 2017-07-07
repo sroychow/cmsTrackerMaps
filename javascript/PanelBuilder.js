@@ -84,18 +84,20 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
             for(var i=0; i<obj.length; ++i){
                 if(i==0)
-                    var newimage ="<img src='" + obj[i] +"' width='800' height='400'>";
+                    var newimage ="<img src='" + obj[i] +"' >";
                 else
-                    var newimage ="<img src='" + obj[i] +"' style='display: none;' width='800' height='400'>";
+                    var newimage ="<img src='" + obj[i] +"' style='display: none;'>";
 
                 $('#timelineContainer'+id).find('#timelineImages').append(newimage);
 
             }                
-            var newslider= "<input class='timelineslider' id='slider'  type='text' data-slider-min='0' "+
-                                   "data-slider-max='"+obj.length+"' data-slider-step='1' data-slider-value='0'/>";
+            var newslider= "<input id='slider'  type='text' data-slider-min='0' "+
+                                   "data-slider-max='"+(obj.length-1)+"' data-slider-step='1' data-slider-value='0' data-slider-tooltip='hide'/>";
+
 
             $('#timelineContainer'+id).find('#sliderGroup').append(newslider);
-            $('.timelineslider').bootstrapSlider();
+            $('#timelineContainer'+id).find('#sliderGroup').find('#slider').bootstrapSlider();
+            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append("0/"+(obj.length-1));
         }
     );
 }

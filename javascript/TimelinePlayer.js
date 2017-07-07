@@ -1,59 +1,64 @@
 function play(context) {
+    var playbutton = $(context).find('#timelineControls').find('.playbutton');
+    playbutton.attr('isplaying', 'true');
+    playbutton.find("span").removeClass("glyphicon-play").addClass("glyphicon-pause");
+
     timelineInterval = setInterval(function () {
         nextFrame(context);
     }, 100);
 }
 
 function pause(context) {
-    isplaying=false; 
+    var playbutton = $(context).find('#timelineControls').find('.playbutton');
+    playbutton.attr('isplaying', 'false');
+    playbutton.find("span").removeClass("glyphicon-pause").addClass("glyphicon-play");
+
+    isplaying=false;
     clearInterval(timelineInterval);
 }
-
-
+        
 function nextFrame(context) {
-    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
-    var frames = timelineImagesID.children();
-    var frameCount = frames.length;
+    var image_group = $(context).find('#timelineImages');
+    var slider = $(context).find('#sliderGroup').find('#slider');
+    var frames = image_group.children();
+    var num_frames = frames.length;
 
-    for(var i = 0; i<frameCount; i++){
-        frames[i].style.display = "none";
-    }
+    var curr_frame = slider.bootstrapSlider('getValue');
+    var next_frame = (curr_frame+1) % num_frames;
 
-    var currentframe = parseInt($(context).attr('currentFrame'));
-    var nextframe = (currentframe+1) % frameCount;
-
-    // set the nextframe as current frame
-    frames[nextframe].style.display = "block";
-    currentframe = nextframe;
+    setFrame(context, next_frame);
 
     // update the data carrier
-    $(context).attr('currentframe', currentframe);
-    console.log(currentframe + " / " + frameCount);
+    slider.bootstrapSlider('setValue', next_frame);
 
-    var slider = $(context).parent().parent().find('#sliderGroup').find('.timelineslider');
-    slider.bootstrapSlider('setValue', currentframe);
-
+    if(isAtLastFrame(context)) {
+        pause(context);
+        var playbutton = $(context).find('#timelineControls').find('.playbutton');
+        playbutton.find("span").removeClass("glyphicon-play").addClass("glyphicon-repeat");
+    }
 }
 
+function setFrame(context, framenr_to_set){
+    var progresslabel = $(context).find('#sliderGroup').find('#progresslabel');
+    var image_group = $(context).find('#timelineImages');
+    var frames = image_group.children();
+    var num_frames = frames.length;
 
-function setFrame(context, framenr) { 
-    console.log($(context).parent().parent().find('#timelineControls').find('.playbutton'));
-    var timelineImagesID = $(context).parent().parent().find('#timelineImages');
-    var frames = timelineImagesID.children();
-    var frameCount = frames.length;
-
-    for(var i = 0; i<frameCount; i++){
+    for(var i = 0; i<num_frames; i++){
         frames[i].style.display = "none";
-    } 
-    frames[framenr].style.display = "block";
+    }
+    frames[framenr_to_set].style.display = "initial";
+    console.log((framenr_to_set+1) + " / " + num_frames);
+    progresslabel.empty();
+    progresslabel.append((framenr_to_set+1) + " / " + num_frames);
+}
 
-    // update the data carrier
-    // $(context).attr('currentframe', framenr);
-    console.log(framenr + " / " + frameCount);
+function isAtLastFrame(context) {
+    var image_group = $(context).find('#timelineImages');
+    var slider = $(context).find('#sliderGroup').find('#slider');
+    var frames = image_group.children();
+    var num_frames = frames.length;
+    var curr_frame = slider.bootstrapSlider('getValue');
 
-    var slider = $(context).parent().parent().find('#sliderGroup').find('.timelineslider');
-    slider.bootstrapSlider('setValue', framenr);
-
-    $(context).parent().parent().find('#timelineControls').find('.playbutton').attr('currentframe', framenr);
-
+    return (curr_frame == num_frames-1); 
 }

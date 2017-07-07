@@ -13,6 +13,7 @@ An important design decision is that adding additional resources should be as ea
 *   <code>ParamDecoder.js</code>: Reverse of encoder; parse parameters and recreate the view
 *   <code>Loader.js</code>: Loads the data, and handles data initialization / new run selection
 *   <code>ModeHandler.js</code>: Handles the chaning of viewmodes which affects mostly the <code>PanelBuilder</code>
+*   <code>TimelinePlayer.js</code>: TODO
 *   <code>PanelBuilder.js</code>: Generator of the panels which are used to display the resources. Different behaviour depending on resource type <code>(txt, log, out, png)</code>
 *   <code>PanZoomHandler.js</code>: Handle synchronizing zooming and panning in images (<code>libs/panzoom</code>)
 *   <code>DiffHandler.js</code>: Handle calls to the diff library (<code>libs/jsdifflib</code>)
@@ -45,7 +46,6 @@ Keep the manual 'doc/tkmap_manual.pdf' up to date.
 *   <a href="https://github.com/timmywil/jquery.panzoom">PanZoom</a>
 *   <a href="https://github.com/cemerick/jsdifflib">JsDiffLib</a>
 *   <a href="https://www.abeautifulsite.net/jquery-file-tree"> JQuery File Tree</a>
-*   <a href="https://github.com/nterms/imgplay"> imgplay</a>
 
 
 

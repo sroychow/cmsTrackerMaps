@@ -167,29 +167,28 @@ $(document).on('click', '.tab-pane', function() {
         $(window).trigger('resize');
 })
 
+$(document).on('click', '.timelineContainer .fullscreenSwitch', function(){
+    $(this).parent().parent().toggleClass('fullscreenMode');
+})
+
 
 
 // ---- Timeline player and its controls ---- // 
 var timelineInterval;
 $(document).on('click', '.playbutton', function() {
-    $(this).find("span").toggleClass("glyphicon-play").toggleClass("glyphicon-pause");
-
     var isplaying = $(this).attr('isplaying')==='true';
-    var currentframe = $(this).attr('currentframe');
-
+    var context = $(this).parent().parent(); // image group
     if(isplaying) {
-        $(this).attr('isplaying', 'false');
-        pause(this);
-
+        pause(context);
     } else {
-        $(this).attr('isplaying', 'true');
-        play(this);        
+        play(context);        
     }
 });
 
 
 
-$(document).on('change', '.timelineslider', function() {
-    var changedTo =$(this).parent().parent().find('#sliderGroup').find('#slider').attr('value');
-    setFrame(this, changedTo);
+$(document).on('change', '#slider', function() {
+    var newframeNr = $(this).bootstrapSlider('getValue');
+    var context = $(this).parent().parent().parent();
+    setFrame(context, newframeNr);
 });
