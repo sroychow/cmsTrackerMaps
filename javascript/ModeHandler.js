@@ -29,10 +29,14 @@ ModeHandler.prototype.changeMode = function(m) {
         case "compare":
             $('#refRunPath').attr("placeholder", "REFERENCE");
             $('#currRunPath').attr("placeholder", "CURRENT");
+            // this.enableAllCheckboxes();
             break;
         case "timeline":
             $('#refRunPath').attr("placeholder", "FROM");
             $('#currRunPath').attr("placeholder", "TO");
+            // this.disableCheckboxesFromExt('txt');
+            // this.disableCheckboxesFromExt('log');
+            // this.disableCheckboxesFromExt('out');
             break;
         default:
             alert("mode not implemented");
@@ -42,6 +46,38 @@ ModeHandler.prototype.changeMode = function(m) {
 	$('#' + this.getStringParameter(srcStr, "mapSelect")).click();
 };
 
+/* UNUSED
+// disables checkboxes that have @param ext as file extension 
+ModeHandler.prototype.disableCheckboxesFromExt = function(ext) {
+    var checkboxID = 0;
+    for(var detector in Loader.mapDescriptions) {
+        for (var group in Loader.mapDescriptions[detector]) {
+            for (var elem in Loader.mapDescriptions[detector][group]) {
+
+                //find the extension from filename
+                // console.log("IM ALIVE, filtering out " + ext);
+                var srcext = getExtensionFromFilename(Loader.mapDescriptions[detector][group][elem]['resource']);
+                if(srcext === ext){
+                    $('#checkbox' + checkboxID).attr('disabled', true);
+                }
+
+                ++checkboxID;
+            }
+        }
+    }
+};
+
+ModeHandler.prototype.enableAllCheckboxes = function() {
+    var checkboxID = 0;
+    for(var detector in Loader.mapDescriptions) {
+        for (var group in Loader.mapDescriptions[detector]) {
+            for (var elem in Loader.mapDescriptions[detector][group]) {
+                $('#checkbox' + checkboxID).attr('disabled', false);
+                ++checkboxID;
+            }
+        }
+    }
+};*/
 
 // copy pasta from Loader with slight modifications
 // TODO: make one function out of this and Loader::decodeCheckboxes

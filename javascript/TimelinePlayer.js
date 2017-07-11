@@ -3,9 +3,14 @@ function play(context) {
     playbutton.attr('isplaying', 'true');
     playbutton.find("span").removeClass("glyphicon-play").addClass("glyphicon-pause");
 
+    var fps = $(context).find('#timelineControls').find('#fpssetting').val();
+    console.log("Playback with " + fps + " fps");
+
+    var delay_ms = 1000/parseInt(fps);
+
     timelineInterval = setInterval(function () {
         nextFrame(context);
-    }, 100);
+    }, delay_ms);
 }
 
 function pause(context) {
@@ -31,7 +36,9 @@ function nextFrame(context) {
     // update the data carrier
     slider.bootstrapSlider('setValue', next_frame);
 
-    if(isAtLastFrame(context)) {
+    var isLoopEnabled = $(context).find('#timelineControls').find('#loopingEnabled').is(':checked');
+
+    if(!isLoopEnabled && isAtLastFrame(context)) {
         pause(context);
         var playbutton = $(context).find('#timelineControls').find('.playbutton');
         playbutton.find("span").removeClass("glyphicon-play").addClass("glyphicon-repeat");

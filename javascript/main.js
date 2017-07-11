@@ -104,6 +104,10 @@ $(document).on('click', '.hidenav', function() {
     $(this).find("span").toggleClass("glyphicon-triangle-top").toggleClass("glyphicon-triangle-bottom");
 })
 
+$(document).on('click', '.fullscreenSwitch', function() {
+    $(this).find("span").toggleClass("glyphicon-resize-full").toggleClass("glyphicon-resize-small");
+})
+
 
 // --------------------- Keyboard and Mouse ---------------------
 $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it       
@@ -171,13 +175,13 @@ $(document).on('click', '.timelineContainer .fullscreenSwitch', function(){
     $(this).parent().parent().toggleClass('fullscreenMode');
 })
 
-
-
 // ---- Timeline player and its controls ---- // 
 var timelineInterval;
 $(document).on('click', '.playbutton', function() {
     var isplaying = $(this).attr('isplaying')==='true';
     var context = $(this).parent().parent(); // image group
+        console.log(context);
+
     if(isplaying) {
         pause(context);
     } else {
@@ -185,10 +189,54 @@ $(document).on('click', '.playbutton', function() {
     }
 });
 
-
-
 $(document).on('change', '#slider', function() {
     var newframeNr = $(this).bootstrapSlider('getValue');
     var context = $(this).parent().parent().parent();
     setFrame(context, newframeNr);
 });
+
+$('.dropdown-menu').click(function(e) {
+    e.stopPropagation();
+});
+
+$(document).on('keyup mouseup change', '#fpssetting', function() {
+    var isplaying = $(this).parent().parent().parent().parent().parent().find('.playbutton').attr('isplaying') ==='true';
+    var context = $(this).closest('.timelineContainer');
+    if(isplaying) {
+        pause(context);
+        play(context);
+    }    
+});
+
+$(document).on('click', '#downloadAsGif', function(e) {
+    var context = $(this).parent().parent().parent();
+    var image_group = $(context).find('#timelineImages');
+    var frames = image_group.children();
+
+    var fps = $(context).find('#timelineControls').find('#fpssetting').val();
+    var delay_ms = 1000/parseInt(fps);
+
+
+    var ag = new Animated_GIF();
+    var tmp = frames[0];
+    ag.setSize(tmp.clientWidth,tmp.clientHeight);
+    ag.setDelay(delay_ms);
+
+    for(var i = 0; i < frames.length; i++) {
+        ag.addFrame(frames[i]);
+    }
+
+    var animatedImage = document.createElement('img');
+    // var w = window.open("gif'd_data");
+    // w.document.write("wait for the gif to load<br><br>");
+
+    // This is asynchronous, rendered with WebWorkers
+    ag.getBase64GIF(function(image) {
+        animatedImage.src = image;
+        var w = window.open(image);
+        // window.location = image;
+    });
+});
+
+
+

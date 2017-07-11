@@ -234,6 +234,7 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	/*margin: 0 auto;*/
 	text-align: center;
 	display: inline-block;
+	background-color: #e8e8e8;
 }
 
 .fullscreenMode {
@@ -252,14 +253,14 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 }
 
 .fullscreenMode #timelineControls{
-	width: 95% !important;
+	/*width: 95% !important;*/
 
 	-webkit-transition: width 1s; /* Safari */
     transition: width 1s;
 }
 
 .fullscreenMode #timelineControls #sliderGroup{
-	width: calc((100% - 30px) * 0.95) !important;
+	/*width: calc((100% - 180px) * 0.95) !important;*/
 
 	-webkit-transition: width 1s; /* Safari */
     transition: width 1s;
@@ -275,6 +276,14 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
     transition: height 1s;
 }
 
+.fullscreenMode .btn-link, .fullscreenMode #progressLabel{
+	color: white !important;
+}
+
+.fullscreenMode .btn-link:hover{
+	color: #CCC !important;
+}
+
 #timelineImages {
 	text-align: center;
 }
@@ -283,6 +292,10 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	/*height: 60%;
 	max-width: 100%;*/
 	width: 100%;
+}
+
+.fullscreenMode #timelineImages img{
+	width: initial !important;
 }
 
 #timelineControls{
@@ -298,16 +311,51 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 
 #timelineControls #sliderGroup{
 	float: left;
-	width: calc(100% - 140px);
+	width: calc(100% - 180px);
 	padding: 3px 0;
 }
 
 #timelineControls #sliderGroup .slider.slider-horizontal{
-	width: calc((100% - 30px) * 0.95);
+	width: calc((100% - 60px) * 0.95);
+	margin: 0 20px;
 }
 
 #timelineControls #sliderGroup .slider .slider-selection{
 	background: #0c8ecf;
+}
+
+#timelineControls #timelineSettings{
+	background-color: rgba(240, 240, 240, 0.85);
+	width: 220px;
+	right: 0;
+	left: auto;
+	font-weight: bold;
+}
+
+.fullscreenMode #timelineControls #timelineSettings{
+	background-color: rgba(0, 0, 0, 0.85);
+	color: white;
+}
+
+#timelineControls #timelineSettings li{
+	line-height: 200%;
+}
+
+#timelineControls #timelineSettings #fpssetting{
+	width:50px;
+	padding: 0;
+	text-align: right;
+	height: initial;
+}
+
+#timelineControls #timelineSettings .form-control{
+	height: initial;
+}
+
+#timelineControls #progresslabel{
+	/*font-size: 12px;*/
+	color: #5f5f5f;
+	vertical-align: sub;
 }
 
 .moduleleveltree{
@@ -333,7 +381,19 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
     font-size: 18px;
 }
 
+button.close:hover{
+	color: red;
+	font-weight: bold;
+}
+
 
 #ex1Slider .slider-selection {
 	background: #BABABA;
 }
+
+#progressLabel::first-letter{
+	font-weight: bold;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+

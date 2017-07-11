@@ -1,72 +1,71 @@
 function addRmTkMapPanel(id, isChecked, refPath, currPath) {
-     {
-        var currID = "inputCheckBoxPanel" + id;
+    var currID = "inputCheckBoxPanel" + id;
 
-        if (isChecked) {
-            var info = getConfigInfoFromName($('#'+id).attr('label'));
-            var filename = info.res;
-            var ext = filename.substr(filename.lastIndexOf('.') + 1);
-            var layout;
+    if (isChecked) {
+        var info = getConfigInfoFromName($('#'+id).attr('label'));
+        var filename = info.res;
+        var ext = filename.substr(filename.lastIndexOf('.') + 1);
+        var layout;
 
-            // --------- define the layout to be bulit depending on mode ---------
-            if(ModeHandler.getMode()==='compare')  {
-                switch(ext) {
-                    case "png":
-                        layout = buildPanelWithImages(currID);
-                        break;
+        // --------- define the layout to be bulit depending on mode ---------
+        if(ModeHandler.getMode()==='compare')  {
+            switch(ext) {
+                case "png":
+                case "html":
+                    layout = buildPanelWithImages(currID);
+                    break;
 
-                    case "txt":
-                    case "log":
-                    case "out":
-                        layout = buildPanelWithText(currID);
-                        break;
+                case "txt":
+                case "log":
+                case "out":
+                    layout = buildPanelWithText(currID);
+                    break;
 
-                    default:
-                        console.log("Unsupported filetype");
-                        return;
-                }
+                default:
+                    console.log("Unsupported filetype");
+                    return;
             }
-
-            if(ModeHandler.getMode()==='timeline') {
-                switch(ext) {
-                    case "png":
-                        layout = buildTimelinePanel(currID);
-                        break;
-
-                    case "txt":
-                    case "log":
-                    case "out":
-                        console.log('Cannot display timeline for textfiles files (txt/log/out)');
-                        return;
-
-                    default:
-                        console.log("Unsupported filetype");
-                        return;
-                    }
-            }
-
-            $(".extandable-tab-list-content").append(layout);
-            console.log(layout);
-            var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
-                                 "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
-                                "</a></li>";
-            $(".extandable-tab-list-ref").append(linktab);
-
-            // --------- Add content to the layout ---------
-            if(ModeHandler.getMode()==='compare')  {
-                addToView(currID, refPath, currPath, info);
-            }
-
-            if(ModeHandler.getMode()==='timeline') {
-                var startRunPath = $('#refRunPath').val();
-                var endRunPath = $('#currRunPath').val();
-                loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
-            }
-
-        } else {
-            $("#" + currID).remove();
-            $("#" + currID + "lnk").remove();
         }
+
+        if(ModeHandler.getMode()==='timeline') {
+            switch(ext) {
+                case "png":
+                    layout = buildTimelinePanel(currID);
+                    break;
+
+                case "txt":
+                case "log":
+                case "out":
+                    console.log('Cannot display timeline for textfiles files (txt/log/out)');
+                    return;
+
+                default:
+                    console.log("Unsupported filetype");
+                    return;
+                }
+        }
+
+        $(".extandable-tab-list-content").append(layout);
+        console.log(layout);
+        var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
+                             "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
+                            "</a></li>";
+        $(".extandable-tab-list-ref").append(linktab);
+
+        // --------- Add content to the layout ---------
+        if(ModeHandler.getMode()==='compare')  {
+            addToView(currID, refPath, currPath, info);
+        }
+
+        if(ModeHandler.getMode()==='timeline') {
+            var startRunPath = $('#refRunPath').val();
+            var endRunPath = $('#currRunPath').val();
+            loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
+        }
+
+    } else {
+        $("#" + currID).remove();
+        $("#" + currID + "lnk").remove();
     }
 }
 
@@ -97,7 +96,7 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
             $('#timelineContainer'+id).find('#sliderGroup').append(newslider);
             $('#timelineContainer'+id).find('#sliderGroup').find('#slider').bootstrapSlider();
-            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append("0/"+(obj.length-1));
+            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append("1/"+obj.length);
         }
     );
 }
@@ -140,6 +139,10 @@ function addToView(id, rsrc, csrc, info) {
             addTextToPanel(refsrc, currsrc, id);
             break;
 
+        case "html":
+            addHtmlToPanel(refsrc, currsrc, id);
+            break;        
+
         default:
             console.log("Unsupported filetype: " + ext);
     }
@@ -169,6 +172,34 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
         $(this).closest(".panel").find(".currCol").toggle();
         $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
     });
+}
+
+function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
+    $('#' + id + ' .refCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(refFinal, function(){
+        // refSpl = refFinal.split('/');
+        // imgSrc = $(this).find('img').first().attr('src');
+        // refSpl[refSpl.length - 1] = imgSrc;
+
+        // newPath = "";
+        // for (i = 1; i < refSpl.length; ++i){
+        //     newPath = newPath + "/" + refSpl[i];
+        // }
+        // $(this).find('img').first().attr('src', newPath);
+        substituteHtmlImgPath(refFinal, $(this));
+    });
+}
+
+function substituteHtmlImgPath(thePath, obj)
+{
+    thePathSpl = thePath.split('/');
+    imgSrc = obj.find('img').first().attr('src');
+    thePathSpl[thePathSpl.length - 1] = imgSrc;
+
+    newPath = "";
+    for (i = 1; i < thePathSpl.length; ++i){
+        newPath = newPath + "/" + thePathSpl[i];
+    }
+    obj.find('img').first().attr('src', newPath);
 }
 
 function addTextToPanel(refsrc, currsrc, id) {

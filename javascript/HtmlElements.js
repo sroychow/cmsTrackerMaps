@@ -27,9 +27,24 @@ function buildTimelinePanel(id) {
                                 "<button type='button' class='btn btn-link playbutton' isplaying='false' currentframe='0'><span class='glyphicon glyphicon-play'></span></button>" + 
                                 "<div id='sliderGroup'><label id='progresslabel' class='label'> </label></div>" +
 
-                                "<button type='button' class='btn btn-link'><span class='glyphicon glyphicon-cog'></span></button>" + 
+                                "<div class='dropup'>" +
+                                "  <button class='btn btn-link dropdown-toggle' type='button' data-toggle='dropdown'>" +
+                                "  <span class='glyphicon glyphicon-cog'></span></button>" +
+                                "  <ul class='dropdown-menu' id='timelineSettings'>" +
+                                "   <li>" + 
+                                "    <div class='col-md-8'>Enable looping</div>" + 
+                                "    <div class='col-md-4'><input class='form-control' id='loopingEnabled' type='checkbox'/></div>" + 
+                                "   </li>" +
+                                "   <li>" + 
+                                "   <div class='col-md-8'>Playback TkMPS</div>" + 
+                                "   <div class='col-md-4'><input class='form-control' id='fpssetting' type='number' value='3' min='1' max='25'/></div>" + 
+                                "   </li>" +
+                                "  </ul>" +
+                                "</div>" + 
+
+                                "<button type='button' class='btn btn-link' id='downloadAsGif'><span class='glyphicon glyphicon-save'></span></button>" +                                 
                                 "<button type='button' class='btn btn-link fullscreenSwitch'><span class='glyphicon glyphicon-resize-full'></span></button>" + 
-                                                                
+                       
                           "</div>" + 
                       "</div>"+
             "</div>";
@@ -37,7 +52,7 @@ function buildTimelinePanel(id) {
 
 function buildPanelWithImages(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
-            "<div class='row'>" + 
+            // "<div class='row'>" + 
                 "<div class='viewType'>" +
                     "<div style='text-align: center;'>"+
                         "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +

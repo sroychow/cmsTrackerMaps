@@ -10,6 +10,9 @@ clearstatcache();
 $listOfRuns = array();
 $startGrpDir = intval($startRunNumber / 1000);
 
+$startDirExpl = explode("/", $startDir);
+$currYear = intval(substr($startDirExpl[2], 4, 4));
+
 for($i=$startRunNumber; $i<=$endRunNumber; $i++) {
 	$currentNumber = (string)$i;
 
@@ -19,6 +22,18 @@ for($i=$startRunNumber; $i<=$endRunNumber; $i++) {
 
 	if( file_exists("/data/users" . $newDir . $resourceName) ) {
 		array_push($listOfRuns, $newDir . $resourceName);
+	}
+	else{
+		$nextYear = $currYear + 1;
+		$newDir = str_replace("Data".$currYear, "Data".$nextYear, $newDir);
+
+		if ( file_exists("/data/users" . $newDir . $resourceName) ) {
+			array_push($listOfRuns, $newDir . $resourceName);
+
+			// $startDir = $newDir;
+			$startDir = str_replace("Data".$currYear, "Data".$nextYear, $startDir);
+			$currYear = $nextYear;
+		}
 	}
 }
 
