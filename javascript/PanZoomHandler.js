@@ -4,14 +4,20 @@ function attachWheelZoomListeners(sectionToLookIn) {
     var $pz1 = setPanzoomParams($section, '.imgRef');
     linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".currCol .imgCurr");
     linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".diffCol .imgDiff");
+    linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".refCol .anchorMap");
+    linkZoom($section, $pz1,'.imgRef' , ".refCol .imgRef", ".currCol .anchorMap");
 
     var $pz2 = setPanzoomParams($section, '.imgCurr');
     linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".refCol .imgRef");
     linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".diffCol .imgDiff");
+    linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".currCol .anchorMap");
+    linkZoom($section, $pz2,'.imgCurr', ".currCol .imgCurr", ".refCol .anchorMap");
 
     var $pz3 = setPanzoomParams($section, '.imgDiff');
     linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".refCol .imgRef");
     linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".currCol .imgCurr");
+    linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".refCol .anchorMap");
+    linkZoom($section, $pz3,'.imgDiff', ".diffCol .imgDiff", ".currCol .anchorMap");
 }
 
 function assignTransform(section, master, slave) {
@@ -39,7 +45,16 @@ function linkZoom(section, pz, master, src, dst) {
           focal: e
       });
 
-    assignTransform(section, src, dst);
+    try
+    {
+      section.find(master).parent().mouseup().pointerup();
+    }
+    catch(e){
+
+    }
+    // section.find(master).parent();
+
+    // assignTransform(section, src, dst);
   });
   section.find(master).parent().on("mouseup pointerup",function(e) {
       assignTransform(section, src, dst);

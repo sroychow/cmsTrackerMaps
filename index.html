@@ -39,8 +39,9 @@
   <script type="text/javascript" src="libs/slider/dist/bootstrap-slider.min.js"></script>
 
   <script type="text/javascript" src="libs/Animated_GIF/dist/Animated_GIF.min.js"></script>
-  <script type="text/javascript" src="libs/FileSaver/FileSaver.min.js"></script>
 
+  <script type="text/javascript" src="libs/css-element-queries/src/ResizeSensor.js"></script>
+  <script type="text/javascript" src="libs/css-element-queries/src/ElementQueries.js"></script>
 
   <script type="text/javascript">
     var ModeHandler = new ModeHandler();
@@ -92,17 +93,16 @@
                 </div>
 
                 <div class="col-md-4">   
+                  <div style="text-align: center;">
+                    <label>Choose Mode</label>
+                  </div>
+                  <div style="text-align: center;">
 
-                    <div style="text-align: center;">
-                      <label>Choose Mode</label>
+                    <div class="btn-group" id="modeButtonGroup" >
+                      <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
+                      <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline"><i class="glyphicon glyphicon-film"></i> Timeline</button>
                     </div>
-                    <div style="text-align: center;">
-
-                      <div class="btn-group" id="modeButtonGroup" >
-                        <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
-                        <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline"><i class="glyphicon glyphicon-film"></i> Timeline</button>
-                      </div>
-                    </div>
+                  </div>
                 </div>
 
                 <div class="col-md-4">
@@ -110,23 +110,23 @@
                     <div class="form-group">
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refPrev" data-toggle="tooltip" title="Previous 'u' "><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="refRunPath" placeholder="REFERENCE" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refNext" data-toggle="tooltip" title="Next 'i'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath" data-toggle="tooltip" title="Open 'o'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
 
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currPrev" data-toggle="tooltip" title="Previous 'j'"><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="currRunPath" placeholder="CURRENT" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currNext" data-toggle="tooltip" title="Next 'k'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath" data-toggle="tooltip" title="Open 'l'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
 

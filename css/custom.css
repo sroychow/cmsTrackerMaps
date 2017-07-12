@@ -325,7 +325,7 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 }
 
 #timelineControls #timelineSettings{
-	background-color: rgba(240, 240, 240, 0.85);
+	background-color: #fff;
 	width: 220px;
 	right: 0;
 	left: auto;
@@ -333,7 +333,7 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 }
 
 .fullscreenMode #timelineControls #timelineSettings{
-	background-color: rgba(0, 0, 0, 0.85);
+	background-color: #000;
 	color: white;
 }
 
@@ -397,3 +397,85 @@ button.close:hover{
 	text-transform: uppercase;
 }
 
+area{
+	background-color: black;
+}
+
+.tab-pane {
+	margin-top:5px;
+}
+
+.imgContainer a{
+	background-color: rgba(255, 150, 0, 0.15);
+	/*opacity: 0.1;*/
+	position: absolute;
+
+	pointer-events: all;
+
+	/*border: 3px groove orangered;*/
+}
+
+.anchorMap{
+	display: block;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	position: absolute;
+
+	pointer-events: none;
+}
+
+.scaledAnchorMap{
+	transform-origin: 0 0 0;
+}
+
+/* ----------------------------------- NEON ------------------------------ */
+.imgContainer a.neon {
+  text-decoration: none;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  color: #FF9900;
+  font-family: Audiowide;
+}
+
+.imgContainer a.neon.hover {
+  color: #ffffff;
+  -webkit-animation: neon 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon 1.5s ease-in-out infinite alternate;
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+.imgContainer a.neon.clicked{
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+}
+
+/*glow for webkit*/
+@-webkit-keyframes neon {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+  }
+}
+
+/*glow for mozilla*/
+@-moz-keyframes neon {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+  }
+}
+
+/*glow*/
+@keyframes neon {
+  from {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+  }
+  to {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+  }
+}

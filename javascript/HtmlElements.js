@@ -36,13 +36,21 @@ function buildTimelinePanel(id) {
                                 "    <div class='col-md-4'><input class='form-control' id='loopingEnabled' type='checkbox'/></div>" + 
                                 "   </li>" +
                                 "   <li>" + 
-                                "   <div class='col-md-8'>Playback TkMPS</div>" + 
-                                "   <div class='col-md-4'><input class='form-control' id='fpssetting' type='number' value='3' min='1' max='25'/></div>" + 
+                                "     <div class='col-md-8'>Playback TkMPS</div>" + 
+                                "     <div class='col-md-4'><input class='form-control' id='fpssetting' type='number' value='3' min='1' max='25'/></div>" + 
                                 "   </li>" +
+                                // Maybe for later if mp4 is really needed
+                                // "   <li>" + 
+                                // "     <div class='col-md-8'>Download as</div>" + 
+                                // "     <div class='btn-group btn-group-xs downloadFormatSetting' role='group' style='float:right;'>" +
+                                // "        <button type='button' class='btn btn-primary' downloadAs='gif'> gif </button>" +
+                                // "        <button type='button' class='btn' downloadAs='mp4'> mp4 </button>" +
+                                // "     </div>" +
+                                // "   </li>" +
                                 "  </ul>" +
                                 "</div>" + 
 
-                                "<button type='button' class='btn btn-link' id='downloadAsGif'><span class='glyphicon glyphicon-save'></span></button>" +                                 
+                                "<button type='button' class='btn btn-link' id='downloadAsFile'><span class='glyphicon glyphicon-save'></span></button>" +                                 
                                 "<button type='button' class='btn btn-link fullscreenSwitch'><span class='glyphicon glyphicon-resize-full'></span></button>" + 
                        
                           "</div>" + 
@@ -130,4 +138,10 @@ function buildPanelWithText(id) {
             "</div>" + 
 
             "</div>";
+}
+
+function buildTab(id,currID) {
+    return "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
+            "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
+            "</a></li>";
 }

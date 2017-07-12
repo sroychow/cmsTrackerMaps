@@ -47,6 +47,54 @@ $(window).resize(function() {
     }
 });
 
+// RELOADS THE SCALE OF THE OVERLAY
+$(document).on('resize', '.imgContainer', function(){
+    console.log("Changing scaling...");
+
+    currImg = $(this).find('img').first();
+    if (currImg.length == 0) return
+
+    natWidth = currImg[0].naturalWidth;
+
+    if (natWidth == 0){
+        console.log("natWidth not available; waiting...");
+
+        $.ajax({timeout : 2000}).done(function(){
+            $(this).resize();
+        });
+    }
+    else
+    {
+        width = currImg[0].width;
+
+        if (width == natWidth){
+            console.log("img is not fit already ( " + width + "); waiting...");
+
+            $.ajax({timeout : 2000}).done(function(){
+                console.log("recursion");
+                $(this).resize();
+            });
+        }
+        else
+        {
+            scale = width / natWidth;
+
+            console.log(width);
+            console.log(natWidth);
+            console.log("Area scaling factor: " + scale);
+
+            $(this).find('.scaledAnchorMap').css({"transform" : "scale(" + scale +")"});
+        }
+    } 
+})
+
+function CreateSizeChangeEventHandling(obj){
+    new ResizeSensor(obj, function(e){ 
+        console.log('content dimension changed');
+        obj.resize();
+     });
+}
+
 
 function clearCheckboxselection() {
     var checkboxID = 0;
@@ -59,6 +107,28 @@ function clearCheckboxselection() {
                 }
                 ++checkboxID;
             }
+        }
+    }
+}
+
+function closeTab(panelId) {
+    console.log("utils::closeTab");
+    console.log(panelId);
+    $('#'+panelId).click();
+}
+
+
+function getParameterFromString(src, param) {
+    var page_url = src,
+        url_variables = page_url.split('&'),
+        parameter_name,
+        i;
+
+    for (i = 0; i < url_variables.length; i++) {
+        parameter_name = url_variables[i].split('=');
+
+        if (parameter_name[0] === param) {
+            return parameter_name[1] === undefined ? true : parameter_name[1];
         }
     }
 }

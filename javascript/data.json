@@ -3,10 +3,11 @@ var mapDescriptions =
     "Strip": {
       "Bad Modules":
       [
-        {"name" : "Quality tests",                     "resource" : "QTestAlarm.png",     "emptyMap" : "img/tkMapEmpty.png"},
-        {"name" : "Quality tests - FED view",          "resource" : "QTestAlarm_fed.png", "emptyMap" : "img/fedMapEmpty.png"},
-        {"name" : "Quality tests - PSU view",          "resource" : "QTestAlarm_psu.png", "emptyMap" : "img/psuMapEmpty.png"},
-        {"name" : "Quality tests - PSU view - inter",  "resource" : "psumap.html", "emptyMap" : "img/psuMapEmpty.png"}
+        {"name" : "Quality tests",                                  "resource" : "QTestAlarm.png",      "emptyMap" : "img/tkMapEmpty.png"},
+        {"name" : "Quality tests - FED view",                       "resource" : "QTestAlarm_fed.png",  "emptyMap" : "img/fedMapEmpty.png"},
+        {"name" : "Quality tests - FED view: interactive",          "resource" : "fedmap.html",         "emptyMap" : "img/fedMapEmpty.png"},
+        {"name" : "Quality tests - PSU view",                       "resource" : "QTestAlarm_psu.png",  "emptyMap" : "img/psuMapEmpty.png"},
+        {"name" : "Quality tests - PSU view: interactive",          "resource" : "psumap.html",         "emptyMap" : "img/psuMapEmpty.png"},
 
       ],
 

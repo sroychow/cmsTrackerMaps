@@ -33,19 +33,16 @@ function nextFrame(context) {
 
     setFrame(context, next_frame);
 
-    // update the data carrier
-    slider.bootstrapSlider('setValue', next_frame);
-
     var isLoopEnabled = $(context).find('#timelineControls').find('#loopingEnabled').is(':checked');
 
     if(!isLoopEnabled && isAtLastFrame(context)) {
         pause(context);
-        var playbutton = $(context).find('#timelineControls').find('.playbutton');
-        playbutton.find("span").removeClass("glyphicon-play").addClass("glyphicon-repeat");
     }
 }
 
 function setFrame(context, framenr_to_set){
+    console.log("timelineplayer::setframe");
+
     var progresslabel = $(context).find('#sliderGroup').find('#progresslabel');
     var image_group = $(context).find('#timelineImages');
     var frames = image_group.children();
@@ -58,6 +55,9 @@ function setFrame(context, framenr_to_set){
     console.log((framenr_to_set+1) + " / " + num_frames);
     progresslabel.empty();
     progresslabel.append((framenr_to_set+1) + " / " + num_frames);
+
+    var slider = $(context).find('#sliderGroup').find('#slider');
+    slider.bootstrapSlider('setValue', framenr_to_set);
 }
 
 function isAtLastFrame(context) {

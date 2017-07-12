@@ -1,108 +1,70 @@
-function addRmTkMapPanel(id, isChecked, refPath, currPath) {
+function addPanel(id, refPath, currPath){
     var currID = "inputCheckBoxPanel" + id;
 
-    if (isChecked) {
-        var info = getConfigInfoFromName($('#'+id).attr('label'));
-        var filename = info.res;
-        var ext = filename.substr(filename.lastIndexOf('.') + 1);
-        var layout;
+    var info = getConfigInfoFromName($('#'+id).attr('label'));
+    var filename = info.res;
+    var ext = getExtensionFromFilename(filename);
 
-        // --------- define the layout to be bulit depending on mode ---------
-        if(ModeHandler.getMode()==='compare')  {
-            switch(ext) {
-                case "png":
-                case "html":
-                    layout = buildPanelWithImages(currID);
-                    break;
+    var layout;
+    if(ModeHandler.getMode()==='compare')  {
+        switch(ext) {
+            case "png":
+            case "html":
+                layout = buildPanelWithImages(currID);
+                break;
 
-                case "txt":
-                case "log":
-                case "out":
-                    layout = buildPanelWithText(currID);
-                    break;
+            case "txt":
+            case "log":
+            case "out":
+                layout = buildPanelWithText(currID);
+                break;
 
-                default:
-                    console.log("Unsupported filetype");
-                    return;
+            default:
+                console.log("Unsupported filetype");
+                return;
+        }
+        $(".extandable-tab-list-content").append(layout);
+        $(".extandable-tab-list-ref").append(buildTab(id, currID));            
+        
+        addToPanel(currID, refPath, currPath, info);
+    }
+
+    if(ModeHandler.getMode()==='timeline') {
+        switch(ext) {
+            case "png":
+                layout = buildTimelinePanel(currID);
+                break;
+
+            case "txt":
+            case "log":
+            case "out":
+                console.log('Cannot display timeline for textfiles files (txt/log/out)');
+                return;
+
+            default:
+                console.log("Unsupported filetype");
+                return;
             }
-        }
-
-        if(ModeHandler.getMode()==='timeline') {
-            switch(ext) {
-                case "png":
-                    layout = buildTimelinePanel(currID);
-                    break;
-
-                case "txt":
-                case "log":
-                case "out":
-                    console.log('Cannot display timeline for textfiles files (txt/log/out)');
-                    return;
-
-                default:
-                    console.log("Unsupported filetype");
-                    return;
-                }
-        }
 
         $(".extandable-tab-list-content").append(layout);
-        console.log(layout);
-        var linktab = "<li><a class='tab-pane' data-toggle='tab' href='#" + currID + "' id='" + currID + "lnk'>" + 
-                             "<button class='close closeTab' toClose='"+id+"' type='button'>×</button>" + $('#' + id).attr('label')+
-                            "</a></li>";
-        $(".extandable-tab-list-ref").append(linktab);
-
-        // --------- Add content to the layout ---------
-        if(ModeHandler.getMode()==='compare')  {
-            addToView(currID, refPath, currPath, info);
-        }
-
-        if(ModeHandler.getMode()==='timeline') {
-            var startRunPath = $('#refRunPath').val();
-            var endRunPath = $('#currRunPath').val();
-            loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);
-        }
-
-    } else {
-        $("#" + currID).remove();
-        $("#" + currID + "lnk").remove();
-    }
+        $(".extandable-tab-list-ref").append(buildTab(id, currID));
+        var startRunPath = $('#refRunPath').val();
+        var endRunPath = $('#currRunPath').val();
+        
+        loadImagesToImagePlayer(currID, filename, startRunPath, endRunPath);            
+    }    
 }
 
-
-function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
-
-    // Get List Of Runs to displaya
-    var path = startRunPath;
-    var start_run_nr = getRunNumberFromString(startRunPath);
-    var end_run_nr = getRunNumberFromString(endRunPath);
-
-    $.post('php/loadListNeighbourRuns.php', { dir : path, startRunNumber : start_run_nr, endRunNumber : end_run_nr, resource: resname },
-        function(data) {
-            var obj = jQuery.parseJSON(data);
-
-            for(var i=0; i<obj.length; ++i){
-                if(i==0)
-                    var newimage ="<img src='" + obj[i] +"' >";
-                else
-                    var newimage ="<img src='" + obj[i] +"' style='display: none;'>";
-
-                $('#timelineContainer'+id).find('#timelineImages').append(newimage);
-
-            }                
-            var newslider= "<input id='slider'  type='text' data-slider-min='0' "+
-                                   "data-slider-max='"+(obj.length-1)+"' data-slider-step='1' data-slider-value='0' data-slider-tooltip='hide'/>";
-
-
-            $('#timelineContainer'+id).find('#sliderGroup').append(newslider);
-            $('#timelineContainer'+id).find('#sliderGroup').find('#slider').bootstrapSlider();
-            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append("1/"+obj.length);
-        }
-    );
+function rmPanel(id, refPath, currPath) {
+    var currID = "inputCheckBoxPanel" + id;
+    $("#" + currID).remove();
+    $("#" + currID + "lnk").remove();
 }
 
+// ------------------------------------------------------------------------- //
 
-function addToView(id, rsrc, csrc, info) {
+
+function addToPanel(id, rsrc, csrc, info) {
     var filename = info.res;
     var ext = getExtensionFromFilename(filename);
 
@@ -140,7 +102,7 @@ function addToView(id, rsrc, csrc, info) {
             break;
 
         case "html":
-            addHtmlToPanel(refsrc, currsrc, id);
+            addHtmlToPanel(refsrc, currsrc, id, info.map);
             break;        
 
         default:
@@ -150,7 +112,7 @@ function addToView(id, rsrc, csrc, info) {
 
 function addPngToPanel(refFinal, currFinal, id, emptyMap){
     $('#' + id + ' .refCol').html("<div class='imgContainer'>\
-                                       <img class='imgRef' src='"   + refFinal  + "'/>\
+                                           <img class='imgRef' src='"   + refFinal  + "'/>\
                                     </div>");
 
     $('#' + id + ' .currCol').html("<div class='imgContainer'>\
@@ -167,6 +129,7 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
     attachWheelZoomListeners('#' + id);
 
     // $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
+
     $("#" + id + " .toggleDifferenceView").change(function(e) {
         var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
         $(this).closest(".panel").find(".currCol").toggle();
@@ -175,31 +138,95 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
 }
 
 function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
+    // REFERENCE
     $('#' + id + ' .refCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(refFinal, function(){
-        // refSpl = refFinal.split('/');
-        // imgSrc = $(this).find('img').first().attr('src');
-        // refSpl[refSpl.length - 1] = imgSrc;
+        refFinalNew = substituteHtmlImgPath(refFinal, $(this));
+        console.log("XXX:\t" + refFinalNew);
+        $(this).find('img').addClass('imgRef');
 
-        // newPath = "";
-        // for (i = 1; i < refSpl.length; ++i){
-        //     newPath = newPath + "/" + refSpl[i];
-        // }
-        // $(this).find('img').first().attr('src', newPath);
-        substituteHtmlImgPath(refFinal, $(this));
+        currImg = $(this).find('img').first();
+
+        mapContainer = $(this).append("<div class='anchorMap'><div class='scaledAnchorMap'></div></div>").find('.scaledAnchorMap');
+        $(this).find('area').each(function(idx){
+            c = $(this).attr("coords");
+            t = $(this).attr("title").trim();
+            tSmall = t.split(" ").join("");
+
+            xy = c.split(",");
+
+            for (i = 0; i < xy.length; ++i) {
+                xy[i] = Number(xy[i]);
+            }
+
+            w = xy[2] - xy[0];
+            h = xy[3] - xy[1];
+
+            anchor = $("<a class='neon' href='#' title='" + t + "' data-original-title='" + t + "' data-toggle='tooltip' id='" + tSmall + "'></a>").css({"left" : xy[0], "top" : xy[1], "width" : w, "height" : h});
+            mapContainer.append(anchor);
+        });
+        $(this).find('map').remove();
+
+        // make sure we keep track of changing column size to adjust scale of the overlays
+        CreateSizeChangeEventHandling($(this));
+        
+        // CURRENT
+        $('#' + id + ' .currCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(currFinal, function(){
+            currFinalNew = substituteHtmlImgPath(currFinal, $(this));
+            $(this).find('img').addClass('imgCurr');
+
+            $(this).find('map').remove();
+            console.log($(this));
+            mapContainer.parent().clone().appendTo($(this));
+            console.log(mapContainer.parent());
+
+            CreateSizeChangeEventHandling($(this));
+            
+            // DIFF
+
+            refFinalNew = $(this).closest(".row").find(".refCol .imgRef").attr("src");
+            currFinalNew = $(this).closest(".row").find(".currCol .imgCurr").attr("src");
+
+            console.log($(this).closest(".row").find(".currCol"));
+
+            $('#' + id + " .diffCol").append("\
+                <div  class='imgContainer '>\
+                    <div class='imgDiffWrapper imgDiff' style='background-image: url(\"" + refFinalNew + "\"), url(\"" + currFinalNew + "\")'>\
+                        <div class='cleanRef ' style='background-image: url(\"" + emptyMap + "\")'></div>\
+                    </div>\
+                </div>");
+
+            attachWheelZoomListeners('#' + id);
+
+            $("#" + id + " .toggleDifferenceView").change(function(e) {
+                var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
+                $(this).closest(".panel").find(".currCol").toggle();
+                $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
+            });
+
+            $('#' + id + ' .refCol .imgContainer').resize();
+            $('#' + id + ' .currCol .imgContainer').resize();
+
+            // $('[data-toggle="tooltip"]').tooltip();
+        })
     });
 }
 
-function substituteHtmlImgPath(thePath, obj)
-{
+function substituteHtmlImgPath(thePath, obj){
+    currImg = obj.find('img').first();
+
     thePathSpl = thePath.split('/');
-    imgSrc = obj.find('img').first().attr('src');
+    imgSrc = currImg.attr('src');
     thePathSpl[thePathSpl.length - 1] = imgSrc;
 
     newPath = "";
     for (i = 1; i < thePathSpl.length; ++i){
         newPath = newPath + "/" + thePathSpl[i];
     }
-    obj.find('img').first().attr('src', newPath);
+    currImg.attr('src', newPath);
+
+    // console.log(currImg[0].width);
+
+    return newPath;
 }
 
 function addTextToPanel(refsrc, currsrc, id) {

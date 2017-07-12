@@ -1,6 +1,6 @@
 function decodeOptions() {
     this.decodeMode();
-    var refPath = this.decodeTextfield("refRunPath");
+    var refPath  = this.decodeTextfield("refRunPath");
     var currPath = this.decodeTextfield("currRunPath");
     this.decodeCheckboxes();
     this.decodeSelectedMap();
