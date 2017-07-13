@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
     Loader.loadCheckboxes();
-    decodeOptions();
+
+    var url = window.location.href;
+    decodeOptions(url);
 
     $('#treeContainer').fileTree({
         root: '/data/users/event_display/',
@@ -35,8 +37,11 @@ $(document).on('click', '#send-link-me', function(e) {
 $(document).on('click', '.panel-extend-checkbox', function() {
     var refPath = $('#refRunPath').val();
     var currPath = $('#currRunPath').val();
-    addRmTkMapPanel(this.id, $(this).prop('checked'), refPath, currPath);
-    console.log($(this).parent().text());
+
+    if($(this).prop('checked')) 
+        addPanel(this.id, refPath, currPath);
+    else   
+        rmPanel(this.id, refPath, currPath);
 });
 
 
@@ -82,6 +87,10 @@ $(document).on('click', '.disableDiffImg', function() {
 });
 
 // --------------------- Eyecandy ---------------------
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
 $(document).on('click', '#diffButtonGroup > .btn', function() { 
      $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
 })
@@ -108,44 +117,72 @@ $(document).on('click', '.fullscreenSwitch', function() {
     $(this).find("span").toggleClass("glyphicon-resize-full").toggleClass("glyphicon-resize-small");
 })
 
+$(document).on('click', '.downloadFormatSetting > .btn', function() { 
+     $(this).addClass("btn-primary").siblings().removeClass("btn-primary");
+})
 
+$(document).on('mouseover', '.anchorMap a.neon', function(){
+    id = $(this).attr("id");
+    $(".anchorMap #" + id).addClass("hover");
+})
+
+$(document).on('mouseleave', '.anchorMap a.neon', function(){
+    id = $(this).attr("id");
+    $(".anchorMap #" + id).removeClass("hover");
+})
+
+$(document).on('click', '.anchorMap a.neon', function(e){
+    e.preventDefault();
+    id = $(this).attr("id");
+    $(".anchorMap #" + id).toggleClass("clicked");
+})
+
+var first;
 // --------------------- Keyboard and Mouse ---------------------
 $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on the tab results in closing it       
-     if(e.which == 2)       
-     {      
-         e.preventDefault();        
-         console.log("mouseDown");      
-        
-         var thisID = $(this).attr('id');       
-         console.log(thisID);       
-        
-         var checkboxID = thisID.substr(18, thisID.length - 18 -  3);      
-         console.log(checkboxID);       
-        
-         $("#checkboxPlaceholder #" + checkboxID).click();      
+     if(e.which == 2) {      
+        e.preventDefault();                
+        var thisID = $(this).attr('id');       
+        var checkboxID = thisID.substr(18, thisID.length - 18 -  3);      
+        closeTab(checkboxID);
+     }
+     else
+     {
+        tabId = $(this).attr("href");
+        $(tabId + " .imgContainer").resize();
+
+        $.ajax({timeout : 10000}).done(function(){
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PHUCK DAT");
+            $(tabId + " .imgContainer").resize();
+        });
      }      
- })
+})
+
 $("body").on('keydown', function(e){            // Navigate between runs with left & right arrow ( + SHIFT)
     var code = e.keyCode;
     var isShift = e.shiftKey;
-
-    if (code == 37){
-        if (isShift){
+    switch(code) {
+        case 85:  // u
             $("#refPrev").click();
-        }
-        else{
-            $("#currPrev").click();
-        }
-    } else if (code == 39){
-        if (isShift){
+            break;
+        case 73:  // i
             $("#refNext").click();
-        }
-        else{
-            $("#currNext").click();
-        }
-    }
-});
+            break;
+        case 79:  // o
+            $("#refRunPathBrowse").click();
+            break;
 
+        case 74:  // j
+            $("#currPrev").click();
+            break;                        
+        case 75:  // k
+            $("#currNext").click();
+            break;
+        case 76:  // l
+            $("#currRunPathBrowse").click();
+            break;                  
+        default:
+}});
 
 
 $(document).on('click', '.mode-selector', function() {
@@ -154,21 +191,7 @@ $(document).on('click', '.mode-selector', function() {
 });
 
 $(document).on('click', '.closeTab', function() {
-    var id = $(this).attr('toClose');
-    console.log(id);
-    $('#'+id).click();
-})
-
-// This triggers a resize event every time the tab pane containing
-// the images/logs is clicked.
-// This is done _specifically_ to target a bug in the timeline playback.
-// What the bug was: when opening multiple tabs for playback,
-// the only one of the selected ones was scaled properly. The others
-// were thumbnail size. Cause of the bug was not found, but the libraries
-// use of globals might be the root cause.
-$(document).on('click', '.tab-pane', function() {
-    if(ModeHandler.getMode()==="timeline") 
-        $(window).trigger('resize');
+    closeTab($(this).attr('toClose'));
 })
 
 $(document).on('click', '.timelineContainer .fullscreenSwitch', function(){
@@ -179,8 +202,7 @@ $(document).on('click', '.timelineContainer .fullscreenSwitch', function(){
 var timelineInterval;
 $(document).on('click', '.playbutton', function() {
     var isplaying = $(this).attr('isplaying')==='true';
-    var context = $(this).parent().parent(); // image group
-        console.log(context);
+    var context = $(this).parent().parent();
 
     if(isplaying) {
         pause(context);
@@ -208,7 +230,7 @@ $(document).on('keyup mouseup change', '#fpssetting', function() {
     }    
 });
 
-$(document).on('click', '#downloadAsGif', function(e) {
+$(document).on('click', '#downloadAsFile', function(e) {
     var context = $(this).parent().parent().parent();
     var image_group = $(context).find('#timelineImages');
     var frames = image_group.children();
@@ -216,27 +238,27 @@ $(document).on('click', '#downloadAsGif', function(e) {
     var fps = $(context).find('#timelineControls').find('#fpssetting').val();
     var delay_ms = 1000/parseInt(fps);
 
+    var slider = $(context).find('#sliderGroup').find('#slider');
+    var currframe = slider.bootstrapSlider('getValue');
 
     var ag = new Animated_GIF();
-    var tmp = frames[0];
+    var tmp = frames[currframe];
+    console.log(tmp.clientWidth);
+    console.log(tmp.clientHeight);
+
     ag.setSize(tmp.clientWidth,tmp.clientHeight);
     ag.setDelay(delay_ms);
 
     for(var i = 0; i < frames.length; i++) {
         ag.addFrame(frames[i]);
     }
-
+    
     var animatedImage = document.createElement('img');
-    // var w = window.open("gif'd_data");
-    // w.document.write("wait for the gif to load<br><br>");
 
     // This is asynchronous, rendered with WebWorkers
     ag.getBase64GIF(function(image) {
-        animatedImage.src = image;
         var w = window.open(image);
-        // window.location = image;
     });
 });
-
 
 

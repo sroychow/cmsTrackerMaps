@@ -1,6 +1,7 @@
 <html>
 <header>
-  <title>TrackerMaps Reloaded</title>
+  <title>TrackerMaps</title>
+  <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> -->
 
   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,7 +29,8 @@
   
   <script src="libs/FileTree/jqueryFileTree.js"></script>
   <link href="libs/FileTree/jqueryFileTree.css" rel="stylesheet">
-  <script src="libs/panzoom/dist/jquery.panzoom.min.js"></script>
+  <!-- <script src="libs/panzoom/dist/jquery.panzoom.min.js"></script> -->
+  <script src="libs/panzoom/dist/jquery.panzoom.js"></script>
   <script src="libs/panzoom/test/libs/jquery.mousewheel.js"></script>
   <link rel="stylesheet" type="text/css" href="libs/jsdifflib/diffview.css"/>
   <script type="text/javascript" src="libs/jsdifflib/diffview.js"></script>
@@ -39,8 +41,9 @@
   <script type="text/javascript" src="libs/slider/dist/bootstrap-slider.min.js"></script>
 
   <script type="text/javascript" src="libs/Animated_GIF/dist/Animated_GIF.min.js"></script>
-  <script type="text/javascript" src="libs/FileSaver/FileSaver.min.js"></script>
 
+  <script type="text/javascript" src="libs/css-element-queries/src/ResizeSensor.js"></script>
+  <script type="text/javascript" src="libs/css-element-queries/src/ElementQueries.js"></script>
 
   <script type="text/javascript">
     var ModeHandler = new ModeHandler();
@@ -60,8 +63,8 @@
       </div>
       <div class="btn-group ">
 
-      <button type="button" class="btn btn-default navbar-btn" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
-      <button type="button" class="btn btn-default navbar-btn" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
+        <button type="button" class="btn btn-default navbar-btn" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
+        <button type="button" class="btn btn-default navbar-btn" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="doc/tkmap_manual.pdf" target="_blank">How to? <i class='glyphicon glyphicon-info-sign'></i> </a></li>
@@ -69,12 +72,6 @@
       </ul>
     </div>
   </nav> 
-
-
-<!--   <div class="alert alert-default fade in small">
-    <div align="center"><strong>How-To <a href="doc/tkmap_manual.pdf" target="_blank"><i class='glyphicon glyphicon-info-sign'></i></a></strong></div>
-    <div align="center"><strong>Bug, Comment, Suggestion? <a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" ><i class='glyphicon glyphicon-envelope'></i> </a></strong></div>
-  </div> -->
 
   <div class="panel-group">
 
@@ -88,50 +85,56 @@
               <div class="row">
 
                 <div class="col-md-4">
-                  <div class="panel-group" id="checkboxPlaceholder"></div>
+                      <div style="text-align: center;">
+                          <label>Choose Data</label>
+                      </div>
+                      <div class="panel-group" id="checkboxPlaceholder">
+                      </div>
                 </div>
 
                 <div class="col-md-4">   
-
                     <div style="text-align: center;">
                       <label>Choose Mode</label>
                     </div>
                     <div style="text-align: center;">
 
                       <div class="btn-group" id="modeButtonGroup" >
-                        <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
-                        <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline"><i class="glyphicon glyphicon-film"></i> Timeline</button>
+                        <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare" data-toggle="tooltip" title="Compare two Runs"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
+                        <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline" data-toggle="tooltip" title="Show changes over time"><i class="glyphicon glyphicon-film"></i> Timeline</button>
                       </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
+                    <div style="text-align: center;">
+                      <label>Choose Runs</label>
+                    </div>
                   <div class="row">
                     <div class="form-group">
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refPrev" data-toggle="tooltip" title="Previous 'u' "><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="refRunPath" placeholder="REFERENCE" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refNext" data-toggle="tooltip" title="Next 'i'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath" data-toggle="tooltip" title="Open 'o'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
 
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currPrev"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currPrev" data-toggle="tooltip" title="Previous 'j'"><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="currRunPath" placeholder="CURRENT" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currNext"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currNext" data-toggle="tooltip" title="Next 'k'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath" data-toggle="tooltip" title="Open 'l'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
-
                     </div>
                   </div>
+                </div>
 
               </div>
             </div>
@@ -139,46 +142,45 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div>
-    <a class="btn btn-default btn-block hidenav" data-toggle='collapse' href='#jumbotronCollapse' id="">
-      <span class="glyphicon glyphicon-triangle-top"></span></a>
-  <div>
-  <br>
+    <div>
+      <a class="btn btn-default btn-block hidenav" data-toggle='collapse' href='#jumbotronCollapse' id="">
+        <span class="glyphicon glyphicon-triangle-top"></span></a>
+        <div>
+          <br>
 
-  <div class="container" id="TrackerMaps">
-    <!-- INCLUDED STUFF -->
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="nav nav-tabs extandable-tab-list-ref"></ul>
+          <div class="container" id="TrackerMaps">
+            <!-- INCLUDED STUFF -->
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="nav nav-tabs extandable-tab-list-ref"></ul>
 
-        <div class="tab-content extandable-tab-list-content"></div>
-      </div>
-    </div>
-  </div>
+                <div class="tab-content extandable-tab-list-content"></div>
+              </div>
+            </div>
+          </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2>Choose dataset</h2>
-        </div>
-        <div class="modal-body">
-          <div id="treeContainer"></div>
-        </div>
-        <div class="modal-footer">
-          <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-primary btn-block"> OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h2>Choose dataset</h2>
+                </div>
+                <div class="modal-body">
+                  <div id="treeContainer"></div>
+                </div>
+                <div class="modal-footer">
+                  <button id="dataBrowseOKbtn" data-dismiss="modal" class="btn btn-primary btn-block"> OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  <!-- </div> -->
-  <input type="hidden" id="runNumberInputBrowseCaller" val="">
+          <!-- </div> -->
+          <input type="hidden" id="runNumberInputBrowseCaller" val="">
 
-</body>
-</html>
+        </body>
+        </html>
