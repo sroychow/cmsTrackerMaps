@@ -41,8 +41,6 @@ function nextFrame(context) {
 }
 
 function setFrame(context, framenr_to_set){
-    console.log("timelineplayer::setframe");
-
     var progresslabel = $(context).find('#sliderGroup').find('#progresslabel');
     var image_group = $(context).find('#timelineImages');
     var frames = image_group.children();
@@ -52,7 +50,7 @@ function setFrame(context, framenr_to_set){
         frames[i].style.display = "none";
     }
     frames[framenr_to_set].style.display = "initial";
-    console.log((framenr_to_set+1) + " / " + num_frames);
+    // console.log((framenr_to_set+1) + " / " + num_frames);
     progresslabel.empty();
     progresslabel.append((framenr_to_set+1) + " / " + num_frames);
 

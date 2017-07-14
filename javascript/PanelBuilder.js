@@ -61,13 +61,11 @@ function rmPanel(id, refPath, currPath) {
     $("#" + currID + "lnk").remove();
 }
 
-
 function closeTab(panelId) {
     $('#'+panelId).click();
 }
 
 // ------------------------------------------------------------------------- //
-
 
 function addToPanel(id, rsrc, csrc, info) {
     var filename = info.res;
@@ -209,11 +207,11 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
 
             $('#' + id + ' .refCol .anchorMap a.neon').tooltip({viewport : '#' + id + ' .refCol .anchorMap',
                                                                 container : '#' + id + ' .refCol .imgContainer',
-                                                                trigger: "hover click maual focus",
+                                                                trigger: "hover click manual focus",
                                                                 position: "top auto"});
             $('#' + id + ' .currCol .anchorMap a.neon').tooltip({viewport : '#' + id + ' .currCol .anchorMap',
                                                                 container : '#' + id + ' .currCol .imgContainer',
-                                                                trigger: "hover click maual focus",
+                                                                trigger: "hover click manual focus",
                                                                 position: "top auto"});
 
             // $(document).on('click', '.anchorMap a.neon', function(){

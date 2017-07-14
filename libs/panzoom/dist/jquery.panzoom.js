@@ -967,7 +967,7 @@
 						!options.disablePan && (e.which || e.originalEvent.which) === options.which) {
 
 						e.preventDefault();
-						// e.stopPropagation();
+						e.stopPropagation();
 						self._startMove(e, touches);
 					}
 				};

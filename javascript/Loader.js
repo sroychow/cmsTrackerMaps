@@ -82,14 +82,15 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 
                 $('#timelineContainer'+id).find('#timelineImages').append(newimage);
 
-            }                
+            }
+            var startAt = obj.length>0 ? 1 : 0;
+                            
             var newslider= "<input id='slider'  type='text' data-slider-min='0' "+
                                    "data-slider-max='"+(obj.length-1)+"' data-slider-step='1' data-slider-value='0' data-slider-tooltip='hide'/>";
 
-
             $('#timelineContainer'+id).find('#sliderGroup').append(newslider);
             $('#timelineContainer'+id).find('#sliderGroup').find('#slider').bootstrapSlider();
-            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append("1/"+obj.length);
+            $('#timelineContainer'+id).find('#sliderGroup').find('#progresslabel').append(startAt+"/"+obj.length);
         }
     );
 }
@@ -98,7 +99,6 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
 // where direction refers to either previous or next run (-1/+1)
 Loader.prototype.loadNeighbourRun = function(id, direction) {
     var path = $('#' + id).val();
-    console.log("path is here: " + path);
     if (path.length == 0) return;
     var curr_run_str = getRunNumberFromString(path);
     var self = this;

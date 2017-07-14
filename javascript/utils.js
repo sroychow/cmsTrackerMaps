@@ -51,24 +51,27 @@ $(window).resize(function() {
 resizeConfusionArray = []
 
 // RELOADS THE SCALE OF THE OVERLAY
-$(document).on('resize', '.imgContainer', function(){
+$(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
 
-    console.log("resize");
-    console.log(this);
+    $(".tab-content > .tab-pane").addClass("hack");
+
+    // console.log("resize");
+    // console.log($(this).width());
     resizeConfusionArray.push($(this));
 
     currImg = $(this).find('img').first();
     if (currImg.length == 0)
     {
         // console.log(this);
-        console.log("Image tag not found");
+        // console.log("Image tag not found");
+        $(".tab-content > .tab-pane").removeClass("hack");
         return;
     } 
 
     natWidth = currImg[0].naturalWidth;
 
     if (natWidth == 0){
-        console.log("natWidth not available; waiting...");
+        // console.log("natWidth not available; waiting...");
 
         $.ajax({timeout : 2000}).done(function(){
             // console.log(this);
@@ -77,38 +80,70 @@ $(document).on('resize', '.imgContainer', function(){
     }
     else
     {
-        width = currImg[0].width;
+        // try{
+        //     width = event.data.incomingWidth;
+        //     console.log("Incoming width: " + width);
+        // }
+        // catch(e){
+        //     width = $(this).width();
+        // }
+
+        // width = currImg[0].width;
+        // console.log(this);
+        // if (event.data.incomingWidth == -1)
+        // {
+        //     width = $(this).width();
+        // }
+        // else 
+        width = $(this).width();
+        // width = $(this).width();// - 7.5; // MAGIC NUMBER - HAVE TO CRACK WHERE IS IT FROM (CSS?)
+        // width = this.getBoundingClientRect().width;
+        // width = window.getComputedStyle(this, null).getPropertyValue("width");
+        // console.log("Client width: " + width);
+
+        // console.log(this.getClientRects());
 
         if (width == natWidth){
             console.log("img has been not fit already ( " + width + "); waiting...");
 
-            $.ajax({timeout : 2000, 
-                    success: function(){
-                                console.log("succ");
-                            },
-                    }).done(function(){
-                        console.log("Recursion should start right now!");
-                        console.log(this);
-                        console.log(resizeConfusionArray.shift().resize());
-                    });
+            // $.ajax({timeout : 2000, 
+            //         type : "POST",
+            //         success: function(){
+            //                     console.log("succ");
+            //                 },
+            //         }).done(function(){
+            //             console.log("Recursion should start right now!");
+            //             // console.log(this);
+            //             console.log(resizeConfusionArray.shift().resize());
+            //         });
         }
         else
         {
             scale = width / natWidth;
 
-            console.log(width);
-            console.log(natWidth);
-            console.log("Area scaling factor: " + scale);
+            // console.log(width);
+            // console.log(natWidth);
+            // console.log("Area scaling factor: " + scale);
 
             $(this).find('.scaledAnchorMap').css({"transform" : "scale(" + scale +")"});
+
+            
         }
     } 
+    $(".tab-content > .tab-pane").removeClass("hack");
 })
 
 function CreateInteractiveViewImageSizeChangeEventHandling(obj){
+    console.log("Should add Resize Sensor to:");
+    console.log(obj);
     new ResizeSensor(obj, function(e){ 
         console.log('content dimension changed');
-        obj.resize();
+
+        $.ajax({timeout:1000}).done(function(){
+            console.log(obj.width());
+            // obj.resize({incomingWidth : obj.width()});
+            obj.resize();
+        })
      });
 }
 

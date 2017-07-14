@@ -88,7 +88,7 @@ $(document).on('click', '.disableDiffImg', function() {
 
 // --------------------- Eyecandy ---------------------
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
+    // $('[data-toggle="tooltip"]').tooltip(); 
 });
 
 $(document).on('click', '#diffButtonGroup > .btn', function() { 
@@ -151,10 +151,12 @@ $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on 
         tabId = $(this).attr("href");
         $(tabId + " .imgContainer").resize();
 
-        $.ajax({timeout : 10000}).done(function(){
-            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PHUCK DAT");
-            $(tabId + " .imgContainer").resize();
-        });
+        // $.ajax({timeout : 10000,
+        //         async: true,
+        //         type: "POST"}).done(function(){
+        //     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PHUCK DAT");
+        //     $(tabId + " .imgContainer").resize();
+        // });
      }      
 })
 
@@ -231,6 +233,8 @@ $(document).on('keyup mouseup change', '#fpssetting', function() {
 });
 
 $(document).on('click', '#downloadAsFile', function(e) {
+    $.blockUI({ overlayCSS: { backgroundColor: '#444' } }); 
+
     var context = $(this).parent().parent().parent();
     var image_group = $(context).find('#timelineImages');
     var frames = image_group.children();
@@ -249,6 +253,7 @@ $(document).on('click', '#downloadAsFile', function(e) {
     ag.setSize(tmp.clientWidth,tmp.clientHeight);
     ag.setDelay(delay_ms);
 
+
     for(var i = 0; i < frames.length; i++) {
         ag.addFrame(frames[i]);
     }
@@ -257,8 +262,10 @@ $(document).on('click', '#downloadAsFile', function(e) {
 
     // This is asynchronous, rendered with WebWorkers
     ag.getBase64GIF(function(image) {
+        setTimeout($.unblockUI, 0);
         var w = window.open(image);
     });
+
 });
 
 

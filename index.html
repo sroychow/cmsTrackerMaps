@@ -41,6 +41,8 @@
   <script type="text/javascript" src="libs/slider/dist/bootstrap-slider.min.js"></script>
 
   <script type="text/javascript" src="libs/Animated_GIF/dist/Animated_GIF.min.js"></script>
+    <script type="text/javascript" src="libs/blockUI/blockUI.js"></script>
+
 
   <script type="text/javascript" src="libs/css-element-queries/src/ResizeSensor.js"></script>
   <script type="text/javascript" src="libs/css-element-queries/src/ElementQueries.js"></script>
@@ -61,14 +63,15 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="index" id="siteNameBtn">Tracker Maps</a>
       </div>
-      <div class="btn-group ">
 
-        <button type="button" class="btn btn-default navbar-btn" id="link-me"><i class="glyphicon glyphicon-link"></i> Link Me</button>
-        <button type="button" class="btn btn-default navbar-btn" id="send-link-me"><i class="glyphicon glyphicon-send"></i> Mail Link</button>
-      </div>
+      <ul class="nav navbar-nav navbar-center">
+        <li><a href="#" id="link-me">Link Me <i class="glyphicon glyphicon-link"></i></a></li>
+        <li><a href="#" id="send-link-me">Mail Link <i class="glyphicon glyphicon-envelope"></i></a></li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li><a href="doc/tkmap_manual.pdf" target="_blank">How to? <i class='glyphicon glyphicon-info-sign'></i> </a></li>
-        <li><a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" >Bug, Comment, Suggestion? <i class='glyphicon glyphicon-envelope'></i> </a></li>
+        <li><a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" >Bug, Comment, Suggestion? <i class='glyphicon glyphicon-exclamation-sign'></i> </a></li>
       </ul>
     </div>
   </nav> 
@@ -101,6 +104,7 @@
                       <div class="btn-group" id="modeButtonGroup" >
                         <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare" data-toggle="tooltip" title="Compare two Runs"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
                         <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline" data-toggle="tooltip" title="Show changes over time"><i class="glyphicon glyphicon-film"></i> Timeline</button>
+<!-- <button type="button" class="btn mode-selector" id="other" mode="3dview" data-toggle="tooltip" title="other"><i class="glyphicon glyphicon-globe"></i> 3D View</button>     -->                    
                       </div>
                     </div>
                 </div>

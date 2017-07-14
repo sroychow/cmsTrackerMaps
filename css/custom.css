@@ -429,6 +429,12 @@ area{
 	transform-origin: 0 0 0;
 }
 
+/* HACKS */
+.tab-content > .tab-pane.hack{
+	display: block !important;
+	/*position: absolute !important;*/
+}
+
 /* ----------------------------------- NEON ------------------------------ */
 .imgContainer a.neon {
   text-decoration: none;
@@ -447,8 +453,8 @@ area{
 }
 
 .imgContainer a.neon.clicked{
-	/*box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;*/
-	border: 3px double orangered;
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+	/*border: 3px double orangered;*/
 }
 
 /*glow for webkit*/
