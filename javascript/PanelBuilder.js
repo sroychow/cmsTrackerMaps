@@ -165,9 +165,6 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
             mapContainer.append(anchor);
         });
         $(this).find('map').remove();
-
-        // make sure we keep track of changing column size to adjust scale of the overlays
-        CreateInteractiveViewImageSizeChangeEventHandling($(this));
         
         // CURRENT
         $('#' + id + ' .currCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(currFinal, function(){
@@ -177,8 +174,6 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
             $(this).find('map').remove();
             //CANNOT JUST REUSE <MAPCONTAINER> SINCE ITS CONTENT IS LIKELY TO CHANGE WHEN OPENING LINK WITH >= 2 INTERACTIVE VIEW TABS
             $(this).closest(".row").find(".refCol .anchorMap").clone().appendTo($(this));
-
-            CreateInteractiveViewImageSizeChangeEventHandling($(this));
             
             // DIFF
             // SAME ADNOTATION AS FOR <MAPCONTAINER>
@@ -214,23 +209,9 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
                                                                 trigger: "hover click manual focus",
                                                                 position: "top auto"});
 
-            // $(document).on('click', '.anchorMap a.neon', function(){
-            //     thisID = $(this).attr("id");
-
-            //     parent = $(this).closest(".refCol");
-
-            //     if (parent.length == 0)
-            //     {
-            //         $(".refCol #" + thisID).
-            //     }
-            //     else{
-
-            //     }
-
-            //     $("#" + thisID).click();
-
-            //     console.log(thisID);
-            // })
+            // make sure we keep track of changing column size to adjust scale of the overlays
+            CreateInteractiveViewImageSizeChangeEventHandling($('#' + id + ' .refCol .imgContainer'));
+            CreateInteractiveViewImageSizeChangeEventHandling($('#' + id + ' .currCol .imgContainer'));
         })
     });
 }

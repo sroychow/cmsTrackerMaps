@@ -28,7 +28,7 @@ ModeHandler.prototype.changeMode = function(m) {
             $('#currRunPath').attr("placeholder", "TO");
             break;
         default:
-            alert("mode not implemented");
+            alert("Mode " + m + " not implemented");
     }
 
     decodeCheckboxes(srcStr);

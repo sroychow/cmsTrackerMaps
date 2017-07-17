@@ -24,11 +24,11 @@ function buildTimelinePanel(id) {
                           "</div>"+
 
                           "<div id='timelineControls'>" + 
-                                "<button type='button' class='btn btn-link playbutton' isplaying='false' currentframe='0'><span class='glyphicon glyphicon-play'></span></button>" + 
-                                "<div id='sliderGroup'><label id='progresslabel' class='label'> </label></div>" +
+                                "<button type='button' class='btn btn-link playbutton' isplaying='false' currentframe='0' title='Play/Pause/Repeat'><span class='glyphicon glyphicon-play'></span></button>" + 
+                                "<div id='sliderGroup'><label id='progresslabel' class='label' title='Progress'> </label></div>" +
 
                                 "<div class='dropup'>" +
-                                "  <button class='btn btn-link dropdown-toggle' type='button' data-toggle='dropdown'>" +
+                                "  <button class='btn btn-link dropdown-toggle' type='button' data-toggle='dropdown' title='Options'>" +
                                 "  <span class='glyphicon glyphicon-cog'></span></button>" +
                                 "  <ul class='dropdown-menu' id='timelineSettings'>" +
                                 "   <li>" + 
@@ -50,8 +50,8 @@ function buildTimelinePanel(id) {
                                 "  </ul>" +
                                 "</div>" + 
 
-                                "<button type='button' class='btn btn-link' id='downloadAsFile'><span class='glyphicon glyphicon-save'></span></button>" +                                 
-                                "<button type='button' class='btn btn-link fullscreenSwitch'><span class='glyphicon glyphicon-resize-full'></span></button>" + 
+                                "<button type='button' class='btn btn-link' id='downloadAsFile' title='Download slideshow as gif'><span class='glyphicon glyphicon-save'></span></button>" +                                 
+                                "<button type='button' class='btn btn-link fullscreenSwitch' title='Toggle Fullscreen Mode'><span class='glyphicon glyphicon-resize-full'></span></button>" + 
                        
                           "</div>" + 
                       "</div>"+

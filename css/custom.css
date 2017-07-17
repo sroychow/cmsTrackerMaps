@@ -289,13 +289,11 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 }
 
 #timelineImages img{
-	/*height: 60%;
-	max-width: 100%;*/
 	width: 100%;
 }
 
 .fullscreenMode #timelineImages img{
-	width: initial !important;
+	/*width: initial !important;*/
 }
 
 #timelineControls{

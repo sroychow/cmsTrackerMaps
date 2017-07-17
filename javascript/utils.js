@@ -45,19 +45,16 @@ $(window).resize(function() {
         var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
         $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
     }
-});
 
-// HELPS DEALING WITH OVERWRITING <THIS> OBJECT BY ASYNCHRONOUS CALLS
-resizeConfusionArray = []
+    console.log("WINDOW RESIZE");
+
+    $(".img-container").resize();
+});
 
 // RELOADS THE SCALE OF THE OVERLAY
 $(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
 
     $(".tab-content > .tab-pane").addClass("hack");
-
-    // console.log("resize");
-    // console.log($(this).width());
-    resizeConfusionArray.push($(this));
 
     currImg = $(this).find('img').first();
     if (currImg.length == 0)
@@ -74,60 +71,29 @@ $(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
         // console.log("natWidth not available; waiting...");
 
         $.ajax({timeout : 2000}).done(function(){
-            // console.log(this);
             $(this).resize();
         });
     }
     else
     {
-        // try{
-        //     width = event.data.incomingWidth;
-        //     console.log("Incoming width: " + width);
-        // }
-        // catch(e){
-        //     width = $(this).width();
-        // }
 
-        // width = currImg[0].width;
-        // console.log(this);
-        // if (event.data.incomingWidth == -1)
-        // {
-        //     width = $(this).width();
-        // }
-        // else 
-        width = $(this).width();
-        // width = $(this).width();// - 7.5; // MAGIC NUMBER - HAVE TO CRACK WHERE IS IT FROM (CSS?)
-        // width = this.getBoundingClientRect().width;
-        // width = window.getComputedStyle(this, null).getPropertyValue("width");
-        // console.log("Client width: " + width);
-
-        // console.log(this.getClientRects());
+        if ($(this).is("[data-width]"))
+        {
+            width = $(this).attr("data-width");
+        }
+        else{
+            width = $(this).width();
+        }      
+        console.log(width);
 
         if (width == natWidth){
             console.log("img has been not fit already ( " + width + "); waiting...");
-
-            // $.ajax({timeout : 2000, 
-            //         type : "POST",
-            //         success: function(){
-            //                     console.log("succ");
-            //                 },
-            //         }).done(function(){
-            //             console.log("Recursion should start right now!");
-            //             // console.log(this);
-            //             console.log(resizeConfusionArray.shift().resize());
-            //         });
         }
         else
         {
             scale = width / natWidth;
 
-            // console.log(width);
-            // console.log(natWidth);
-            // console.log("Area scaling factor: " + scale);
-
-            $(this).find('.scaledAnchorMap').css({"transform" : "scale(" + scale +")"});
-
-            
+            $(this).find('.scaledAnchorMap').css({"transform" : "scale(" + scale +")"});        
         }
     } 
     $(".tab-content > .tab-pane").removeClass("hack");
@@ -136,15 +102,20 @@ $(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
 function CreateInteractiveViewImageSizeChangeEventHandling(obj){
     console.log("Should add Resize Sensor to:");
     console.log(obj);
-    new ResizeSensor(obj, function(e){ 
-        console.log('content dimension changed');
 
-        $.ajax({timeout:1000}).done(function(){
-            console.log(obj.width());
-            // obj.resize({incomingWidth : obj.width()});
-            obj.resize();
-        })
-     });
+    $.ajax({timeout:1000}).done(function(){
+        sensor = new ResizeSensor(obj, function(e){ 
+            console.log('content dimension changing to: ' + obj.width());
+
+            $.ajax({timeout:1000}).done(function(){
+                obj.attr("data-width", obj.width())
+                console.log(obj.width());
+                // obj.resize({incomingWidth : obj.width()});
+                obj.resize();
+            });
+        });
+        console.log(sensor);
+    });
 }
 
 //TODO make nicer

@@ -75,13 +75,15 @@ function loadImagesToImagePlayer(id, resname, startRunPath, endRunPath) {
             var obj = jQuery.parseJSON(data);
 
             for(var i=0; i<obj.length; ++i){
+                // COMMENT ON FIREFOX BEHAVIOUR:
+                // EVEN IF ALL IMAGES WILL BE DISPLAYED FROM THE BEGINNING
+                // THOSE THAT ARE 'DEEPER' (HIGHER NUMBER) WILL HAVE GLITCHES 
                 if(i==0)
-                    var newimage ="<img src='" + obj[i] +"' >";
+                    var newimage ="<img src='" + obj[i] +"' style='display:initial;'>";
                 else
                     var newimage ="<img src='" + obj[i] +"' style='display: none;'>";
 
                 $('#timelineContainer'+id).find('#timelineImages').append(newimage);
-
             }
             var startAt = obj.length>0 ? 1 : 0;
                             
