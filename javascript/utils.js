@@ -40,21 +40,24 @@ function getExtensionFromFilename(filename) {
 
 // allows for proper difference view scaling
 $(window).resize(function() {
-    var objs = $(".toggleDifferenceView");
-    for (i = 0; i < objs.length; ++i) {
-        var refCol = $(objs[i]).closest(".panel").closest(".row").find(".refCol");
-        $(objs[i]).closest(".panel").find(".diffCol").css("height", refCol.height());
-    }
-
     console.log("WINDOW RESIZE");
 
-    $(".img-container").resize();
+    currParent = $("div[id^=inputCheckBoxPanelcheckbox].in");
+
+    $(currParent).find(".enableDiffImg.btn-primary").click();
+
+    // IMG RESIZE LISTENER SHOULD DO THE TRICK...
+    // $(currParent).find(".imgContainer").resize();
+    // console.log($(currParent).find(".imgContainer"));
 });
 
 // RELOADS THE SCALE OF THE OVERLAY
-$(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
+$(document).on('resize', '.imgContainer', function(){
+
+    if ( $(this).find(".anchorMap").length == 0) return;
 
     $(".tab-content > .tab-pane").addClass("hack");
+    console.log("IMGCONTAINER RESIZE");
 
     currImg = $(this).find('img').first();
     if (currImg.length == 0)
@@ -83,7 +86,8 @@ $(document).on('resize', '.imgContainer', {incomingWidth : -1}, function(){
         }
         else{
             width = $(this).width();
-        }      
+        }    
+        console.log(this);  
         console.log(width);
 
         if (width == natWidth){
@@ -103,18 +107,11 @@ function CreateInteractiveViewImageSizeChangeEventHandling(obj){
     console.log("Should add Resize Sensor to:");
     console.log(obj);
 
-    $.ajax({timeout:1000}).done(function(){
-        sensor = new ResizeSensor(obj, function(e){ 
-            console.log('content dimension changing to: ' + obj.width());
-
-            $.ajax({timeout:1000}).done(function(){
-                obj.attr("data-width", obj.width())
+    addResizeListener(obj[0], function(){
+                console.log("Size from BCR: " + obj[0].getBoundingClientRect().width)
+                obj.attr("data-width", obj.width());
                 console.log(obj.width());
-                // obj.resize({incomingWidth : obj.width()});
                 obj.resize();
-            });
-        });
-        console.log(sensor);
     });
 }
 
@@ -133,7 +130,6 @@ function clearCheckboxselection() {
         }
     }
 }
-
 
 function getParameterFromString(src, param) {
     var page_url = src,

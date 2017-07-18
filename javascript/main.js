@@ -70,20 +70,32 @@ $(document).on('click', '.navigation-arrow', function(){
     Loader.loadNeighbourRun(callerID, direction);
 });
 
-// --------------------- Manipulation of hidden 
-//                       checkbox for image diff --------------------
+// --------------------- Manipulation of image diff ---------------------
 $(document).on('click', '.enableDiffImg', function() {
-   var tmp = $(this).attr('toToggle');
-   if(!$('#' + tmp).prop('checked')) {
-        $('#' + tmp).click();
-   }
+
+    console.log("ENABLE DIFF IMAGE");
+
+    parentPanel = $(this).closest("div[id^=inputCheckBoxPanelcheckbox]");
+    refCol = parentPanel.find(".refCol");
+
+    if (parentPanel.hasClass("in") == false)
+    {
+        // console.log("Panel is still invisible...");
+        // hack class is used to force browser to compute width/height of inner elements
+        parentPanel.addClass("hack");
+    }
+
+    $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".currCol").hide();
+    $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".diffCol").show().css("height", refCol.height());
+
+    parentPanel.removeClass("hack");
 });
 
 $(document).on('click', '.disableDiffImg', function() {
-   var tmp = $(this).attr('toToggle');
-   if($('#' + tmp).prop('checked')) {
-        $('#' + tmp).click();
-   }
+    console.log("DISABLE DIFF IMAGE");
+
+    $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".currCol").show();
+    $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".diffCol").hide();
 });
 
 // --------------------- Eyecandy ---------------------
@@ -148,15 +160,12 @@ $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on 
      }
      else
      {
+
         tabId = $(this).attr("href");
         $(tabId + " .imgContainer").resize();
 
-        // $.ajax({timeout : 10000,
-        //         async: true,
-        //         type: "POST"}).done(function(){
-        //     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ PHUCK DAT");
-        //     $(tabId + " .imgContainer").resize();
-        // });
+        //diffEnable click...
+        $(tabId + " .enableDiffImg.btn-primary").click();
      }      
 })
 

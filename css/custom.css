@@ -428,7 +428,9 @@ area{
 }
 
 /* HACKS */
-.tab-content > .tab-pane.hack{
+/*.tab-content > .tab-pane.hack,
+.panel .refCol.hack*/
+.hack{
 	display: block !important;
 	/*position: absolute !important;*/
 }

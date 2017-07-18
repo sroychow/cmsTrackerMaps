@@ -128,14 +128,6 @@ function addPngToPanel(refFinal, currFinal, id, emptyMap){
                             </div>");
 
     attachWheelZoomListeners('#' + id);
-
-    // $("#" + id + " .toggleDifferenceView").parent().css("display", "initial");
-
-    $("#" + id + " .toggleDifferenceView").change(function(e) {
-        var refCol = $(this).closest(".panel").closest(".row").find(".refCol");
-        $(this).closest(".panel").find(".currCol").toggle();
-        $(this).closest(".panel").find(".diffCol").toggle().css("height", refCol.height());
-    });
 }
 
 function addHtmlToPanel(refFinal, currFinal, id, emptyMap){

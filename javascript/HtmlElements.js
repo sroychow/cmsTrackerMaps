@@ -84,7 +84,6 @@ function buildPanelWithImages(id) {
                         "<div class='panel panel-default'>" +
                             "<div class='panel-heading' style='display: inherit;'>" +
                                 "Current" +
-                                "<input type='checkbox' class='toggleDifferenceView' id='toggle"+id+"' style='display: none;'>" +
                             "</div>" +
                             "<div class='panel-body currCol'></div>" +
                             "<div class='panel-body diffCol'></div>" +
