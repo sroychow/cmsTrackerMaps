@@ -63,7 +63,7 @@ function buildPanelWithImages(id) {
             // "<div class='row'>" + 
                 "<div class='viewType'>" +
                     "<div style='text-align: center;'>"+
-                        "<div><label style='margin-bottom:-10;'>Diff</label></div>"+
+                        "<div><label style='margin-bottom:-10;'>Difference Mode</label></div>"+
                         "<div class='btn-group btn-group-sm' role='group' id='diffButtonGroup'>" +
                             "<button type='button' class='btn btn-primary disableDiffImg' toToggle='toggle"+id+"'> Disabled </button>" +
                             "<button type='button' class='btn enableDiffImg' toToggle='toggle"+id+"'> Enabled </button>" +
@@ -98,7 +98,7 @@ function buildPanelWithText(id) {
     return "<div id='" + id + "' class='tab-pane fade extandable-tab-list-element'>" +
             
             "<div class='row'>" + 
-            "<div><label style='margin-bottom:-10;'>Diff</label></div>"+
+            "<label style='margin-bottom:-10px;'>Difference Mode</label>"+
 
                 "<div class='viewType'>" +
                   "<div style='text-align: center;'>"+

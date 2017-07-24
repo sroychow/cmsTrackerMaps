@@ -82,14 +82,16 @@ div[id^="inputCheckBoxPanelcheckbox"] > .row:first-child{
 .imgDiffWrapper {
 	background-repeat: no-repeat;
 	background-blend-mode: difference;
-	background-size: 100% auto;
+	background-size: auto 100%;
+	background-position: 50%;
 }
 
 .cleanRef{
 	height: 100%;
-	background-size: 100%;
+	background-size: auto 100%;
 	background-repeat: no-repeat;
 	mix-blend-mode: difference; 
+	background-position: 50%;
 }
 
 .alert{
@@ -243,13 +245,20 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	height: 100% !important;
 	background-color: black;
 	z-index: 1000;
 	/*text-align: center;*/
 
 	-webkit-transition: background-color 0.5s; /* Safari */
     transition: background-color 0.5s;
+
+    -webkit-transition: height width 1s; /* Safari */
+    transition: height width 1s;
+}
+
+body.fullscreenMode{
+	overflow: hidden;
 }
 
 .fullscreenMode #timelineControls{
@@ -271,9 +280,28 @@ div[id^="diffinputCheckBoxPanelcheckbox"] .diff .texttitle, .extandable-tab-list
 	/*max-height: 95%;*/
 	width: auto;
 	/*height: auto;*/
+}
 
-	-webkit-transition: height 1s; /* Safari */
-    transition: height 1s;
+.panel-body.fullscreenMode img{
+	height: 100% !important;
+}
+
+.panel-body.fullscreenMode textarea, div[id^="diffinputCheckBoxPanelcheckbox"].fullscreenMode{
+	height: 100% !important;
+	max-height: unset;
+}
+
+div[id^="diffinputCheckBoxPanelcheckbox"].fullscreenMode{
+	background-color: white;
+	overflow: scroll;
+	padding: unset;
+}
+
+.panel-body.fullscreenMode.fullscreenModeInteractive{
+	overflow: scroll;
+}
+.panel-body.fullscreenMode.fullscreenModeInteractive .imgContainer.fullscreenModeInteractive{
+	display: flex;
 }
 
 .fullscreenMode .btn-link, .fullscreenMode #progressLabel{
@@ -442,7 +470,6 @@ area{
   -moz-transition: all 0.5s;
   transition: all 0.5s;
   color: #FF9900;
-  font-family: Audiowide;
 }
 
 .imgContainer a.neon.hover {
@@ -453,8 +480,8 @@ area{
 }
 
 .imgContainer a.neon.clicked{
-	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
-	/*border: 3px double orangered;*/
+	box-shadow: inset 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+	border-radius: 6px;
 }
 
 /*glow for webkit*/

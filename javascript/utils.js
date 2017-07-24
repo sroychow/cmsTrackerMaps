@@ -107,12 +107,41 @@ function CreateInteractiveViewImageSizeChangeEventHandling(obj){
     console.log("Should add Resize Sensor to:");
     console.log(obj);
 
-    addResizeListener(obj[0], function(){
-                console.log("Size from BCR: " + obj[0].getBoundingClientRect().width)
-                obj.attr("data-width", obj.width());
-                console.log(obj.width());
+    resizeFunction = function(){
+                console.log("Resize event noticed!");
+
+                parentBody = obj.closest(".panel-body");
+                if (parentBody.hasClass("fullscreenMode") == false)
+                {
+                    console.log("Size from BCR: " + obj[0].getBoundingClientRect().width);
+
+                    // removeResizeListener(obj[0], resizeFunction);
+                    // obj.css({"width" : "initial", "height" : "initial"});
+                    // addResizeListener(obj[0], resizeFunction);
+
+                    obj.attr("data-width", obj.width());                  
+                }
+                else{
+
+                    dimensions = obj.find("img")[0].getBoundingClientRect();
+
+                    // removeResizeListener(obj[0], resizeFunction);
+                    // obj.css({"width" : dimensions.width,
+                    //          "height" : dimensions.height,
+                    //          "margin" : "0 auto"});
+                    // addResizeListener(obj[0], resizeFunction);
+
+                    console.log("Size from BCR: " + dimensions.width);
+                    obj.attr("data-width", dimensions.width);
+                }
                 obj.resize();
-    });
+    }
+
+    /*
+        IN FULLSCREEN: SET IMG CONTAINER WIDTH TO THE WIDTH OF THE PICTURE + MARGIN: 0 AUTO
+    */
+
+    addResizeListener(obj[0], resizeFunction);
 }
 
 //TODO make nicer

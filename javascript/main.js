@@ -100,7 +100,7 @@ $(document).on('click', '.disableDiffImg', function() {
 
 // --------------------- Eyecandy ---------------------
 $(document).ready(function(){
-    // $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip({position: "top auto"}); 
 });
 
 $(document).on('click', '#diffButtonGroup > .btn', function() { 
@@ -166,10 +166,15 @@ $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on 
 
         //diffEnable click...
         $(tabId + " .enableDiffImg.btn-primary").click();
+
+        //PAUSE POSSIBLE PLAYBACK
+        if ($(tabId).hasClass("in") === false){
+            forcePausePlayback($(tabId + " .playbutton"));
+        }
      }      
 })
 
-$("body").on('keydown', function(e){            // Navigate between runs with left & right arrow ( + SHIFT)
+$("body").on('keydown', function(e){            // Navigate between runs 
     var code = e.keyCode;
     var isShift = e.shiftKey;
     switch(code) {
@@ -221,6 +226,11 @@ $(document).on('click', '.playbutton', function() {
         play(context);        
     }
 });
+
+function forcePausePlayback(playbutton){
+    var context = playbutton.parent().parent();
+    pause(context);
+}
 
 $(document).on('change', '#slider', function() {
     var newframeNr = $(this).bootstrapSlider('getValue');
@@ -276,5 +286,30 @@ $(document).on('click', '#downloadAsFile', function(e) {
     });
 
 });
+// FULLSCREEN MODE HANDLERS
+$(document).on('dblclick', 'div[id^=inputCheckBoxPanelcheckbox] .panel-body', function(){
+    $(this).toggleClass("fullscreenMode");
+    $("body").toggleClass("fullscreenMode");
 
+    if ($(this).find(".anchorMap").length != 0){
+        $(this).toggleClass("fullscreenModeInteractive");
+        $(this).find(".imgContainer").toggleClass("fullscreenModeInteractive");//.resize();
+    }
 
+    obj = $(this).find(".imgContainer");
+    if (obj.find(".anchorMap").length != 0)
+    {
+        dimensions = obj.find("img")[0].getBoundingClientRect();
+
+        console.log("Size from BCR: " + dimensions.width);
+        obj.attr("data-width", dimensions.width);
+
+        obj.resize();
+    }
+
+    $(window).resize();
+})
+
+$(document).on('dblclick', 'div[id^=diffinputCheckBoxPanelcheckbox]', function(){
+    $(this).toggleClass("fullscreenMode");
+})
