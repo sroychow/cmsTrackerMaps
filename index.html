@@ -71,9 +71,22 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+
         <li><a href="doc/tkmap_manual.pdf" target="_blank">How to? <i class='glyphicon glyphicon-info-sign'></i> </a></li>
         <li><a href="mailto:filip.ilic@cern.ch?subject=[TrackerMapsReloaded] bug / comment / suggestion" target="_top" >Bug, Comment, Suggestion? <i class='glyphicon glyphicon-exclamation-sign'></i> </a></li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-weight: bold">Access Tracker Maps
+            <span class="glyphicon glyphicon-th"></span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="" href="https://test-stripdbmonitor.web.cern.ch/test-stripdbmonitor/CablingWebInterface/cablingweb.php" target="_blank">Strip TkMap <i class='glyphicon glyphicon-share-alt'></i> </a></li>
+            <li><a class="" href="http://vocms061.cern.ch/event_display/PixelCablingInterface/pixelcablingweb.php" target="_blank">Pixel TkMap <i class='glyphicon glyphicon-share-alt'></i> </a></li>
+          </ul>
+        </li>
+
       </ul>
+
     </div>
   </nav> 
 
@@ -103,9 +116,8 @@
                     <div style="text-align: center;">
 
                       <div class="btn-group" id="modeButtonGroup" >
-                        <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare" data-toggle="tooltip" title="Compare two Runs"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
-                        <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline" data-toggle="tooltip" title="Show changes over time"><i class="glyphicon glyphicon-film"></i> Timeline</button>
-<!-- <button type="button" class="btn mode-selector" id="other" mode="3dview" data-toggle="tooltip" title="other"><i class="glyphicon glyphicon-globe"></i> 3D View</button>     -->                    
+                        <button type="button" class="btn btn-primary mode-selector" id="compare-mode-btn" mode="compare" title="Compare two Runs"><i class="glyphicon glyphicon-duplicate"></i> Compare</button>
+                        <button type="button" class="btn mode-selector" id="timeline-mode-btn" mode="timeline" title="Show changes over time"><i class="glyphicon glyphicon-film"></i> Timeline</button>              
                       </div>
                     </div>
                 </div>
@@ -118,23 +130,23 @@
                     <div class="form-group">
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refPrev" data-toggle="tooltip" title="Previous 'u' "><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refPrev" title="Previous 'u' "><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="refRunPath" placeholder="REFERENCE" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="refNext" data-toggle="tooltip" title="Next 'i'"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath" data-toggle="tooltip" title="Open 'o'"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="refNext" title="Next 'i'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="refRunPathBrowse" data-ref="refRunPath" title="Open 'o'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
 
                       <div class="input-group">
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currPrev" data-toggle="tooltip" title="Previous 'j'"><i class='glyphicon glyphicon-arrow-left'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currPrev" title="Previous 'j'"><i class='glyphicon glyphicon-arrow-left'></i></button>
                         </div>
                         <input type="text" class="form-control" id="currRunPath" placeholder="CURRENT" disabled>
                         <div class="input-group-btn">
-                          <button class="btn btn-default navigation-arrow" id="currNext" data-toggle="tooltip" title="Next 'k'"><i class='glyphicon glyphicon-arrow-right'></i></button>
-                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath" data-toggle="tooltip" title="Open 'l'"><i class='glyphicon glyphicon-folder-open'></i></button>
+                          <button class="btn btn-default navigation-arrow" id="currNext" title="Next 'k'"><i class='glyphicon glyphicon-arrow-right'></i></button>
+                          <button class="btn btn-default" id="currRunPathBrowse" data-ref="currRunPath" title="Open 'l'"><i class='glyphicon glyphicon-folder-open'></i></button>
                         </div>
                       </div>
                     </div>

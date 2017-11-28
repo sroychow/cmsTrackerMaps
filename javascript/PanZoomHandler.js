@@ -21,23 +21,8 @@ function attachWheelZoomListeners(sectionToLookIn) {
 }
 
 function assignTransform(section, master, slave) {
-    var trans = section.find(master).css("transform").trim();
-    var prevTrans = section.find(slave).css("transform").trim();
-
-    // if (prevTrans !== trans)
-    // {
-    //   console.log(section);
-    //   console.log(master + " & " + slave);
-    //   console.log("Should remove tooltips");
-    //   console.log(trans);
-    //   console.log(prevTrans);
-
-    //   section.find(".tooltip").remove();
-    //   // section.find(master + ".tooltip").remove();
-    // }
-    // else{
-    //   console.log("No need to remove tooltips");
-    // }
+    var trans = section.find(master).css("transform");
+    var prevTrans = section.find(slave).css("transform");
 
     section.find(slave).css("transform", trans);
 }

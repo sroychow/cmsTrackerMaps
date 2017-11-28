@@ -40,22 +40,14 @@ function getExtensionFromFilename(filename) {
 
 // allows for proper difference view scaling
 $(window).resize(function() {
-    console.log("WINDOW RESIZE");
-
     currParent = $("div[id^=inputCheckBoxPanelcheckbox].in");
-
     $(currParent).find(".enableDiffImg.btn-primary").click();
-
-    // IMG RESIZE LISTENER SHOULD DO THE TRICK...
-    // $(currParent).find(".imgContainer").resize();
-    // console.log($(currParent).find(".imgContainer"));
 });
 
 // RELOADS THE SCALE OF THE OVERLAY
 $(document).on('resize', '.imgContainer', function(){
-
     if ( $(this).find(".anchorMap").length == 0) return;
-
+    
     $(".tab-content > .tab-pane").addClass("hack");
     console.log("IMGCONTAINER RESIZE");
 

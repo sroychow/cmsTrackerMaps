@@ -73,13 +73,10 @@ $(document).on('click', '.navigation-arrow', function(){
 // --------------------- Manipulation of image diff ---------------------
 $(document).on('click', '.enableDiffImg', function() {
 
-    console.log("ENABLE DIFF IMAGE");
-
     parentPanel = $(this).closest("div[id^=inputCheckBoxPanelcheckbox]");
     refCol = parentPanel.find(".refCol");
 
-    if (parentPanel.hasClass("in") == false)
-    {
+    if (parentPanel.hasClass("in") == false){
         // console.log("Panel is still invisible...");
         // hack class is used to force browser to compute width/height of inner elements
         parentPanel.addClass("hack");
@@ -89,11 +86,23 @@ $(document).on('click', '.enableDiffImg', function() {
     $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".diffCol").show().css("height", refCol.height());
 
     parentPanel.removeClass("hack");
+
+    superhack(parentPanel, refCol, this);
 });
 
-$(document).on('click', '.disableDiffImg', function() {
-    console.log("DISABLE DIFF IMAGE");
+function superhack(parentPanel, refCol, ctx) {
+    //  what am i doing with my life...
+    if (parentPanel.hasClass("in") == false){
+        parentPanel.addClass("hack");
+    }
 
+    $(ctx).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".currCol").hide();
+    $(ctx).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".diffCol").show().css("height", refCol.height());
+
+    parentPanel.removeClass("hack");
+}
+
+$(document).on('click', '.disableDiffImg', function() {
     $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".currCol").show();
     $(this).closest("div[id^='inputCheckBoxPanelcheckbox']").find(".diffCol").hide();
 });
@@ -157,9 +166,7 @@ $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on 
         var thisID = $(this).attr('id');       
         var checkboxID = thisID.substr(18, thisID.length - 18 -  3);      
         closeTab(checkboxID);
-     }
-     else
-     {
+     } else {
 
         tabId = $(this).attr("href");
         $(tabId + " .imgContainer").resize();
@@ -171,7 +178,7 @@ $(document).on('mousedown', 'a[id^=inputCheckBoxPanel]', function(e){ // MMB on 
         if ($(tabId).hasClass("in") === false){
             forcePausePlayback($(tabId + " .playbutton"));
         }
-     }      
+     }
 })
 
 $("body").on('keydown', function(e){            // Navigate between runs 
@@ -286,30 +293,31 @@ $(document).on('click', '#downloadAsFile', function(e) {
     });
 
 });
+
 // FULLSCREEN MODE HANDLERS
-$(document).on('dblclick', 'div[id^=inputCheckBoxPanelcheckbox] .panel-body', function(){
-    $(this).toggleClass("fullscreenMode");
-    $("body").toggleClass("fullscreenMode");
+// $(document).on('dblclick', 'div[id^=inputCheckBoxPanelcheckbox] .panel-body', function(){
+//     $(this).toggleClass("fullscreenMode");
+//     $("body").toggleClass("fullscreenMode");
 
-    if ($(this).find(".anchorMap").length != 0){
-        $(this).toggleClass("fullscreenModeInteractive");
-        $(this).find(".imgContainer").toggleClass("fullscreenModeInteractive");//.resize();
-    }
+//     if ($(this).find(".anchorMap").length != 0){
+//         $(this).toggleClass("fullscreenModeInteractive");
+//         $(this).find(".imgContainer").toggleClass("fullscreenModeInteractive");//.resize();
+//     }
 
-    obj = $(this).find(".imgContainer");
-    if (obj.find(".anchorMap").length != 0)
-    {
-        dimensions = obj.find("img")[0].getBoundingClientRect();
+//     obj = $(this).find(".imgContainer");
+//     if (obj.find(".anchorMap").length != 0)
+//     {
+//         dimensions = obj.find("img")[0].getBoundingClientRect();
 
-        console.log("Size from BCR: " + dimensions.width);
-        obj.attr("data-width", dimensions.width);
+//         console.log("Size from BCR: " + dimensions.width);
+//         obj.attr("data-width", dimensions.width);
 
-        obj.resize();
-    }
+//         obj.resize();
+//     }
 
-    $(window).resize();
-})
+//     $(window).resize();
+// })
 
-$(document).on('dblclick', 'div[id^=diffinputCheckBoxPanelcheckbox]', function(){
-    $(this).toggleClass("fullscreenMode");
-})
+// $(document).on('dblclick', 'div[id^=diffinputCheckBoxPanelcheckbox]', function(){
+//     $(this).toggleClass("fullscreenMode");
+// })
