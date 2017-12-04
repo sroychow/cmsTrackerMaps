@@ -157,18 +157,43 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
             mapContainer.append(anchor);
         });
         $(this).find('map').remove();
-        
-        // CURRENT
-        $('#' + id + ' .currCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(currFinal, function(){
-            currFinalNew = substituteHtmlImgPath(currFinal, $(this));
-            $(this).find('img').addClass('imgCurr');
+    });
 
-            $(this).find('map').remove();
-            //CANNOT JUST REUSE <MAPCONTAINER> SINCE ITS CONTENT IS LIKELY TO CHANGE WHEN OPENING LINK WITH >= 2 INTERACTIVE VIEW TABS
-            $(this).closest(".row").find(".refCol .anchorMap").clone().appendTo($(this));
-            
-            // DIFF
-            // SAME ADNOTATION AS FOR <MAPCONTAINER>
+    // CURRENT
+    $('#' + id + ' .currCol').append("<div class='imgContainer'></div>").find('.imgContainer').load(currFinal, function(){
+        currFinalNew = substituteHtmlImgPath(currFinal, $(this));
+        $(this).find('img').addClass('imgCurr');
+
+        mapContainer = $(this).append("<div class='anchorMap'><div class='scaledAnchorMap'></div></div>").find('.scaledAnchorMap');
+        $(this).find('area').each(function(idx){
+            c = $(this).attr("coords");
+            t = $(this).attr("title").trim();
+            tSmall = t.split(" ").join("");
+
+            xy = c.split(",");
+
+            for (i = 0; i < xy.length; ++i) {
+                xy[i] = Number(xy[i]);
+            }
+
+            w = xy[2] - xy[0];
+            h = xy[3] - xy[1];
+
+            anchor = $("<a class='neon' href='#' title='" + t + "' data-original-title='" + t + "' data-toggle='tooltip' id='" + tSmall + "'></a>").css({"left" : xy[0], "top" : xy[1], "width" : w, "height" : h});
+            mapContainer.append(anchor);
+        });
+        $(this).find('map').remove();
+
+        // $(this).find('map').remove();
+        // //CANNOT JUST REUSE <MAPCONTAINER> SINCE ITS CONTENT IS LIKELY TO CHANGE WHEN OPENING LINK WITH >= 2 INTERACTIVE VIEW TABS
+        // $(this).closest(".row").find(".refCol .anchorMap").clone().appendTo($(this));
+        
+        // DIFF
+        // SAME ADNOTATION AS FOR <MAPCONTAINER>
+        
+        // DEAL WITH IT!!!
+        setTimeout(function(){
+
             refFinalNew = $(this).closest(".row").find(".refCol .imgRef").attr("src");
             currFinalNew = $(this).closest(".row").find(".currCol .imgCurr").attr("src");
 
@@ -204,7 +229,10 @@ function addHtmlToPanel(refFinal, currFinal, id, emptyMap){
             // make sure we keep track of changing column size to adjust scale of the overlays
             CreateInteractiveViewImageSizeChangeEventHandling($('#' + id + ' .refCol .imgContainer'));
             CreateInteractiveViewImageSizeChangeEventHandling($('#' + id + ' .currCol .imgContainer'));
-        })
+
+        }, 1000);
+
+        
     });
 }
 
