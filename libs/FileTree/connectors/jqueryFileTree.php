@@ -28,7 +28,7 @@ if( file_exists($root . $_POST['dir']) ) {
 		foreach( $files as $file ) {
 			if( file_exists($root . $_POST['dir'] . $file) && $file != '.' && $file != '..' && is_dir($root . $_POST['dir'] . $file)) {
 
-				if (($_POST['dir'] == $_POST['thisROOT']  && (strpos($file, 'Data2016') === 0) || (strpos($file, 'Data2017') === 0) || strpos($file, 'Commissionning20') === 0) || $_POST['dir'] != $_POST['thisROOT']) // NEEDS INVESTIGATION FOR COMMISSIONNING20##
+				if (($_POST['dir'] == $_POST['thisROOT']  && (strpos($file, 'Data20') === 0)) || $_POST['dir'] != $_POST['thisROOT'])
 				{
 					echo "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($_POST['dir'] . $file) . "/\">" . htmlentities($file) . "</a></li>";
 				}
