@@ -35,6 +35,10 @@ var mapDescriptions =
       [
         {"name" : "Mean value for S/N for on-track cluster corrected for the angle",            "resource" :"StoNCorrOnTrack.png",          "emptyMap" : "img/tkMapEmpty.png"},
         {"name" : "Mean value for Cluster Charge per cm from Track",                            "resource" :"ChargePerCMfromTrack.png",     "emptyMap" : "img/tkMapEmpty.png"},
+        {"name" : "Average cluster noise on-track",                                             "resource" :"NoiseOnTrack.png",             "emptyMap" : "img/tkMapEmpty.png"}, 
+        {"name" : "Average cluster noise off-track",                                            "resource" :"NoiseOffTrack.png",            "emptyMap" : "img/tkMapEmpty.png"}, 
+        {"name" : "Average cluster width on-track",                                             "resource" :"ClusterWidthOnTrack.png",      "emptyMap" : "img/tkMapEmpty.png"},
+        {"name" : "Average cluster width off-track",                                            "resource" :"ClusterWidthOffTrack.png",     "emptyMap" : "img/tkMapEmpty.png"},  	
         {"name" : "Residuals Mean",                                                             "resource" :"ResidualsMean.png",            "emptyMap" : "img/tkMapEmpty.png"},
         {"name" : "Residuals RMS",                                                              "resource" :"ResidualsRMS.png",             "emptyMap" : "img/tkMapEmpty.png"}
       ],
