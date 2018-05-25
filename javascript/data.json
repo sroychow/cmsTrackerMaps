@@ -91,6 +91,12 @@ var mapDescriptions =
         {"name" : "Masked Barrel L4", "resource" : "PXBarrel_Layer4_coded.png", "emptyMap" : "img/rocPXB4Empty.png"},
         {"name" : "Masked Endcap R1", "resource" : "PXForward_Ring1_coded.png", "emptyMap" : "img/rocPXF1Empty.png"},
         {"name" : "Masked Endcap R2", "resource" : "PXForward_Ring2_coded.png", "emptyMap" : "img/rocPXF2Empty.png"},
+        {"name" : "MergedDeadRoc Barrel L1", "resource" : "MergedOccupancyDeadROC_BPix_Layer1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer1_TBM.png.png"},
+        {"name" : "MergedDeadRoc Barrel L2", "resource" : "MergedOccupancyDeadROC_BPix_Layer2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer2_TBM.png.png"},
+        {"name" : "MergedDeadRoc Barrel L3", "resource" : "MergedOccupancyDeadROC_BPix_Layer3_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer3_TBM.png.png"},
+        {"name" : "MergedDeadRoc Barrel L4", "resource" : "MergedOccupancyDeadROC_BPix_Layer4_TBM.png", "emptyMap" : "img/emmptMergedOccupancyDeadROC_BPix_Layer4_TBM.png"},
+        {"name" : "MergedDeadRoc Endcap R1", "resource" : "MergedOccupancyDeadROC_FPix_Ring1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring1_TBM.png"},
+        {"name" : "MergedDeadRoc Endcap R2", "resource" : "MergedOccupancyDeadROC_FPix_Ring2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring2_TBM.png"},
       ],
 
       "ROCS Logs":
