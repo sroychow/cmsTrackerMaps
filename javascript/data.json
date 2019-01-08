@@ -105,6 +105,29 @@ var mapDescriptions =
         {"name" : "Masked ROC Run - Beginning", "resource" : "MaskedROC_offline.txt"},
         {"name" : "Masked ROC Run - End",       "resource" : "MaskedROC_online.txt"},
       ],
+
+      "PCL (only StreamExpress)":
+      [
+        {"name" : "MergedPCLDeadRoc Barrel L1", "resource" : "MergedPCLDeadROC_BPix_Layer1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer1_TBM.png.png"},
+        {"name" : "MergedPCLDeadRoc Barrel L2", "resource" : "MergedPCLDeadROC_BPix_Layer2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer2_TBM.png.png"},
+        {"name" : "MergedPCLDeadRoc Barrel L3", "resource" : "MergedPCLDeadROC_BPix_Layer3_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer3_TBM.png.png"},
+        {"name" : "MergedPCLDeadRoc Barrel L4", "resource" : "MergedPCLDeadROC_BPix_Layer4_TBM.png", "emptyMap" : "img/emmptMergedOccupancyDeadROC_BPix_Layer4_TBM.png"},
+        {"name" : "MergedPCLDeadRoc Endcap R1", "resource" : "MergedPCLDeadROC_FPix_Ring1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring1_TBM.png"},
+        {"name" : "MergedPCLDeadRoc Endcap R2", "resource" : "MergedPCLDeadROC_FPix_Ring2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring2_TBM.png"},
+        {"name" : "MergedPCLFEDerror Barrel L1", "resource" : "MergedFEDerror_BPix_Layer1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer1_TBM.png.png"},
+        {"name" : "MergedPCLFEDerror Barrel L2", "resource" : "MergedFEDerror_BPix_Layer2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer2_TBM.png.png"},
+        {"name" : "MergedPCLFEDerror Barrel L3", "resource" : "MergedFEDerror_BPix_Layer3_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer3_TBM.png.png"},
+        {"name" : "MergedPCLFEDerror Barrel L4", "resource" : "MergedFEDerror_BPix_Layer4_TBM.png", "emptyMap" : "img/emmptMergedOccupancyDeadROC_BPix_Layer4_TBM.png"},
+        {"name" : "MergedPCLFEDerror Endcap R1", "resource" : "MergedFEDerror_FPix_Ring1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring1_TBM.png"},
+        {"name" : "MergedPCLFEDerror Endcap R2", "resource" : "MergedFEDerror_FPix_Ring2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring2_TBM.png"},
+        {"name" : "MergedPCLOther Barrel L1", "resource" : "MergedPCLOther_BPix_Layer1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer1_TBM.png.png"},
+        {"name" : "MergedPCLOther Barrel L2", "resource" : "MergedPCLOther_BPix_Layer2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer2_TBM.png.png"},
+        {"name" : "MergedPCLOther Barrel L3", "resource" : "MergedPCLOther_BPix_Layer3_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_BPix_Layer3_TBM.png.png"},
+        {"name" : "MergedPCLOther Barrel L4", "resource" : "MergedPCLOther_BPix_Layer4_TBM.png", "emptyMap" : "img/emmptMergedOccupancyDeadROC_BPix_Layer4_TBM.png"},
+        {"name" : "MergedPCLOther Endcap R1", "resource" : "MergedPCLOther_FPix_Ring1_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring1_TBM.png"},
+        {"name" : "MergedPCLOther Endcap R2", "resource" : "MergedPCLOther_FPix_Ring2_TBM.png", "emptyMap" : "img/emptyMergedOccupancyDeadROC_FPix_Ring2_TBM.png"},
+
+      ],
   }
 }
 
